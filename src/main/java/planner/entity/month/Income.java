@@ -1,13 +1,15 @@
 package planner.entity.month;
 
 import lombok.Data;
-import planner.entity.basic.IncomeCategory;
+import planner.entity.basic.Currency;
 
 @Data
 public class Income {
     private int id;
     private int value;
     private String comment;
-    private IncomeCategory category;
+    private String categoryName;
+    private String groupName;
     private MonthRecord monthRecord;
+    private Currency currency;
 }

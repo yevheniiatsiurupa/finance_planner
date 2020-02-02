@@ -2,10 +2,9 @@ package planner.entity.month;
 
 import lombok.Data;
 import planner.entity.basic.Currency;
-import planner.entity.basic.supplementary.ExpenseCategory;
 
 @Data
-public class Expense {
+public class ExpensePlanned {
     private int id;
     private int value;
     private String comment;

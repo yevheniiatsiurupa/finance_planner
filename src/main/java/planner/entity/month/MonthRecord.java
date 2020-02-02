@@ -11,8 +11,7 @@ public class MonthRecord {
     private int month;
     private int year;
     private UserAccount userAccount;
-    private List<Expense> expensesPlanned;
+    private List<ExpensePlanned> expensesPlanned;
     private List<Expense> expenses;
     private List<Income> incomes;
-
 }

@@ -44,7 +44,7 @@ create table expenses_planned(
 	category_name varchar,
 	created date,
 	currency_id integer references currencies(id),
-	user_account_id integer references users(id),
+	user_account_id integer references users(id)
 );
 
 insert into expenses_planned(amount, comment, group_name, category_name, created, currency_id, user_account_id)
@@ -65,7 +65,7 @@ create table incomes(
 	category_name varchar,
 	created date,
 	currency_id integer references currencies(id),
-	user_account_id integer references users(id),
+	user_account_id integer references users(id)
 );
 
 insert into incomes(amount, comment, group_name, category_name, created, currency_id, user_account_id)

@@ -1,0 +1,32 @@
+{
+  "config" : [
+  {
+    "groupNumber" : 1,
+    "groupName" : "Работа",
+    "categories" : [
+      {
+        "categoryNumber" : 1,
+        "categoryName" : "Зарплата моя"
+      },
+      {
+        "categoryNumber" : 2,
+        "categoryName" : "Зарплата муж"
+      },
+      {
+        "categoryNumber" : 3,
+        "categoryName" : "Английский"
+      }
+    ]
+  },
+  {
+    "groupNumber" : 2,
+    "groupName" : "Доп. доход",
+    "categories" : [
+      {
+        "categoryNumber" : 1,
+        "categoryName" : "Разное"
+      }
+    ]
+  }
+]
+}

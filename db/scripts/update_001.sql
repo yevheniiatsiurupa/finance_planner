@@ -4,8 +4,8 @@ create table currencies(
 );
 
 insert into currencies (name)
-values ('dollar'),
-       ('ruble'),
+values ('ruble'),
+       ('dollar'),
        ('euro');
 
 create table authorities(
@@ -52,10 +52,4 @@ create table user_config(
 	expense_categories varchar,
 	income_categories varchar
 );
-
-insert into user_config (id, currency_id, expense_categories, income_categories)
-values (1, 2),
-       (2, 2),
-       (3, 2),
-       (4, 2);
 

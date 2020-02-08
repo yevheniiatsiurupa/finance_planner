@@ -1,0 +1,86 @@
+{
+  "config" : [
+  {
+    "groupNumber" : 1,
+    "groupName" : "Еда / Напитки",
+    "categories" : [
+      {
+        "categoryNumber" : 1,
+        "categoryName" : "Супермаркет"
+      },
+      {
+        "categoryNumber" : 2,
+        "categoryName" : "Рынок"
+      }
+    ]
+  },
+  {
+    "groupNumber" : 2,
+    "groupName" : "Покупка товаров",
+    "categories" : [
+      {
+        "categoryNumber" : 1,
+        "categoryName" : "НЗ"
+      }
+    ]
+  },
+  {
+    "groupNumber" : 3,
+    "groupName" : "Транспорт",
+    "categories" : [
+      {
+        "categoryNumber" : 1,
+        "categoryName" : "Метро"
+      }
+    ]
+  },
+  {
+    "groupNumber" : 4,
+    "groupName" : "Здоровье / Спорт",
+    "categories" : [
+      {
+        "categoryNumber" : 1,
+        "categoryName" : "Медицина"
+      },
+      {
+        "categoryNumber" : 2,
+        "categoryName" : "Спорт"
+      }
+    ]
+  },
+    {
+      "groupNumber" : 5,
+      "groupName" : "Развлечения",
+      "categories" : [
+        {
+          "categoryNumber" : 1,
+          "categoryName" : "Развлечения"
+        }
+      ]
+    },
+    {
+      "groupNumber" : 6,
+      "groupName" : "Разное",
+      "categories" : [
+        {
+          "categoryNumber" : 1,
+          "categoryName" : "Разное"
+        }
+      ]
+    },
+    {
+      "groupNumber" : 7,
+      "groupName" : "Квартира",
+      "categories" : [
+        {
+          "categoryNumber" : 1,
+          "categoryName" : "Аренда квартиры"
+        },
+        {
+          "categoryNumber" : 2,
+          "categoryName" : "Коммунальные"
+        }
+      ]
+    }
+]
+}

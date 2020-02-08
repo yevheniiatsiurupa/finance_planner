@@ -26,7 +26,7 @@ public class UserAccount {
     @Column(name = "enabled")
     private boolean enabled;
 
-    @Column(name = "categoryName")
+    @Column(name = "name")
     private String name;
 
     @Column(name = "email")

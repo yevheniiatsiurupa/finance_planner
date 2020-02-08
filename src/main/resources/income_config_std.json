@@ -1,0 +1,42 @@
+{
+  "config" : [
+  {
+    "groupNumber" : 1,
+    "groupName" : "Работа",
+    "categories" : [
+      {
+        "categoryNumber" : 1,
+        "categoryName" : "Зарплата"
+      },
+      {
+        "categoryNumber" : 2,
+        "categoryName" : "Фриланс"
+      }
+    ]
+  },
+  {
+    "groupNumber" : 2,
+    "groupName" : "Сдача жилья",
+    "categories" : [
+      {
+        "categoryNumber" : 1,
+        "categoryName" : "Аренда"
+      }
+    ]
+  },
+  {
+    "groupNumber" : 3,
+    "groupName" : "Доп. доход",
+    "categories" : [
+      {
+        "categoryNumber" : 1,
+        "categoryName" : "Разное"
+      },
+      {
+        "categoryNumber" : 2,
+        "categoryName" : "Вклады / счета"
+      }
+    ]
+  }
+]
+}

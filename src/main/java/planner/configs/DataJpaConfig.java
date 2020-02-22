@@ -34,7 +34,7 @@ public class DataJpaConfig {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(env.getProperty("driverClassName"));
         dataSource.setUrl(env.getProperty("url"));
-        dataSource.setUsername(env.getProperty("username"));
+        dataSource.setUsername(env.getProperty("db.username"));
         dataSource.setPassword(env.getProperty("password"));
         return dataSource;
     }

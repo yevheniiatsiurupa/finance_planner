@@ -21,6 +21,6 @@ public class Currency {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "categoryName")
+    @Column(name = "name")
     private String name;
 }

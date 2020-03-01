@@ -17,7 +17,7 @@ public class UserAccountConfig {
     private int id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @MapsId
+    @JoinColumn(name = "id")
     private UserAccount userAccount;
 
     @ManyToOne

@@ -41,7 +41,7 @@ public class UserAccount {
                 inverseJoinColumns = @JoinColumn(name = "authority_id"))
     private Set<Authority> authorities;
 
-    @OneToOne(mappedBy = "userAccount", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "userAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UserAccountConfig config;
 
 }

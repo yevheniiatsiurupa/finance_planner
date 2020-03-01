@@ -21,7 +21,7 @@ public class Authority {
     private Integer id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "categoryName")
+    @Column(name = "name")
     private AuthorityType name;
 
     public Authority(AuthorityType name) {

@@ -6,4 +6,5 @@ import planner.entity.basic.UserAccount;
 
 @Repository
 public interface UserAccountRepository extends JpaRepository<UserAccount, Integer> {
+    UserAccount findByUsername(String username);
 }

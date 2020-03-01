@@ -36,6 +36,11 @@ public class WebConfig implements WebMvcConfigurer {
         configurer.enable();
     }
 
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("welcome-page");
+    }
+
     //for internationalization
 
     @Bean
@@ -55,7 +60,6 @@ public class WebConfig implements WebMvcConfigurer {
     CookieLocaleResolver localeResolver() {
         CookieLocaleResolver cookieLocaleResolver =
                 new CookieLocaleResolver();
-        cookieLocaleResolver.setDefaultLocale(Locale.ENGLISH);
         cookieLocaleResolver.setCookieMaxAge(3600);
         cookieLocaleResolver.setCookieName("locale");
         return cookieLocaleResolver;

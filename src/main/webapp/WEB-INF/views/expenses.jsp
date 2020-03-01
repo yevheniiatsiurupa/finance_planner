@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="https://bootswatch.com/_assets/css/custom.min.css">
 <html>
 <head>
-    <title>Expenses</title>
     <spring:message code="label.id" var="labelId"/>
     <spring:message code="label.expense.amount" var="labelAmount"/>
     <spring:message code="label.expense.comment" var="labelComment"/>
@@ -15,6 +14,8 @@
     <spring:message code="label.currency.name" var="labelCurrencyName"/>
     <spring:message code="label.expense.cache" var="labelCache"/>
     <spring:message code="label.userAccount.id" var="labelUserId"/>
+    <spring:message code="label.page.expenses" var="labelMyExpenses"/>
+    <title>${labelMyExpenses}</title>
 </head>
 <body>
 <div class="container">

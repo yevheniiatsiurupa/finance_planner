@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * Class represents java object which correspond to json string with
- * user configurations with custom categories.
+ * user configurations with custom subCategories.
  */
 @Getter
 @Setter

@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         authorizeRequests
                                 .anyRequest().authenticated()
                 )
-                .formLogin(withDefaults());
+                .formLogin(withDefaults())
+                .csrf().disable();
     }
 }

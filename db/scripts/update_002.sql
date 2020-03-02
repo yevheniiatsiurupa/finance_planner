@@ -2,84 +2,84 @@ insert into user_config (id, currency_id, expense_categories, income_categories)
 values (1, 1,'{
   "config" : [
   {
-    "groupNumber" : 1,
-    "groupName" : "Еда / Напитки",
-    "categories" : [
+    "categoryNumber" : 1,
+    "categoryName" : "Еда / Напитки",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Супермаркет"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Супермаркет"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Рынок"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Рынок"
       }
     ]
   },
   {
-    "groupNumber" : 2,
-    "groupName" : "Покупка товаров",
-    "categories" : [
+    "categoryNumber" : 2,
+    "categoryName" : "Покупка товаров",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "НЗ"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "НЗ"
       }
     ]
   },
   {
-    "groupNumber" : 3,
-    "groupName" : "Транспорт",
-    "categories" : [
+    "categoryNumber" : 3,
+    "categoryName" : "Транспорт",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Метро"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Метро"
       }
     ]
   },
   {
-    "groupNumber" : 4,
-    "groupName" : "Здоровье / Спорт",
-    "categories" : [
+    "categoryNumber" : 4,
+    "categoryName" : "Здоровье / Спорт",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Медицина"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Медицина"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Спорт"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Спорт"
       }
     ]
   },
     {
-      "groupNumber" : 5,
-      "groupName" : "Развлечения",
-      "categories" : [
+      "categoryNumber" : 5,
+      "categoryName" : "Развлечения",
+      "subCategories" : [
         {
-          "categoryNumber" : 1,
-          "categoryName" : "Развлечения"
+          "subCategoryNumber" : 1,
+          "subCategoryName" : "Развлечения"
         }
       ]
     },
     {
-      "groupNumber" : 6,
-      "groupName" : "Разное",
-      "categories" : [
+      "categoryNumber" : 6,
+      "categoryName" : "Разное",
+      "subCategories" : [
         {
-          "categoryNumber" : 1,
-          "categoryName" : "Разное"
+          "subCategoryNumber" : 1,
+          "subCategoryName" : "Разное"
         }
       ]
     },
     {
-      "groupNumber" : 7,
-      "groupName" : "Квартира",
-      "categories" : [
+      "categoryNumber" : 7,
+      "categoryName" : "Квартира",
+      "subCategories" : [
         {
-          "categoryNumber" : 1,
-          "categoryName" : "Аренда квартиры"
+          "subCategoryNumber" : 1,
+          "subCategoryName" : "Аренда квартиры"
         },
         {
-          "categoryNumber" : 2,
-          "categoryName" : "Коммунальные"
+          "subCategoryNumber" : 2,
+          "subCategoryName" : "Коммунальные"
         }
       ]
     }
@@ -87,30 +87,30 @@ values (1, 1,'{
 }' , '{
   "config" : [
   {
-    "groupNumber" : 1,
-    "groupName" : "Работа",
-    "categories" : [
+    "categoryNumber" : 1,
+    "categoryName" : "Работа",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Зарплата моя"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Зарплата моя"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Зарплата муж"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Зарплата муж"
       },
       {
-        "categoryNumber" : 3,
-        "categoryName" : "Английский"
+        "subCategoryNumber" : 3,
+        "subCategoryName" : "Английский"
       }
     ]
   },
   {
-    "groupNumber" : 2,
-    "groupName" : "Доп. доход",
-    "categories" : [
+    "categoryNumber" : 2,
+    "categoryName" : "Доп. доход",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Разное"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Разное"
       }
     ]
   }
@@ -121,102 +121,102 @@ insert into user_config (id, currency_id, expense_categories, income_categories)
 values (2, 1, '{
   "config" : [
   {
-    "groupNumber" : 1,
-    "groupName" : "Еда / Напитки",
-    "categories" : [
+    "categoryNumber" : 1,
+    "categoryName" : "Еда / Напитки",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Супермаркет"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Супермаркет"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Рынок"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Рынок"
       },
       {
-        "categoryNumber" : 3,
-        "categoryName" : "Питание"
+        "subCategoryNumber" : 3,
+        "subCategoryName" : "Питание"
       }
     ]
   },
   {
-    "groupNumber" : 2,
-    "groupName" : "Покупка товаров",
-    "categories" : [
+    "categoryNumber" : 2,
+    "categoryName" : "Покупка товаров",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Одежда / Обувь"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Одежда / Обувь"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Хоз. товары"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Хоз. товары"
       },
       {
-        "categoryNumber" : 3,
-        "categoryName" : "Подарки"
+        "subCategoryNumber" : 3,
+        "subCategoryName" : "Подарки"
       },
       {
-        "categoryNumber" : 4,
-        "categoryName" : "Другие товары"
+        "subCategoryNumber" : 4,
+        "subCategoryName" : "Другие товары"
       }
     ]
   },
   {
-    "groupNumber" : 3,
-    "groupName" : "Транспорт",
-    "categories" : [
+    "categoryNumber" : 3,
+    "categoryName" : "Транспорт",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Транспорт"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Транспорт"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Машина / Бензин"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Машина / Бензин"
       },
       {
-        "categoryNumber" : 3,
-        "categoryName" : "Велопрокат"
+        "subCategoryNumber" : 3,
+        "subCategoryName" : "Велопрокат"
       }
     ]
   },
   {
-    "groupNumber" : 4,
-    "groupName" : "Здоровье / Спорт",
-    "categories" : [
+    "categoryNumber" : 4,
+    "categoryName" : "Здоровье / Спорт",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Медицина"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Медицина"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Спорт"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Спорт"
       }
     ]
   },
     {
-      "groupNumber" : 5,
-      "groupName" : "Развлечения",
-      "categories" : [
+      "categoryNumber" : 5,
+      "categoryName" : "Развлечения",
+      "subCategories" : [
         {
-          "categoryNumber" : 1,
-          "categoryName" : "Досуг"
+          "subCategoryNumber" : 1,
+          "subCategoryName" : "Досуг"
         },
         {
-          "categoryNumber" : 2,
-          "categoryName" : "Путешествия"
+          "subCategoryNumber" : 2,
+          "subCategoryName" : "Путешествия"
         }
       ]
     },
     {
-      "groupNumber" : 6,
-      "groupName" : "Аренда / Кредит",
-      "categories" : [
+      "categoryNumber" : 6,
+      "categoryName" : "Аренда / Кредит",
+      "subCategories" : [
         {
-          "categoryNumber" : 1,
-          "categoryName" : "Аренда квартиры"
+          "subCategoryNumber" : 1,
+          "subCategoryName" : "Аренда квартиры"
         },
         {
-          "categoryNumber" : 2,
-          "categoryName" : "Кредит машина"
+          "subCategoryNumber" : 2,
+          "subCategoryName" : "Кредит машина"
         }
       ]
     }
@@ -224,40 +224,40 @@ values (2, 1, '{
 }', '{
   "config" : [
   {
-    "groupNumber" : 1,
-    "groupName" : "Работа",
-    "categories" : [
+    "categoryNumber" : 1,
+    "categoryName" : "Работа",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Зарплата"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Зарплата"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Фриланс"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Фриланс"
       }
     ]
   },
   {
-    "groupNumber" : 2,
-    "groupName" : "Сдача жилья",
-    "categories" : [
+    "categoryNumber" : 2,
+    "categoryName" : "Сдача жилья",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Аренда"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Аренда"
       }
     ]
   },
   {
-    "groupNumber" : 3,
-    "groupName" : "Доп. доход",
-    "categories" : [
+    "categoryNumber" : 3,
+    "categoryName" : "Доп. доход",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Разное"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Разное"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Вклады / счета"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Вклады / счета"
       }
     ]
   }
@@ -268,102 +268,102 @@ insert into user_config (id, currency_id, expense_categories, income_categories)
 values (3, 1, '{
   "config" : [
   {
-    "groupNumber" : 1,
-    "groupName" : "Еда / Напитки",
-    "categories" : [
+    "categoryNumber" : 1,
+    "categoryName" : "Еда / Напитки",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Супермаркет"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Супермаркет"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Рынок"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Рынок"
       },
       {
-        "categoryNumber" : 3,
-        "categoryName" : "Питание"
+        "subCategoryNumber" : 3,
+        "subCategoryName" : "Питание"
       }
     ]
   },
   {
-    "groupNumber" : 2,
-    "groupName" : "Покупка товаров",
-    "categories" : [
+    "categoryNumber" : 2,
+    "categoryName" : "Покупка товаров",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Одежда / Обувь"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Одежда / Обувь"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Хоз. товары"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Хоз. товары"
       },
       {
-        "categoryNumber" : 3,
-        "categoryName" : "Подарки"
+        "subCategoryNumber" : 3,
+        "subCategoryName" : "Подарки"
       },
       {
-        "categoryNumber" : 4,
-        "categoryName" : "Другие товары"
+        "subCategoryNumber" : 4,
+        "subCategoryName" : "Другие товары"
       }
     ]
   },
   {
-    "groupNumber" : 3,
-    "groupName" : "Транспорт",
-    "categories" : [
+    "categoryNumber" : 3,
+    "categoryName" : "Транспорт",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Транспорт"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Транспорт"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Машина / Бензин"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Машина / Бензин"
       },
       {
-        "categoryNumber" : 3,
-        "categoryName" : "Велопрокат"
+        "subCategoryNumber" : 3,
+        "subCategoryName" : "Велопрокат"
       }
     ]
   },
   {
-    "groupNumber" : 4,
-    "groupName" : "Здоровье / Спорт",
-    "categories" : [
+    "categoryNumber" : 4,
+    "categoryName" : "Здоровье / Спорт",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Медицина"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Медицина"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Спорт"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Спорт"
       }
     ]
   },
     {
-      "groupNumber" : 5,
-      "groupName" : "Развлечения",
-      "categories" : [
+      "categoryNumber" : 5,
+      "categoryName" : "Развлечения",
+      "subCategories" : [
         {
-          "categoryNumber" : 1,
-          "categoryName" : "Досуг"
+          "subCategoryNumber" : 1,
+          "subCategoryName" : "Досуг"
         },
         {
-          "categoryNumber" : 2,
-          "categoryName" : "Путешествия"
+          "subCategoryNumber" : 2,
+          "subCategoryName" : "Путешествия"
         }
       ]
     },
     {
-      "groupNumber" : 6,
-      "groupName" : "Аренда / Кредит",
-      "categories" : [
+      "categoryNumber" : 6,
+      "categoryName" : "Аренда / Кредит",
+      "subCategories" : [
         {
-          "categoryNumber" : 1,
-          "categoryName" : "Аренда квартиры"
+          "subCategoryNumber" : 1,
+          "subCategoryName" : "Аренда квартиры"
         },
         {
-          "categoryNumber" : 2,
-          "categoryName" : "Кредит машина"
+          "subCategoryNumber" : 2,
+          "subCategoryName" : "Кредит машина"
         }
       ]
     }
@@ -371,40 +371,40 @@ values (3, 1, '{
 }', '{
   "config" : [
   {
-    "groupNumber" : 1,
-    "groupName" : "Работа",
-    "categories" : [
+    "categoryNumber" : 1,
+    "categoryName" : "Работа",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Зарплата"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Зарплата"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Фриланс"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Фриланс"
       }
     ]
   },
   {
-    "groupNumber" : 2,
-    "groupName" : "Сдача жилья",
-    "categories" : [
+    "categoryNumber" : 2,
+    "categoryName" : "Сдача жилья",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Аренда"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Аренда"
       }
     ]
   },
   {
-    "groupNumber" : 3,
-    "groupName" : "Доп. доход",
-    "categories" : [
+    "categoryNumber" : 3,
+    "categoryName" : "Доп. доход",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Разное"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Разное"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Вклады / счета"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Вклады / счета"
       }
     ]
   }
@@ -415,102 +415,102 @@ insert into user_config (id, currency_id, expense_categories, income_categories)
 values (4, 1, '{
   "config" : [
   {
-    "groupNumber" : 1,
-    "groupName" : "Еда / Напитки",
-    "categories" : [
+    "categoryNumber" : 1,
+    "categoryName" : "Еда / Напитки",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Супермаркет"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Супермаркет"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Рынок"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Рынок"
       },
       {
-        "categoryNumber" : 3,
-        "categoryName" : "Питание"
+        "subCategoryNumber" : 3,
+        "subCategoryName" : "Питание"
       }
     ]
   },
   {
-    "groupNumber" : 2,
-    "groupName" : "Покупка товаров",
-    "categories" : [
+    "categoryNumber" : 2,
+    "categoryName" : "Покупка товаров",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Одежда / Обувь"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Одежда / Обувь"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Хоз. товары"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Хоз. товары"
       },
       {
-        "categoryNumber" : 3,
-        "categoryName" : "Подарки"
+        "subCategoryNumber" : 3,
+        "subCategoryName" : "Подарки"
       },
       {
-        "categoryNumber" : 4,
-        "categoryName" : "Другие товары"
+        "subCategoryNumber" : 4,
+        "subCategoryName" : "Другие товары"
       }
     ]
   },
   {
-    "groupNumber" : 3,
-    "groupName" : "Транспорт",
-    "categories" : [
+    "categoryNumber" : 3,
+    "categoryName" : "Транспорт",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Транспорт"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Транспорт"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Машина / Бензин"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Машина / Бензин"
       },
       {
-        "categoryNumber" : 3,
-        "categoryName" : "Велопрокат"
+        "subCategoryNumber" : 3,
+        "subCategoryName" : "Велопрокат"
       }
     ]
   },
   {
-    "groupNumber" : 4,
-    "groupName" : "Здоровье / Спорт",
-    "categories" : [
+    "categoryNumber" : 4,
+    "categoryName" : "Здоровье / Спорт",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Медицина"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Медицина"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Спорт"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Спорт"
       }
     ]
   },
     {
-      "groupNumber" : 5,
-      "groupName" : "Развлечения",
-      "categories" : [
+      "categoryNumber" : 5,
+      "categoryName" : "Развлечения",
+      "subCategories" : [
         {
-          "categoryNumber" : 1,
-          "categoryName" : "Досуг"
+          "subCategoryNumber" : 1,
+          "subCategoryName" : "Досуг"
         },
         {
-          "categoryNumber" : 2,
-          "categoryName" : "Путешествия"
+          "subCategoryNumber" : 2,
+          "subCategoryName" : "Путешествия"
         }
       ]
     },
     {
-      "groupNumber" : 6,
-      "groupName" : "Аренда / Кредит",
-      "categories" : [
+      "categoryNumber" : 6,
+      "categoryName" : "Аренда / Кредит",
+      "subCategories" : [
         {
-          "categoryNumber" : 1,
-          "categoryName" : "Аренда квартиры"
+          "subCategoryNumber" : 1,
+          "subCategoryName" : "Аренда квартиры"
         },
         {
-          "categoryNumber" : 2,
-          "categoryName" : "Кредит машина"
+          "subCategoryNumber" : 2,
+          "subCategoryName" : "Кредит машина"
         }
       ]
     }
@@ -518,40 +518,40 @@ values (4, 1, '{
 }', '{
   "config" : [
   {
-    "groupNumber" : 1,
-    "groupName" : "Работа",
-    "categories" : [
+    "categoryNumber" : 1,
+    "categoryName" : "Работа",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Зарплата"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Зарплата"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Фриланс"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Фриланс"
       }
     ]
   },
   {
-    "groupNumber" : 2,
-    "groupName" : "Сдача жилья",
-    "categories" : [
+    "categoryNumber" : 2,
+    "categoryName" : "Сдача жилья",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Аренда"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Аренда"
       }
     ]
   },
   {
-    "groupNumber" : 3,
-    "groupName" : "Доп. доход",
-    "categories" : [
+    "categoryNumber" : 3,
+    "categoryName" : "Доп. доход",
+    "subCategories" : [
       {
-        "categoryNumber" : 1,
-        "categoryName" : "Разное"
+        "subCategoryNumber" : 1,
+        "subCategoryName" : "Разное"
       },
       {
-        "categoryNumber" : 2,
-        "categoryName" : "Вклады / счета"
+        "subCategoryNumber" : 2,
+        "subCategoryName" : "Вклады / счета"
       }
     ]
   }

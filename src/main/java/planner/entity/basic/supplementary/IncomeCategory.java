@@ -2,16 +2,14 @@ package planner.entity.basic.supplementary;
 
 import lombok.Data;
 
-/**
- * Class represents single income category.
- * These categories then combined using category groups.
- * Each user account has its own block of income categories.
- *
- * Example: "salary", "freelance job" etc.
- */
+import java.util.List;
 
+/**
+ * Class represents group of income subCategories.
+ */
 @Data
 public class IncomeCategory {
     private int categoryNumber;
     private String categoryName;
+    private List<IncomeSubCategory> subCategories;
 }

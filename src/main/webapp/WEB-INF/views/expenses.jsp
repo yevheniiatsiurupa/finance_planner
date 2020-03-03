@@ -1,15 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link rel="stylesheet" href="https://bootswatch.com/4/simplex/bootstrap.css" media="screen">
+<link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.css" media="screen">
 <link rel="stylesheet" href="https://bootswatch.com/_assets/css/custom.min.css">
 <html>
 <head>
     <spring:message code="label.id" var="labelId"/>
     <spring:message code="label.expense.amount" var="labelAmount"/>
     <spring:message code="label.expense.comment" var="labelComment"/>
-    <spring:message code="label.expense.groupName" var="labelGroupName"/>
-    <spring:message code="label.expense.categoryName" var="labelCategoryName"/>
+    <spring:message code="label.expense.categoryName" var="labelGroupName"/>
+    <spring:message code="label.expense.subcategoryName" var="labelCategoryName"/>
     <spring:message code="label.expense.created" var="labelCreated"/>
     <spring:message code="label.currency.name" var="labelCurrencyName"/>
     <spring:message code="label.expense.cache" var="labelCache"/>
@@ -33,7 +33,7 @@
                 <th>${labelUserId}</th>
             </tr>
             <c:forEach items="${requestScope.expenses}" var="expense">
-                <tr class="table-secondary">
+                <tr class="table-default">
                     <td><c:out value="${expense.id}"/></td>
                     <td><c:out value="${expense.amount}"/></td>
                     <td><c:out value="${expense.comment}"/></td>

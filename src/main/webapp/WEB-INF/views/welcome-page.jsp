@@ -12,6 +12,6 @@
 <br/>
 <h2>${welcomeMessage}</h2>
 <br/>
-<a href="${pageContext.request.contextPath}/expenses">${labelExpensesPage}</a>
+<a href="${pageContext.request.contextPath}/expense/all">${labelExpensesPage}</a>
 </body>
 </html>

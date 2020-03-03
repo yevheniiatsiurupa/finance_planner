@@ -24,11 +24,11 @@ public class Income {
     @Column(name = "comment")
     private String comment;
 
-    @Column(name = "group_name", nullable = false)
-    private String groupName;
-
     @Column(name = "category_name", nullable = false)
     private String categoryName;
+
+    @Column(name = "sub_category_name", nullable = false)
+    private String subCategoryName;
 
     @Column(name = "created")
     private Date created;

@@ -2,15 +2,15 @@ create table expenses(
 	id serial primary key,
 	amount integer,
 	comment varchar,
-	group_name varchar,
 	category_name varchar,
+	sub_category_name varchar,
 	created date,
 	currency_id integer references currencies(id),
 	user_account_id integer references users(id),
 	cache boolean
 );
 
-insert into expenses(amount, comment, group_name, category_name, created, currency_id, user_account_id, cache)
+insert into expenses(amount, comment, category_name, sub_category_name, created, currency_id, user_account_id, cache)
 values (1200,'', 'Еда / Напитки', 'Супермаркет', '2020-01-06', 1, 1, false),
        (4350,'', 'Еда / Напитки', 'Супермаркет', '2020-01-13', 1, 1, false),
        (4450,'', 'Еда / Напитки', 'Супермаркет', '2020-01-20', 1, 1, false),
@@ -40,14 +40,14 @@ create table expenses_planned(
 	id serial primary key,
 	amount integer,
 	comment varchar,
-	group_name varchar,
 	category_name varchar,
+	sub_category_name varchar,
 	created date,
 	currency_id integer references currencies(id),
 	user_account_id integer references users(id)
 );
 
-insert into expenses_planned(amount, comment, group_name, category_name, created, currency_id, user_account_id)
+insert into expenses_planned(amount, comment, category_name, sub_category_name, created, currency_id, user_account_id)
 values (14000,'', 'Еда / Напитки', 'Супермаркет', '2020-01-01', 1, 1),
        (5000,'', 'Покупка товаров', 'НЗ', '2020-01-01', 1, 1),
        (3600,'', 'Здоровье / Спорт', 'Спорт', '2020-01-01', 1, 1 ),
@@ -61,14 +61,14 @@ create table incomes(
 	id serial primary key,
 	amount integer,
 	comment varchar,
-	group_name varchar,
 	category_name varchar,
+	sub_category_name varchar,
 	created date,
 	currency_id integer references currencies(id),
 	user_account_id integer references users(id)
 );
 
-insert into incomes(amount, comment, group_name, category_name, created, currency_id, user_account_id)
+insert into incomes(amount, comment, category_name, sub_category_name, created, currency_id, user_account_id)
 values (41000,'', 'Доп. доход', 'Разное', '2020-01-01', 1, 1),
        (14500,'', 'Работа', 'Зарплата моя', '2020-01-01', 1, 1),
        (26500,'', 'Работа', 'Зарплата муж', '2020-01-01', 1, 1),

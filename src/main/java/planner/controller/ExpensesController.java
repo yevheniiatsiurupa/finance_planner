@@ -4,21 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import planner.entity.basic.UserAccount;
-import planner.entity.basic.UserAccountConfig;
 import planner.entity.month.Expense;
 import planner.services.ExpenseService;
-import planner.services.UserAccountConfigService;
-import planner.services.UserAccountService;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
-@RequestMapping("/expenses")
+@RequestMapping("/expense")
 @SessionAttributes({"userAccount", "userAccountConfig"})
 public class ExpensesController {
 
@@ -37,4 +31,9 @@ public class ExpensesController {
         return "expenses";
     }
 
+    @GetMapping("/add")
+    public String addExpense(Model model) {
+        model.addAttribute("expense", new Expense());
+        return "expense-add";
+    }
 }

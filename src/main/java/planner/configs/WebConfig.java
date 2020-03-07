@@ -34,10 +34,10 @@ public class WebConfig implements WebMvcConfigurer {
         configurer.enable();
     }
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("welcome-page");
-    }
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/").setViewName("welcome-page");
+//    }
 
     //for internationalization
 
@@ -47,7 +47,8 @@ public class WebConfig implements WebMvcConfigurer {
                 new ReloadableResourceBundleMessageSource();
         messageSource.setBasenames(
                 "classpath:i18n/messages",
-                "classpath:i18n/application"
+                "classpath:i18n/application",
+                "classpath:i18n/currencies"
         );
         messageSource.setDefaultEncoding("UTF-8");
         messageSource.setFallbackToSystemLocale(false);

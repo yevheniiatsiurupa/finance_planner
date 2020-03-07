@@ -1,12 +1,13 @@
 create table currencies(
 	id serial primary key,
-	name varchar
+	name varchar,
+	sign varchar unique
 );
 
-insert into currencies (name)
-values ('ruble'),
-       ('dollar'),
-       ('euro');
+insert into currencies (name, sign)
+values ('ruble', 'RUB'),
+       ('dollar','USD'),
+       ('euro','EUR');
 
 create table authorities(
 	id serial primary key,

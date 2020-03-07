@@ -23,4 +23,7 @@ public class Currency {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "sign", unique = true)
+    private String sign;
 }

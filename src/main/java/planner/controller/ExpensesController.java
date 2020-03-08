@@ -5,11 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import planner.entity.basic.UserAccount;
 import planner.entity.basic.UserAccountConfig;
 import planner.entity.month.Expense;
 import planner.services.ExpenseService;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -36,5 +39,20 @@ public class ExpensesController {
                              @ModelAttribute("userAccountConfig") UserAccountConfig accountConfig) {
         model.addAttribute("expense", new Expense());
         return "expense-add";
+    }
+
+    @PostMapping("/add")
+    public String addExpensePost(Model model,
+                                 @ModelAttribute("expense") Expense expense,
+                                 HttpSession session) {
+        UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
+        UserAccountConfig config = (UserAccountConfig) session.getAttribute("userAccountConfig");
+        expense.setUserAccount(userAccount);
+        expense.setCurrency(config.getCurrency());
+
+        expenseService.save(expense);
+        String message = "Ok";
+        model.addAttribute("message", message);
+        return "expense-add-post";
     }
 }

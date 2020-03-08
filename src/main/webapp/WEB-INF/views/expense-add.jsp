@@ -1,10 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.css" media="screen">
     <link rel="stylesheet" href="https://bootswatch.com/_assets/css/custom.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -46,7 +46,7 @@
     <spring:message code="label.page.accounts" var="pageAccounts"/>
     <spring:message code="label.page.settings" var="pageSettings"/>
 
-    <spring:message code="label.page.expenses.add" var="labelAddExpenses"/>
+    <spring:message code="label.page.expenses.add" var="pageAddExpenses"/>
     <spring:message code="label.expense.amount" var="labelAmount"/>
     <spring:message code="label.expense.categoryName" var="labelCategory"/>
     <spring:message code="label.expense.subcategoryName" var="labelSubCategory"/>
@@ -60,7 +60,7 @@
     <spring:message code="message.placeholder.comment" var="messageComment"/>
     <spring:message code="message.add" var="messageAdd"/>
     <spring:message code="${sessionScope.userAccountConfig.currency.sign}" var="currency"/>
-    <title>${labelAddExpenses}</title>
+    <title>${pageAddExpenses}</title>
     <style>
         body {
             padding-top: 100px;
@@ -128,6 +128,12 @@
             }
         }
     </script>
+    <script>
+        function submitForm() {
+            var date = $("#created").datepicker('getDate');
+            $("#created").val(date);
+        }
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary" style="padding-left: 50px">
@@ -155,11 +161,11 @@
 </nav>
 <div class="container" style="margin-left: 50px">
     <div class="col-sm-7">
-        <div class="card bg-light mb-3" style="max-width: 50rem;">
-            <div class="card-header"><h5><b>${labelAddExpenses}</b></h5></div>
+        <div class="card bg-light mb-3" style="max-width: 50rem; min-width: 650px">
+            <div class="card-header"><h5><b>${pageAddExpenses}</b></h5></div>
             <div class="card-body">
 
-                <form:form action="${pageContext.request.contextPath}/expense/add" modelAttribute="expense" method="post">
+                <form:form action="${pageContext.request.contextPath}/expense/add" modelAttribute="expense" method="post" onsubmit="submitForm()">
                     <form:input path="id" name="id" type="hidden"/>
                     <div class="row">
                         <div class="col-sm-5">

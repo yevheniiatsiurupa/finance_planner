@@ -19,4 +19,8 @@ public class ExpenseService {
     public List<Expense> findAll() {
         return repository.findAll();
     }
+
+    public void save(Expense expense) {
+        repository.save(expense);
+    }
 }

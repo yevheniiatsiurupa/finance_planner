@@ -4,7 +4,7 @@
     <spring:message code="message.welcome" var="welcomeMessage"/>
     <spring:message code="label.page.expenses" var="labelExpensesPage"/>
     <spring:message code="label.page.welcome" var="labelWelcomePage"/>
-    <spring:message code="label.page.expenses.add" var="labelAddExpenses"/>
+    <spring:message code="label.page.expenses.add" var="pageAddExpenses"/>
     <title>${labelWelcomePage}</title>
 
 </head>
@@ -15,6 +15,6 @@
 <br/>
 <a href="${pageContext.request.contextPath}/expense/all">${labelExpensesPage}</a>
 <br/>
-<a href="${pageContext.request.contextPath}/expense/add">${labelAddExpenses}</a>
+<a href="${pageContext.request.contextPath}/expense/add">${pageAddExpenses}</a>
 </body>
 </html>

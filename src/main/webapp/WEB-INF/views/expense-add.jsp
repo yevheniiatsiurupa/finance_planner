@@ -2,12 +2,50 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.css" media="screen">
-<link rel="stylesheet" href="https://bootswatch.com/_assets/css/custom.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.css" media="screen">
+    <link rel="stylesheet" href="https://bootswatch.com/_assets/css/custom.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <spring:url value="/resources/scripts/i18n/datepicker-en-GB.js" var="dateEN" />
+    <spring:url value="/resources/scripts/i18n/datepicker-ru.js" var="dateRU" />
+    <script src="${dateEN}"></script>
+    <script src="${dateRU}"></script>
+
+    <script>
+        $( function() {
+            $.datepicker.setDefaults(
+                $.datepicker.regional[getDatepickerLocale()]
+            );
+
+            $( "#created" ).datepicker({
+                dateFormat: "D, d MM"
+            }).datepicker('setDate', new Date());
+        } );
+    </script>
+
+    <script>
+        function getDatepickerLocale() {
+            var loc = "${pageContext.request.locale}";
+            if (loc === 'ru_RU') {
+                return 'ru';
+            } else {
+                return 'en-GB';
+            }
+        }
+    </script>
+
+    <spring:message code="label.page.expenses" var="pageExpenses"/>
+    <spring:message code="label.page.incomes" var="pageIncomes"/>
+    <spring:message code="label.page.accounts" var="pageAccounts"/>
+    <spring:message code="label.page.settings" var="pageSettings"/>
+
     <spring:message code="label.page.expenses.add" var="labelAddExpenses"/>
     <spring:message code="label.expense.amount" var="labelAmount"/>
     <spring:message code="label.expense.categoryName" var="labelCategory"/>
@@ -16,6 +54,7 @@
     <spring:message code="label.expense.cache" var="labelCache"/>
     <spring:message code="label.expense.payment" var="labelPayment"/>
     <spring:message code="label.expense.created" var="labelCreated"/>
+
     <spring:message code="message.placeholder.amount" var="messageAmount"/>
     <spring:message code="message.placeholder.dropdown" var="messageDropdown"/>
     <spring:message code="message.placeholder.comment" var="messageComment"/>
@@ -24,7 +63,8 @@
     <title>${labelAddExpenses}</title>
     <style>
         body {
-            padding-top: 50px;
+            padding-top: 100px;
+            padding-left: 50px;
         }
     </style>
 
@@ -90,8 +130,31 @@
     </script>
 </head>
 <body>
-<div class="container">
-    <div class="col-sm-7 offset-sm-2">
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary" style="padding-left: 50px">
+    <a class="navbar-brand" href="#">Planner</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">${pageExpenses}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">${pageIncomes}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">${pageAccounts}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">${pageSettings}</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container" style="margin-left: 50px">
+    <div class="col-sm-7">
         <div class="card bg-light mb-3" style="max-width: 50rem;">
             <div class="card-header"><h5><b>${labelAddExpenses}</b></h5></div>
             <div class="card-body">
@@ -137,8 +200,8 @@
                                         <label for="cache">${labelPayment}</label>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                            <form:checkbox path="cache" id="cache" class="form-check-input" value=""/>
-                                            ${labelCache}
+                                                <form:checkbox path="cache" id="cache" class="form-check-input" value=""/>
+                                                    ${labelCache}
                                             </label>
                                         </div>
                                     </div>

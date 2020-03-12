@@ -3,10 +3,7 @@ package planner.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import planner.entity.basic.UserAccount;
 import planner.entity.basic.UserAccountConfig;
 import planner.entity.month.Expense;
@@ -35,8 +32,7 @@ public class ExpensesController {
     }
 
     @GetMapping("/add")
-    public String addExpense(Model model,
-                             @ModelAttribute("userAccountConfig") UserAccountConfig accountConfig) {
+    public String addExpense(Model model) {
         model.addAttribute("expense", new Expense());
         return "expense-add";
     }
@@ -54,5 +50,22 @@ public class ExpensesController {
         String message = "Ok";
         model.addAttribute("message", message);
         return "expense-add-post";
+    }
+
+    @GetMapping("/update/{id}")
+    public String updateExpense(Model model,
+                                @PathVariable Integer id) {
+        Expense expense = expenseService.findById(id);
+        model.addAttribute("expense", expense);
+        return "expense-update";
+    }
+
+    @PostMapping("/update")
+    public String updateExpensePost(Model model,
+                                 @ModelAttribute("expense") Expense expense) {
+        expenseService.save(expense);
+        String message = "Ok";
+        model.addAttribute("message", message);
+        return "expense-update-post";
     }
 }

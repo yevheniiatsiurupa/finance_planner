@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.css" media="screen">
+<link rel="stylesheet" href="https://bootswatch.com/_assets/css/custom.min.css">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{label.page.expenses}">My Expenses</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <table class="table table-hover" id="table">
+            <tr class="table-active">
+                <th th:text="#{label.id}">ID</th>
+                <th th:text="#{label.expense.amount}">Amount</th>
+                <th th:text="#{label.expense.comment}">Comment</th>
+                <th th:text="#{label.expense.categoryName}">Category</th>
+                <th th:text="#{label.expense.subcategoryName}">Subcategory</th>
+                <th th:text="#{label.expense.created}">Created</th>
+                <th th:text="#{label.currency.name}">CurrencyName</th>
+                <th th:text="#{label.expense.cache}">Cache</th>
+                <th th:text="#{label.userAccount.id}">UserId</th>
+            </tr>
+            <tr th:each="expense: ${expenses}" class="table-default" >
+                <td th:text="${expense.id}"></td>
+                <td th:text="${expense.amount}"></td>
+                <td th:text="${expense.comment}"></td>
+                <td th:text="${expense.categoryName}"></td>
+                <td th:text="${expense.subCategoryName}"></td>
+                <td th:text="${expense.created}"></td>
+                <td th:text="${expense.currency.name}"></td>
+                <td th:text="${expense.cache}"></td>
+                <td th:text="${expense.userAccount.id}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.css" media="screen">
+    <link rel="stylesheet" href="https://bootswatch.com/_assets/css/custom.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script th:href="@{/resources/scripts/i18n/datepicker-en-GB.js}"></script>
+    <script th:href="@{/resources/scripts/i18n/datepicker-ru.js}"></script>
+
+    <script>
+        $( function() {
+            $.datepicker.setDefaults(
+                $.datepicker.regional[getDatepickerLocale()]
+            );
+
+            $( "#created" ).datepicker({
+                dateFormat: "D, d MM"
+            }).datepicker('setDate', new Date());
+        } );
+    </script>
+
+    <script th:inline="javascript">
+        function getDatepickerLocale() {
+            /*<![CDATA[*/
+            var loc = /*[[${#locale}]]*/ 'en-GB';
+            /*]]>*/
+            if (loc === 'ru_RU') {
+                return 'ru';
+            } else {
+                return 'en-GB';
+            }
+        }
+    </script>
+
+    <title th:text="#{label.page.expenses.update}">Update Expense</title>
+    <style>
+        body {
+            padding-top: 100px;
+            padding-left: 50px;
+        }
+    </style>
+
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: /*[[@{/configs/expense-categories}]]*/ '/configs/expense-categories',
+                dataType: 'json',
+                success: function (data, status, settings) {
+                    getCategories(data);
+                }
+            })
+        })
+    </script>
+
+    <script>
+        function getCategories(data) {
+            var arr = data;
+            for (i = 0; i < arr.length; i++){
+                var category = arr[i];
+                var opt = document.createElement('option');
+                opt.innerHTML = category['categoryName'];
+                opt.value = category['categoryName'];
+                document.getElementById('category').appendChild(opt);
+            }
+        }
+    </script>
+
+    <script th:inline="javascript">
+        function getSubcategories() {
+            deleteOptions();
+            var countryVal = $('#category').val();
+            $.ajax({
+                type: 'POST',
+                url: /*[[@{/configs/expense-subcategories}]]*/ '/configs/expense-subcategories',
+                data: countryVal,
+                contentType: "text/plain",
+                datatype: 'json',
+                success: function (data, status, settings) {
+                    var arr = data;
+                    for (var i = 0; i < arr.length; i++) {
+                        var subcategory = arr[i];
+                        var opt = document.createElement('option');
+                        opt.innerHTML = subcategory['subCategoryName'];
+                        opt.value = subcategory['subCategoryName'];
+                        document.getElementById('subCategory').appendChild(opt);
+                    }
+                }
+            })
+        }
+
+        function deleteOptions() {
+            var parent = document.getElementById('subCategory');
+            var nodes = parent.childNodes;
+            for (var i = 0; i < nodes.length; i++) {
+                var elem = nodes[i];
+                if (elem.nodeValue != '') {
+                    parent.removeChild(elem);
+                    i--;
+                }
+            }
+        }
+    </script>
+    <script>
+        function submitForm() {
+            var date = $("#created").datepicker('getDate');
+            $("#created").val(date);
+        }
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary" style="padding-left: 50px">
+    <a class="navbar-brand" href="#">Planner</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#" th:text="#{label.page.expenses}">Expenses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:text="#{label.page.incomes}">Incomes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:text="#{label.page.accounts}">Accounts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:text="#{label.page.settings}">Settings</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container" style="margin-left: 50px">
+    <div class="col-sm-7">
+        <div class="card bg-light mb-3" style="max-width: 50rem; min-width: 650px">
+            <div class="card-header"><h5><b th:text="#{label.page.expenses.update}">Update Expense</b></h5></div>
+            <div class="card-body">
+
+                <form action="#" th:action="@{/expense/update}" th:object="${expense}" method="post" onsubmit="submitForm()">
+                    <input th:field="*{id}" name="id" type="hidden"/>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label for="amount" th:text="#{label.expense.amount}">Amount</label>
+                                <div class="input-group mb-3">
+                                    <input th:field="*{amount}" id="amount" type="text" class="form-control" th:placeholder="#{message.placeholder.amount}"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="category" th:text="#{label.expense.categoryName}">Category</label>
+                                <select th:field="*{categoryName}" class="form-control" id="category" onchange="getSubcategories()">
+                                    <option value="" disabled selected th:text="#{message.placeholder.dropdown}">Dropdown</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subCategory" th:text="#{label.expense.subcategoryName}">SubCategory</label>
+                                <select th:field="*{subCategoryName}" class="form-control" id="subCategory">
+                                    <option value="" disabled selected th:text="#{message.placeholder.dropdown}">Dropdown</option>
+                                </select>
+                            </div>
+                            <br/>
+                            <button type="submit" class="btn btn-primary" th:text="#{message.save}">Save</button>
+                        </div>
+
+                        <div class="col-sm-1"></div>
+
+                        <div class="col-sm-6">
+
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <label for="cache" th:text="#{label.expense.payment}">Payment</label>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" th:field="*{cache}" id="cache" class="form-check-input" th:text="#{label.expense.cache}"/>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="form-group">
+                                        <label for="created" th:text="#{label.expense.created}">Created</label>
+                                        <input th:field="*{created}" id="created" type="text" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="comment" th:text="#{label.expense.comment}">Comment</label>
+                                <textarea class="form-control" th:field="*{comment}" id="comment" rows="5" th:placeholder="#{message.placeholder.comment}"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

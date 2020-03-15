@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/fragments :: headerfiles">
+    </th:block>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title th:text="#{label.page.current}">Current</title>
+</head>
+<body>
+<div th:replace="fragments/fragments :: navPanel"></div>
+<div th:replace="fragments/fragments :: sidePanel"></div>
+<div class="main container">
+    <br/>
+    <br/>
+    <a th:href="@{/expense/all}" th:text="#{label.page.expenses}">Expenses Page</a>
+    <br/>
+    <a th:href="@{/expense/add}" th:text="#{label.page.expenses.add}">Add Expense</a>
+</div>
+</body>
+</html>

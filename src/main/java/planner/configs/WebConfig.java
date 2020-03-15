@@ -41,10 +41,10 @@ public class WebConfig implements WebMvcConfigurer {
         configurer.enable();
     }
 
-//    @Override
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("/").setViewName("welcome-page");
-//    }
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/current").setViewName("current");
+    }
 
     //thymeleaf
 

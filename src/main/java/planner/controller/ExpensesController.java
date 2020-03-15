@@ -53,10 +53,17 @@ public class ExpensesController {
     }
 
     @GetMapping("/update/{id}")
-    public String updateExpense(Model model,
-                                @PathVariable Integer id) {
+    public String updateExpense(@PathVariable Integer id,
+                                Model model,
+                                HttpSession session) {
         Expense expense = expenseService.findById(id);
         model.addAttribute("expense", expense);
+
+        UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
+        model.addAttribute("categories", accountConfig.getExpenseCategories());
+
+        String expenseCategory = expense.getCategoryName();
+        model.addAttribute("subcategories", accountConfig.getExpenseSubCategories(expenseCategory));
         return "expense-update";
     }
 

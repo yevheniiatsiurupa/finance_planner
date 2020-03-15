@@ -1,11 +1,12 @@
-<link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.css" media="screen">
-<link rel="stylesheet" href="https://bootswatch.com/_assets/css/custom.min.css">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
+    <th:block th:include="fragments/fragments :: headerfiles">
+    </th:block>
     <title th:text="#{label.page.expenses}">My Expenses</title>
 </head>
 <body>
+<div th:replace="fragments/fragments :: navPanel"></div>
 <div class="container">
     <div class="row">
         <table class="table table-hover" id="table">
@@ -19,6 +20,8 @@
                 <th th:text="#{label.currency.name}">CurrencyName</th>
                 <th th:text="#{label.expense.cache}">Cache</th>
                 <th th:text="#{label.userAccount.id}">UserId</th>
+                <th></th>
+                <th></th>
             </tr>
             <tr th:each="expense: ${expenses}" class="table-default" >
                 <td th:text="${expense.id}"></td>
@@ -26,10 +29,20 @@
                 <td th:text="${expense.comment}"></td>
                 <td th:text="${expense.categoryName}"></td>
                 <td th:text="${expense.subCategoryName}"></td>
-                <td th:text="${expense.created}"></td>
+                <td th:text="${#dates.format(expense.created, 'dd MMM yyyy')}"></td>
                 <td th:text="${expense.currency.name}"></td>
                 <td th:text="${expense.cache}"></td>
                 <td th:text="${expense.userAccount.id}"></td>
+                <td>
+                    <form action="#" th:action="@{/expense/update/{id}(id=${expense.id})}" method="get" style="margin:0; padding:0">
+                        <input type="image" name="submit" th:src="@{/resources/images/edit.png}" width="30" height="30" style="margin:0; padding:2px">
+                    </form>
+                </td>
+                <td>
+                    <form action="#" th:action="@{/expense/delete/{id}(id=${expense.id})}" method="get" style="margin:0; padding:0">
+                        <input type="image" name="submit" th:src="@{/resources/images/delete.png}" width="30" height="30" style="margin:0; padding:2px">
+                    </form>
+                </td>
             </tr>
         </table>
     </div>

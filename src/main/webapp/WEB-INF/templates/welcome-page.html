@@ -7,23 +7,16 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title th:text="#{label.page.welcome}">Welcome page</title>
-
-    <style>
-        body {
-            padding-top: 100px;
-            padding-left: 50px;
-        }
-    </style>
 </head>
 <body>
 <div th:replace="fragments/fragments :: navPanel"></div>
 <div th:replace="fragments/fragments :: sidePanel"></div>
-<br/>
-<br/>
-<h2 th:text="#{message.welcome}">Welcome Message</h2>
-<br/>
-<a th:href="@{/expense/all}" th:text="#{label.page.expenses}">Expenses Page</a>
-<br/>
-<a th:href="@{/expense/add}" th:text="#{label.page.expenses.add}">Add Expense</a>
+<div class="main container">
+    <h2 th:text="#{message.welcome}">Welcome Message</h2>
+    <br/>
+    <a th:href="@{/expense/all}" th:text="#{label.page.expenses}">Expenses Page</a>
+    <br/>
+    <a th:href="@{/expense/add}" th:text="#{label.page.expenses.add}">Add Expense</a>
+</div>
 </body>
 </html>

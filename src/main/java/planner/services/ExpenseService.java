@@ -33,4 +33,8 @@ public class ExpenseService {
         }
         return expense.get();
     }
+
+    public void delete(Expense expense) {
+        repository.delete(expense);
+    }
 }

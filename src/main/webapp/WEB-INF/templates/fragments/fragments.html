@@ -17,19 +17,47 @@
             padding-top: 60px;
         }
     </style>
+    <style th:inline="text">
+        .btn-expense {
+            width: 38px;
+            height: auto;
+            background:url([[@{/resources/images/expense.png}]]) center center no-repeat;
+            background-size: 70% 70%;
+            padding: 0 0;
+            display:block;
+        }
+
+        .btn-expense:hover {
+            background-image: url([[@{/resources/images/expense-dark.png}]])
+        }
+    </style>
+
+    <style th:inline="text">
+        .btn-income {
+            width: 38px;
+            height: auto;
+            background:url([[@{/resources/images/income.png}]]) center center no-repeat;
+            background-size: 70% 70%;
+            padding: 0 0;
+            display:block;
+        }
+
+        .btn-income:hover {
+            background-image: url([[@{/resources/images/income-dark.png}]])
+        }
+    </style>
 </head>
 <body>
-<nav th:fragment="navPanel" class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary" style="padding-left: 16px">
-    <a class="navbar-brand" href="#">Planner</a>
+<nav th:fragment="navPanel" class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary" style="padding-left: 0">
+    <a class="navbar-brand" href="#" style="padding-left: 16px; width: 160px; margin-right: 0">Planner</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#" th:text="#{label.page.expenses}">Expenses</a>
-            </li>
+            <a class="nav-link btn-expense" th:href="@{/expense/add}" th:title="#{label.page.expenses.add}"></a>
+            <a class="nav-link btn-income" th:href="@{/income/add}" th:title="#{label.page.incomes.add}"></a>
             <li class="nav-item">
                 <a class="nav-link" href="#" th:text="#{label.page.incomes}">Incomes</a>
             </li>

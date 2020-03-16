@@ -4,6 +4,12 @@
     <th:block th:include="fragments/fragments :: headerfiles">
     </th:block>
     <title th:text="#{label.page.expenses}">My Expenses</title>
+    <script>
+        function confirmDelete() {
+            var message = 'Are you sure?';
+            return confirm(message);
+        }
+    </script>
 </head>
 <body>
 <div th:replace="fragments/fragments :: navPanel"></div>
@@ -39,8 +45,8 @@
                     </form>
                 </td>
                 <td>
-                    <form action="#" th:action="@{/expense/delete/{id}(id=${expense.id})}" method="get" style="margin:0; padding:0">
-                        <input type="image" name="submit" th:src="@{/resources/images/delete.png}" width="30" height="30" style="margin:0; padding:2px">
+                    <form action="#" th:action="@{/expense/delete/{id}(id=${expense.id})}" method="get" style="margin:0; padding:0" >
+                        <input type="image" name="submit" th:src="@{/resources/images/delete.png}" onclick="confirmDelete()" width="30" height="30" style="margin:0; padding:2px">
                     </form>
                 </td>
             </tr>

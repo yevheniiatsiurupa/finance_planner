@@ -75,4 +75,11 @@ public class ExpensesController {
         model.addAttribute("message", message);
         return "expense-update-post";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteExpense(@PathVariable Integer id) {
+        Expense expense = expenseService.findById(id);
+        expenseService.delete(expense);
+        return "redirect:/expense/all";
+    }
 }

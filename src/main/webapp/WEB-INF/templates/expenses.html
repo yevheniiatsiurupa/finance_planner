@@ -1,56 +1,209 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <th:block th:include="fragments/fragments :: headerfiles">
     </th:block>
     <title th:text="#{label.page.expenses}">My Expenses</title>
+    <style>
+        .main-table {
+            padding: 20px;
+            width: 70%;
+            display: inline-block;
+            vertical-align: top;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .table-text tr td th {
+            font-size: 9pt;
+            line-height: 22px;
+            font-weight: 700;
+        }
+        .filters {
+            margin: 20px;
+            padding: 20px;
+            width: 25%;
+            height: 500px;
+            background-color: #e7e7e7;
+            display: inline-block;
+            vertical-align: top;
+            font-size: 9pt;
+            line-height: 22px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        .table-sm {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 10pt;
+            line-height: 22px;
+            font-weight: 500;
+        }
+        .table-sm th {
+            text-transform: uppercase;
+        }
+        .filter-part, .filter-part input, .filter-part label {
+            margin-top: auto;
+            margin-bottom: auto;
+            vertical-align: center;
+        }
+        .filter-part {
+            padding-left: 15px;
+            padding-right: 15px;
+            width: 30%;
+        }
+        .filter-heading {
+            letter-spacing: 4px;
+            text-decoration: underline;
+            font-weight: 700;
+            color: #8f8e8e;
+        }
+        .filter-title {
+            letter-spacing: 4px;
+            font-size: 10pt;
+            font-weight: 900;
+            color: #646363;
+        }
+        .filter-select {
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+    </style>
     <script>
         function confirmDelete() {
             var message = 'Are you sure?';
             return confirm(message);
         }
     </script>
+    <script>
+        function switchAmountMin() {
+            document.getElementById('amountMin').disabled = !document.getElementById('amountMinSwitcher').checked;
+        }
+        function switchAmountMax() {
+            document.getElementById('amountMax').disabled = !document.getElementById('amountMaxSwitcher').checked;
+        }
+        function switchCategory() {
+            document.getElementById('categoryName').disabled = !document.getElementById('categorySwitcher').checked;
+        }
+    </script>
+
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: /*[[@{/configs/expense-categories}]]*/ './../configs/expense-categories',
+                dataType: 'json',
+                success: function (data, status, settings) {
+                    getCategories(data);
+                }
+            })
+        })
+    </script>
+
+    <script>
+        function getCategories(data) {
+            var arr = data;
+            for (i = 0; i < arr.length; i++){
+                var category = arr[i];
+                var opt = document.createElement('option');
+                opt.innerHTML = category['categoryName'];
+                opt.value = category['categoryName'];
+                document.getElementById('category').appendChild(opt);
+            }
+        }
+    </script>
 </head>
 <body>
 <div th:replace="fragments/fragments :: navPanel"></div>
-<div class="container">
-    <div class="row">
-        <table class="table table-hover" id="table">
-            <tr class="table-active">
-                <th th:text="#{label.id}">ID</th>
-                <th th:text="#{label.expense.amount}">Amount</th>
-                <th th:text="#{label.expense.comment}">Comment</th>
-                <th th:text="#{label.expense.categoryName}">Category</th>
-                <th th:text="#{label.expense.subcategoryName}">Subcategory</th>
-                <th th:text="#{label.expense.created}">Created</th>
-                <th th:text="#{label.currency.name}">CurrencyName</th>
-                <th th:text="#{label.expense.cache}">Cache</th>
-                <th th:text="#{label.userAccount.id}">UserId</th>
-                <th></th>
-                <th></th>
-            </tr>
-            <tr th:each="expense: ${expenses}" class="table-default" >
-                <td th:text="${expense.id}"></td>
-                <td th:text="${expense.amount}"></td>
-                <td th:text="${expense.comment}"></td>
-                <td th:text="${expense.categoryName}"></td>
-                <td th:text="${expense.subCategoryName}"></td>
-                <td th:text="${#dates.format(expense.created, 'dd MMM yyyy')}"></td>
-                <td th:text="${expense.currency.name}"></td>
-                <td th:text="${expense.cache}"></td>
-                <td th:text="${expense.userAccount.id}"></td>
-                <td>
-                    <form action="#" th:action="@{/expense/update/{id}(id=${expense.id})}" method="get" style="margin:0; padding:0">
-                        <input type="image" name="submit" th:src="@{/resources/images/edit.png}" width="30" height="30" style="margin:0; padding:2px">
-                    </form>
-                </td>
-                <td>
-                    <form action="#" th:action="@{/expense/delete/{id}(id=${expense.id})}" method="get" style="margin:0; padding:0" >
-                        <input type="image" name="submit" th:src="@{/resources/images/delete.png}" onclick="confirmDelete()" width="30" height="30" style="margin:0; padding:2px">
-                    </form>
-                </td>
-            </tr>
-        </table>
+<div th:replace="fragments/fragments :: sidePanel"></div>
+<div class="main">
+    <div class="main-table">
+        <div class="row">
+            <table class="table-sm  table-hover" id="table">
+                <tr class="table-text table-active">
+                    <th th:text="#{label.expense.amount}">Amount</th>
+                    <th th:text="#{label.expense.categoryName}">Category</th>
+                    <th th:text="#{label.expense.subcategoryName}">Subcategory</th>
+                    <th th:text="#{label.expense.comment}">Comment</th>
+                    <th th:text="#{label.expense.created}">Created</th>
+                    <th th:text="#{label.expense.cache}">Cache</th>
+                    <!--<th th:text="#{label.userAccount.id}">UserId</th>-->
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr th:each="expense: ${expenses}" class="table-text table-default" >
+                    <td th:text="|${expense.amount} #{${expense.currency.sign}}|"></td>
+                    <td th:text="${expense.categoryName}"></td>
+                    <td th:text="${expense.subCategoryName}"></td>
+                    <td th:text="${expense.comment}" style="text-align: left"></td>
+                    <td th:text="${#dates.format(expense.created, 'dd MMM yyyy')}"></td>
+                    <td><input type="checkbox" th:checked="${expense.cache}" disabled style="transform: scale(1.5)"/></td>
+                    <!--<td th:text="${expense.userAccount.id}"></td>-->
+                    <td>
+                        <form action="#" th:action="@{/expense/update/{id}(id=${expense.id})}" method="get" style="margin:0; padding:0">
+                            <input type="image" name="submit" th:src="@{/resources/images/edit.png}" width="20" height="20" style="margin:0; padding:2px">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="#" th:action="@{/expense/delete/{id}(id=${expense.id})}" method="get" style="margin:0; padding:0" >
+                            <input type="image" name="submit" th:src="@{/resources/images/delete.png}" onclick="confirmDelete()" width="20" height="20" style="margin:0; padding:2px">
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="filters">
+        <b class="filter-title" th:text="#{label.component.filters}">Filters</b>
+        <p></p>
+        <form action="#" th:action="@{/expense/all/filtered}" th:object="${expenseFilter}" method="post" onsubmit="submitForm()">
+            <label class="filter-heading" th:text="#{label.expense.amount}"></label>
+            <div class="row">
+                <div class="filter-part">
+                    <input type="checkbox" id="amountMinSwitcher" onchange="switchAmountMin()"/>
+                    <label for="amountMinSwitcher" th:text="#{label.component.filter.less}">less than</label>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <input id="amountMin" type="text" class="form-control" th:placeholder="#{message.placeholder.amount}" disabled/>
+                        <div class="input-group-append">
+                            <span class="input-group-text" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="filter-part">
+                    <input type="checkbox" id="amountMaxSwitcher" onchange="switchAmountMax()"/>
+                    <label for="amountMaxSwitcher" th:text="#{label.component.filter.more}">more than</label>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <input id="amountMax" type="text" class="form-control" th:placeholder="#{message.placeholder.amount}" disabled/>
+                        <div class="input-group-append">
+                            <span class="input-group-text" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+
+            <label class="filter-heading" th:text="#{label.expense.categoryName}">CategoryName</label>
+            <div class="row">
+                <select class="filter-select form-control" id="categoryName">
+                    <option value="" disabled selected th:text="#{message.placeholder.dropdown}">Dropdown</option>
+                </select>
+            </div>
+            <br/>
+
+            <label class="filter-heading" th:text="#{label.expense.subcategoryName}">SubcategoryName</label>
+            <div class="row">
+                <select class="filter-select form-control" id="subcategoryName">
+                    <option value="" disabled selected th:text="#{message.placeholder.dropdown}">Dropdown</option>
+                </select>
+            </div>
+            <br/>
+        </form>
     </div>
 </div>
 </body>

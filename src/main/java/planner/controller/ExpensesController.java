@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import planner.entity.basic.UserAccount;
 import planner.entity.basic.UserAccountConfig;
+import planner.entity.filters.ExpenseIncomeFilter;
 import planner.entity.month.Expense;
 import planner.services.ExpenseService;
 
@@ -27,6 +28,21 @@ public class ExpensesController {
     @GetMapping("/all")
     public String getExpenses(Model model) {
         List<Expense> expenses = expenseService.findAll();
+        model.addAttribute("expenses", expenses);
+        return "expenses";
+    }
+
+    @GetMapping("/all/filtered")
+    public String getExpensesFiltered(Model model) {
+        ExpenseIncomeFilter filterObject = new ExpenseIncomeFilter();
+
+        filterObject.setAmountMin(600);
+        filterObject.setAmountMax(1000);
+        filterObject.setCache(true);
+        filterObject.setComment(false);
+        filterObject.setCategoryName("Еда / Напитки");
+
+        List<Expense> expenses = expenseService.findAllFiltered(filterObject);
         model.addAttribute("expenses", expenses);
         return "expenses";
     }

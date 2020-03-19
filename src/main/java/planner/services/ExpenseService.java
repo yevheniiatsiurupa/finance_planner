@@ -3,6 +3,8 @@ package planner.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import planner.dao.ExpenseRepository;
+import planner.dao.specifications.ExpenseSpecification;
+import planner.entity.filters.ExpenseIncomeFilter;
 import planner.entity.month.Expense;
 
 import javax.persistence.EntityNotFoundException;
@@ -20,6 +22,11 @@ public class ExpenseService {
 
     public List<Expense> findAll() {
         return repository.findAll();
+    }
+
+    public List<Expense> findAllFiltered(ExpenseIncomeFilter filterObj) {
+        ExpenseSpecification expenseSpec = new ExpenseSpecification(filterObj);
+        return repository.findAll(expenseSpec);
     }
 
     public void save(Expense expense) {

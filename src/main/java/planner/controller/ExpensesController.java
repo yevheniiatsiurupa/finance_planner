@@ -26,24 +26,28 @@ public class ExpensesController {
 
 
     @GetMapping("/all")
-    public String getExpenses(Model model) {
+    public String getExpenses(Model model, HttpSession session) {
         List<Expense> expenses = expenseService.findAll();
         model.addAttribute("expenses", expenses);
+        model.addAttribute("filterObject", new ExpenseIncomeFilter());
+
+        UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
+        model.addAttribute("categories", accountConfig.getExpenseCategories());
         return "expenses";
     }
 
-    @GetMapping("/all/filtered")
-    public String getExpensesFiltered(Model model) {
-        ExpenseIncomeFilter filterObject = new ExpenseIncomeFilter();
-
-        filterObject.setAmountMin(600);
-        filterObject.setAmountMax(1000);
-        filterObject.setCache(true);
-        filterObject.setComment(false);
-        filterObject.setCategoryName("Еда / Напитки");
-
+    @PostMapping("/all/filtered")
+    public String getExpensesFilteredPost(Model model, HttpSession session,
+                                          @ModelAttribute("filterObject") ExpenseIncomeFilter filterObject) {
         List<Expense> expenses = expenseService.findAllFiltered(filterObject);
         model.addAttribute("expenses", expenses);
+        model.addAttribute("filterObject", filterObject);
+
+        UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
+        model.addAttribute("categories", accountConfig.getExpenseCategories());
+        if (filterObject.getCategoryName() != null && !filterObject.getCategoryName().isEmpty()) {
+            model.addAttribute("subcategories", accountConfig.getExpenseSubCategories(filterObject.getCategoryName()));
+        }
         return "expenses";
     }
 

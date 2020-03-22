@@ -13,11 +13,11 @@ import java.util.Date;
 public class ExpenseIncomeFilter {
     private Integer amountMin;
     private Integer amountMax;
-    private Boolean comment;
-    private String categoryName;
-    private String subCategoryName;
+    private String categoryName = "";
+    private String subCategoryName = "";
     private Date createdMin;
     private Date createdMax;
     private Currency currency;
-    private Boolean cache;
+    private String comment = "";
+    private String cache = "";
 }

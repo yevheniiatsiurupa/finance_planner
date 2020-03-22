@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 public class ExpenseSpecification implements Specification<Expense> {
+    private static final String TEXT_TRUE = "true";
+    public static final String TEXT_FALSE = "false";
     private ExpenseIncomeFilter criteria;
 
     public ExpenseSpecification(ExpenseIncomeFilter criteria) {
@@ -33,10 +35,10 @@ public class ExpenseSpecification implements Specification<Expense> {
         if (criteria.getAmountMax() != null) {
             predicates.add(cb.lessThanOrEqualTo(amount, criteria.getAmountMax()));
         }
-        if (criteria.getCategoryName() != null) {
+        if (criteria.getCategoryName() != null && !criteria.getCategoryName().isEmpty()) {
             predicates.add(cb.equal(categoryName, criteria.getCategoryName()));
         }
-        if (criteria.getSubCategoryName() != null) {
+        if (criteria.getSubCategoryName() != null && !criteria.getSubCategoryName().isEmpty()) {
             predicates.add(cb.equal(subCategoryName, criteria.getSubCategoryName()));
         }
         if (criteria.getCreatedMin() != null) {
@@ -45,18 +47,18 @@ public class ExpenseSpecification implements Specification<Expense> {
         if (criteria.getCreatedMax() != null) {
             predicates.add(cb.lessThanOrEqualTo(created, criteria.getCreatedMax()));
         }
-        if (criteria.getComment() != null) {
-            if (criteria.getComment()) {
+        if (criteria.getComment() != null && !criteria.getComment().isEmpty()) {
+            if (TEXT_TRUE.equals(criteria.getComment())) {
                 predicates.add(cb.isNotNull(comment));
                 predicates.add(cb.notEqual(comment, ""));
-            } else {
+            } else if (TEXT_FALSE.equals(criteria.getComment())) {
                 predicates.add(cb.or(cb.isNull(comment), cb.equal(comment, "")));
             }
         }
-        if (criteria.getCache() != null) {
-            if (criteria.getCache()) {
+        if (criteria.getCache() != null && !criteria.getCache().isEmpty()) {
+            if (TEXT_TRUE.equals(criteria.getCache())) {
                 predicates.add(cb.isTrue(cache));
-            } else {
+            } else if (TEXT_FALSE.equals(criteria.getCache())){
                 predicates.add(cb.isFalse(cache));
             }
         }

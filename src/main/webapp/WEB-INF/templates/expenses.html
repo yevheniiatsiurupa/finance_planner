@@ -220,7 +220,7 @@
 <div th:replace="fragments/fragments :: navPanel"></div>
 <div th:replace="fragments/fragments :: sidePanel"></div>
 <div class="main">
-    <div class="main-table">
+    <div class="main-table" th:if="${expensesPaged.size != 0}">
         <div class="row">
             <table class="table-sm  table-hover" id="table">
                 <tr class="table-text table-active">
@@ -234,7 +234,7 @@
                     <th></th>
                     <th></th>
                 </tr>
-                <tr th:each="expense: ${expenses}" class="table-text table-default" >
+                <tr th:each="expense: ${expensesPaged}" class="table-text table-default" >
                     <td th:text="|${expense.amount} #{${expense.currency.sign}}|"></td>
                     <td th:text="${expense.categoryName}"></td>
                     <td th:text="${expense.subCategoryName}"></td>
@@ -254,6 +254,22 @@
                     </td>
                 </tr>
             </table>
+
+
+        </div>
+        <div class="row">
+            <ul class="pagination pagination-sm">
+                <li class="page-item" th:disabled="${expensesPaged.hasPrevious()}">
+                    <a class="page-link" th:href="@{/expense/all(page=${expensesPaged.number - 1})}">&laquo;</a>
+                </li>
+                <li class="page-item" th:classappend="${i eq expensesPaged.number + 1} ? 'active'"
+                    th:each="i : ${#numbers.sequence( expensesPaged.number + 1, expensesPaged.totalPages > 10 + expensesPaged.number ? expensesPaged.number + 10 : expensesPaged.totalPages, 1)}">
+                    <a class="page-link" th:href="@{/expense/all(page=${i})}" th:text="${i}" th:title="${'Page '+ i}" rel="tooltip"></a>
+                </li>
+                <li class="page-item" th:disabled="${expensesPaged.hasNext()}">
+                    <a class="page-link" th:href="@{/expense/all(page=${expensesPaged.number + 1})}">&raquo;</a>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="filters">

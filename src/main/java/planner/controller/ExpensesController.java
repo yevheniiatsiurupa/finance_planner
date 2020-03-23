@@ -1,6 +1,8 @@
 package planner.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +13,6 @@ import planner.entity.month.Expense;
 import planner.services.ExpenseService;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 @RequestMapping("/expense")
@@ -26,9 +27,9 @@ public class ExpensesController {
 
 
     @GetMapping("/all")
-    public String getExpenses(Model model, HttpSession session) {
-        List<Expense> expenses = expenseService.findAll();
-        model.addAttribute("expenses", expenses);
+    public String getExpenses(Model model, HttpSession session, Pageable pageable) {
+        Page<Expense> expenses = expenseService.findAll(pageable);
+        model.addAttribute("expensesPaged", expenses);
         model.addAttribute("filterObject", new ExpenseIncomeFilter());
 
         UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
@@ -37,10 +38,10 @@ public class ExpensesController {
     }
 
     @PostMapping("/all/filtered")
-    public String getExpensesFilteredPost(Model model, HttpSession session,
+    public String getExpensesFilteredPost(Model model, HttpSession session, Pageable pageable,
                                           @ModelAttribute("filterObject") ExpenseIncomeFilter filterObject) {
-        List<Expense> expenses = expenseService.findAllFiltered(filterObject);
-        model.addAttribute("expenses", expenses);
+        Page<Expense> expenses = expenseService.findAllFiltered(filterObject, pageable);
+        model.addAttribute("expensesPaged", expenses);
         model.addAttribute("filterObject", filterObject);
 
         UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");

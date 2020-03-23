@@ -1,6 +1,8 @@
 package planner.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import planner.dao.ExpenseRepository;
 import planner.dao.specifications.ExpenseSpecification;
@@ -24,9 +26,18 @@ public class ExpenseService {
         return repository.findAll();
     }
 
+    public Page<Expense> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
+
     public List<Expense> findAllFiltered(ExpenseIncomeFilter filterObj) {
         ExpenseSpecification expenseSpec = new ExpenseSpecification(filterObj);
         return repository.findAll(expenseSpec);
+    }
+
+    public Page<Expense> findAllFiltered(ExpenseIncomeFilter filterObj, Pageable pageable) {
+        ExpenseSpecification expenseSpec = new ExpenseSpecification(filterObj);
+        return repository.findAll(expenseSpec, pageable);
     }
 
     public void save(Expense expense) {

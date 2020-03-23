@@ -75,6 +75,19 @@ public class UserAccountConfig {
         return category.getSubCategories();
     }
 
+    public List<ExpenseSubCategory> getExpenseSubCategories(Integer categoryNumber) {
+        List<ExpenseCategory> categories = getExpenseCategories();
+        ExpenseCategory category =  categories.stream()
+                .filter(group -> categoryNumber.equals(group.getCategoryNumber()))
+                .findFirst()
+                .orElse(null);
+
+        if (category == null) {
+            throw new IllegalArgumentException(String.format("Category with number %s was not found", categoryNumber));
+        }
+        return category.getSubCategories();
+    }
+
     public List<IncomeSubCategory> getIncomeSubCategories(String categoryName) {
         List<IncomeCategory> categories = getIncomeCategories();
         IncomeCategory category =  categories.stream()
@@ -84,6 +97,19 @@ public class UserAccountConfig {
 
         if (category == null) {
             throw new IllegalArgumentException(String.format("Category with name %s was not found", categoryName));
+        }
+        return category.getSubCategories();
+    }
+
+    public List<IncomeSubCategory> getIncomeSubCategories(Integer categoryNumber) {
+        List<IncomeCategory> categories = getIncomeCategories();
+        IncomeCategory category =  categories.stream()
+                .filter(group -> categoryNumber.equals(group.getCategoryNumber()))
+                .findFirst()
+                .orElse(null);
+
+        if (category == null) {
+            throw new IllegalArgumentException(String.format("Category with number %s was not found", categoryNumber));
         }
         return category.getSubCategories();
     }

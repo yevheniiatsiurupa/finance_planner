@@ -7,7 +7,7 @@
     <title th:text="#{label.page.expenses}">My Expenses</title>
     <style>
         .main-table {
-            padding: 15px;
+            padding: 15px 0;
             width: 70%;
             display: inline-block;
             vertical-align: top;
@@ -38,6 +38,8 @@
             font-size: 10pt;
             line-height: 22px;
             font-weight: 500;
+            width: 80%;
+            min-height: 80%;
         }
         .table-sm th {
             text-transform: uppercase;
@@ -72,6 +74,31 @@
         .spacing {
             height: 10px;
         }
+        .paging {
+            padding-left: 10%;
+        }
+        .title-box {
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 14pt;
+            line-height: 22px;
+            font-weight: 300;
+            width: 80%;
+            height: 35px;
+            letter-spacing: 4px;
+            color: #8f8e8e;
+        }
+        .message {
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 12pt;
+            font-weight: 500;
+            width: 80%;
+            height: 35px;
+            letter-spacing: 2px;
+            color: #646363;
+            text-transform: uppercase;
+        }
     </style>
     <script>
         function confirmDelete() {
@@ -94,39 +121,15 @@
         }
     </script>
 
-    <!--<script th:inline="javascript">-->
-    <!--$(document).ready(function () {-->
-    <!--$.ajax({-->
-    <!--url: /*[[@{/configs/expense-categories}]]*/ './../configs/expense-categories',-->
-    <!--dataType: 'json',-->
-    <!--success: function (data, status, settings) {-->
-    <!--getCategories(data);-->
-    <!--}-->
-    <!--})-->
-    <!--})-->
-    <!--</script>-->
-
-    <!--<script>-->
-    <!--function getCategories(data) {-->
-    <!--var arr = data;-->
-    <!--for (i = 0; i < arr.length; i++){-->
-    <!--var category = arr[i];-->
-    <!--var opt = document.createElement('option');-->
-    <!--opt.innerHTML = category['categoryName'];-->
-    <!--opt.value = category['categoryName'];-->
-    <!--document.getElementById('category').appendChild(opt);-->
-    <!--}-->
-    <!--}-->
-    <!--</script>-->
-
     <script th:inline="javascript">
         function getSubcategories() {
             deleteOptions();
-            var countryVal = $('#category').val();
+            var cat =  document.getElementById('category');
+            var categoryVal = cat.options[cat.selectedIndex].text;
             $.ajax({
                 type: 'POST',
                 url: /*[[@{/configs/expense-subcategories}]]*/ './../configs/expense-subcategories',
-                data: countryVal,
+                data: categoryVal,
                 contentType: "text/plain",
                 datatype: 'json',
                 success: function (data, status, settings) {
@@ -135,7 +138,7 @@
                         var subcategory = arr[i];
                         var opt = document.createElement('option');
                         opt.innerHTML = subcategory['subCategoryName'];
-                        opt.value = subcategory['subCategoryName'];
+                        opt.value = subcategory['subCategoryNumber'];
                         document.getElementById('subCategory').appendChild(opt);
                     }
                 }
@@ -184,35 +187,47 @@
     </script>
 
     <script>
-        function submitForm() {
+        function getAllFiltered(pageNumber) {
+            var requestParams = "?";
+            requestParams += "page=" + pageNumber + "&";
+            if (!document.getElementById("amountMin").disabled) {
+                requestParams += "amountMin=" + document.getElementById("amountMin").value + "&";
+            }
+            if (!document.getElementById("amountMax").disabled) {
+                requestParams += "amountMax=" + document.getElementById("amountMax").value + "&";
+            }
+            if (document.getElementById("category").value !== "") {
+                requestParams += "categoryNumber=" + document.getElementById("category").value + "&";
+            }
+            if (document.getElementById("subCategory").value !== "") {
+                requestParams += "subCategoryNumber=" + document.getElementById("subCategory").value + "&";
+            }
             if (!document.getElementById("createdMin").disabled) {
                 var date = $("#createdMin").datepicker('getDate');
-                $("#createdMin").val(date);
+                var formatDate = $.datepicker.formatDate("dd-mm-yy", date);
+                requestParams += "createdMin=" + formatDate + "&";
             }
             if (!document.getElementById("createdMax").disabled) {
-                var date = $("#createdMax").datepicker('getDate');
-                $("#createdMax").val(date);
+                var date2 = $("#createdMax").datepicker('getDate');
+                var formatDate2 = $.datepicker.formatDate("dd-mm-yy", date2);
+                requestParams += "createdMax=" + formatDate2 + "&";
             }
-            if (document.getElementById("category").value === "") {
-                document.getElementById("category").disabled = true
+            var comment = document.querySelector('input[name="commentRadio"]:checked').value;
+            if (comment !== "") {
+                requestParams += "comment=" + comment + "&";
             }
-            if (document.getElementById("subCategory").value === "") {
-                document.getElementById("subCategory").disabled = true
-            }
-            if (document.querySelector('input[name="commentRadio"]:checked').value === "") {
-                var radios = document.filterForm.commentRadio;
 
-                for (var i=0; i<radios.length; i++) {
-                    radios[i].disabled = true;
-                }
+            var cache = document.querySelector('input[name="paymentRadio"]:checked').value;
+            if (cache !== "") {
+                requestParams += "cache=" + cache + "&";
             }
-            if (document.querySelector('input[name="cacheRadio"]:checked').value === "") {
-                var radios2 = document.filterForm.cacheRadio;
 
-                for (var j=0; j<radios2.length; j++) {
-                    radios2[j].disabled = true;
-                }
+            if (requestParams.length > 1) {
+                requestParams = requestParams.substring(0, requestParams.length - 1);
             }
+
+            var url = window.location.href.split('?')[0];
+            window.location.href = url + requestParams;
         }
     </script>
 </head>
@@ -220,8 +235,11 @@
 <div th:replace="fragments/fragments :: navPanel"></div>
 <div th:replace="fragments/fragments :: sidePanel"></div>
 <div class="main">
-    <div class="main-table" th:if="${expensesPaged.size != 0}">
-        <div class="row">
+    <div class="main-table">
+        <div class="row title-box">
+            <b th:text="#{title.my.expenses}">My expenses</b>
+        </div>
+        <div class="row" th:if="${expensesPaged.totalPages > 0}">
             <table class="table-sm  table-hover" id="table">
                 <tr class="table-text table-active">
                     <th th:text="#{label.expense.amount}">Amount</th>
@@ -254,20 +272,23 @@
                     </td>
                 </tr>
             </table>
-
-
         </div>
-        <div class="row">
+        <div class="message" th:if="${expensesPaged.totalPages <= 0}">
+            <p th:text="#{message.not.found}">Nothing was found.</p>
+        </div>
+        <div class="spacing"></div>
+        <div class="spacing"></div>
+        <div class="row paging" th:if="${expensesPaged.totalPages > 0}">
             <ul class="pagination pagination-sm">
                 <li class="page-item" th:disabled="${expensesPaged.hasPrevious()}">
-                    <a class="page-link" th:href="@{/expense/all(page=${expensesPaged.number - 1})}">&laquo;</a>
+                    <button type="button" class="page-link" th:onclick="|getAllFiltered('${expensesPaged.number - 1}')|">&laquo;</button>
                 </li>
                 <li class="page-item" th:classappend="${i eq expensesPaged.number + 1} ? 'active'"
                     th:each="i : ${#numbers.sequence( expensesPaged.number + 1, expensesPaged.totalPages > 10 + expensesPaged.number ? expensesPaged.number + 10 : expensesPaged.totalPages, 1)}">
-                    <a class="page-link" th:href="@{/expense/all(page=${i})}" th:text="${i}" th:title="${'Page '+ i}" rel="tooltip"></a>
+                    <button type="button" class="page-link" th:onclick="|getAllFiltered('${i - 1}')|" th:text="${i}" th:title="${'Page '+ i}" rel="tooltip"></button>
                 </li>
                 <li class="page-item" th:disabled="${expensesPaged.hasNext()}">
-                    <a class="page-link" th:href="@{/expense/all(page=${expensesPaged.number + 1})}">&raquo;</a>
+                    <button type="button" class="page-link" th:onclick="|getAllFiltered('${expensesPaged.number + 1}')|">&raquo;</button>
                 </li>
             </ul>
         </div>
@@ -276,7 +297,6 @@
         <b class="filter-title" th:text="#{label.component.filters}">Filters</b>
         <div class="spacing"></div>
 
-        <form action="#" id="filterForm" name="filterForm" th:action="@{/expense/all/filtered}" th:object="${filterObject}" method="post" onsubmit="submitForm()">
             <label class="filter-heading" th:text="#{label.expense.amount}"></label>
             <div class="row">
                 <div class="filter-part filter-part-side">
@@ -285,7 +305,7 @@
                 </div>
                 <div class="col">
                     <div class="input-group">
-                        <input th:field="*{amountMin}" id="amountMin" type="text" class="form-control" th:disabled="${filterObject.amountMin == null}"/>
+                        <input th:value="${filterObject.amountMin}" id="amountMin" type="text" class="form-control" th:disabled="${filterObject.amountMin == null}"/>
                         <div class="input-group-append">
                             <span class="input-group-text" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
                         </div>
@@ -299,7 +319,7 @@
                 </div>
                 <div class="col">
                     <div class="input-group">
-                        <input th:field="*{amountMax}" id="amountMax" type="text" class="form-control" th:disabled="${filterObject.amountMax == null}"/>
+                        <input th:value="${filterObject.amountMax}" id="amountMax" type="text" class="form-control" th:disabled="${filterObject.amountMax == null}"/>
                         <div class="input-group-append">
                             <span class="input-group-text" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
                         </div>
@@ -310,18 +330,18 @@
 
             <label class="filter-heading" th:text="#{label.expense.categoryName}">CategoryName</label>
             <div class="row">
-                <select th:field="*{categoryName}" class="filter-select form-control" id="category" onchange="getSubcategories()">
+                <select class="filter-select form-control" id="category" onchange="getSubcategories()">
                     <option value="" th:text="#{message.placeholder.show.all}">Show all</option>
-                    <option th:each="cat: ${categories}" th:value="${cat.categoryName}" th:text="${cat.categoryName}" th:selected="${cat.categoryName==filterObject.categoryName}"></option>
+                    <option th:each="cat: ${categories}" th:value="${cat.categoryNumber}" th:text="${cat.categoryName}" th:selected="${cat.categoryName==filterObject.categoryName}"></option>
                 </select>
             </div>
             <div class="spacing"></div>
 
             <label class="filter-heading" th:text="#{label.expense.subcategoryName}">Show all</label>
             <div class="row">
-                <select th:field="*{subCategoryName}" class="filter-select form-control" id="subCategory">
+                <select class="filter-select form-control" id="subCategory">
                     <option value="" th:text="#{message.placeholder.show.all}">Show all</option>
-                    <option th:each="subcat: ${subcategories}" th:value="${subcat.subCategoryName}" th:text="${subcat.subCategoryName}" th:selected="${subcat.subCategoryName==filterObject.subCategoryName}"></option>
+                    <option th:each="subcat: ${subcategories}" th:value="${subcat.subCategoryNumber}" th:text="${subcat.subCategoryName}" th:selected="${subcat.subCategoryName==filterObject.subCategoryName}"></option>
                 </select>
             </div>
             <div class="spacing"></div>
@@ -334,7 +354,7 @@
                 </div>
                 <div class="col">
                     <div class="input-group">
-                        <input th:field="*{createdMin}" id="createdMin" type="text" class="form-control" th:disabled="${filterObject.createdMin == null}"/>
+                        <input th:value="${filterObject.createdMin}" id="createdMin" type="text" class="form-control" th:disabled="${filterObject.createdMin == null}"/>
                     </div>
                 </div>
             </div>
@@ -346,7 +366,7 @@
                 </div>
                 <div class="col">
                     <div class="input-group">
-                        <input th:field="*{createdMax}" id="createdMax" type="text" class="form-control" th:disabled="${filterObject.createdMax == null}"/>
+                        <input th:value="${filterObject.createdMax}" id="createdMax" type="text" class="form-control" th:disabled="${filterObject.createdMax == null}"/>
                     </div>
                 </div>
             </div>
@@ -356,40 +376,39 @@
                 <div class="col-sm-6">
                     <label class="filter-heading" th:text="#{label.expense.comment}">Comment</label>
                     <div class="filter-part">
-                        <input th:field="*{comment}" type="radio" name="commentRadio" id="commentRadio1" value="">
+                        <input th:checked="${filterObject.comment == ''}" type="radio" name="commentRadio" id="commentRadio1" value="">
                         <label for="commentRadio1" th:text="#{message.placeholder.show.all}">show all</label>
                     </div>
                     <div class="filter-part">
-                        <input th:field="*{comment}" type="radio" name="commentRadio" id="commentRadio2" value="true">
+                        <input th:checked="${filterObject.comment == 'true'}" type="radio" name="commentRadio" id="commentRadio2" value="true">
                         <label for="commentRadio2" th:text="#{label.component.filter.have}">has</label>
                     </div>
                     <div class="filter-part">
-                        <input th:field="*{comment}" type="radio" name="commentRadio" id="commentRadio3" value="false">
+                        <input th:checked="${filterObject.comment == 'false'}" type="radio" name="commentRadio" id="commentRadio3" value="false">
                         <label for="commentRadio3" th:text="#{label.component.filter.have.not}">doesn't have</label>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <label class="filter-heading" th:text="#{label.expense.payment}">Payment</label>
                     <div class="filter-part">
-                        <input th:field="*{cache}" type="radio" name="paymentRadio" id="paymentRadio1" value="">
+                        <input th:checked="${filterObject.cache == ''}" type="radio" name="paymentRadio" id="paymentRadio1" value="">
                         <label for="paymentRadio1" th:text="#{message.placeholder.show.all}">show all</label>
                     </div>
                     <div class="filter-part">
-                        <input th:field="*{cache}" type="radio" name="paymentRadio" id="paymentRadio2" value="true">
+                        <input th:checked="${filterObject.cache == 'true'}" type="radio" name="paymentRadio" id="paymentRadio2" value="true">
                         <label for="paymentRadio2" th:text="#{label.expense.cache}">Cache</label>
                     </div>
                     <div class="filter-part">
-                        <input th:field="*{cache}" type="radio" name="paymentRadio" id="paymentRadio3" value="false">
+                        <input th:checked="${filterObject.cache == 'false'}" type="radio" name="paymentRadio" id="paymentRadio3" value="false">
                         <label for="paymentRadio3" th:text="#{label.expense.card}">Card</label>
                     </div>
                 </div>
             </div>
             <div class="spacing"></div>
-        </form>
 
         <div class="row">
             <div class="col-sm-6">
-                <button type="submit" form="filterForm" class="btn btn-primary" th:text="#{label.button.apply}">Apply</button>
+                <button type="button" class="btn btn-primary" th:text="#{label.button.apply}" onclick="getAllFiltered('0')">Apply</button>
             </div>
             <div class="col-sm-6">
                 <form action="#" th:action="@{/expense/all}" method="get">

@@ -8,11 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import planner.entity.basic.UserAccount;
 import planner.entity.basic.UserAccountConfig;
+import planner.entity.basic.supplementary.ExpenseCategory;
+import planner.entity.basic.supplementary.ExpenseSubCategory;
 import planner.entity.filters.ExpenseIncomeFilter;
 import planner.entity.month.Expense;
 import planner.services.ExpenseService;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/expense")
@@ -27,28 +31,26 @@ public class ExpensesController {
 
 
     @GetMapping("/all")
-    public String getExpenses(Model model, HttpSession session, Pageable pageable) {
-        Page<Expense> expenses = expenseService.findAll(pageable);
-        model.addAttribute("expensesPaged", expenses);
-        model.addAttribute("filterObject", new ExpenseIncomeFilter());
-
+    public String getExpenses(Model model, HttpSession session, Pageable pageable, ExpenseIncomeFilter filterObject) {
         UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
-        model.addAttribute("categories", accountConfig.getExpenseCategories());
-        return "expenses";
-    }
+        List<ExpenseCategory> categories = accountConfig.getExpenseCategories();
+        model.addAttribute("categories", categories);
+        List<ExpenseSubCategory> subCategories;
+        if (filterObject.getCategoryNumber() != null) {
+            subCategories = accountConfig.getExpenseSubCategories(filterObject.getCategoryNumber());
+        } else {
+            subCategories = new ArrayList<>();
+        }
+        model.addAttribute("subcategories", subCategories);
 
-    @PostMapping("/all/filtered")
-    public String getExpensesFilteredPost(Model model, HttpSession session, Pageable pageable,
-                                          @ModelAttribute("filterObject") ExpenseIncomeFilter filterObject) {
+        String categoryName = ExpenseCategory.getNameByNumber(categories, filterObject.getCategoryNumber());
+        String subCategoryName = ExpenseSubCategory.getNameByNumber(subCategories, filterObject.getSubCategoryNumber());
+        filterObject.setCategoryName(categoryName);
+        filterObject.setSubCategoryName(subCategoryName);
+
         Page<Expense> expenses = expenseService.findAllFiltered(filterObject, pageable);
         model.addAttribute("expensesPaged", expenses);
         model.addAttribute("filterObject", filterObject);
-
-        UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
-        model.addAttribute("categories", accountConfig.getExpenseCategories());
-        if (filterObject.getCategoryName() != null && !filterObject.getCategoryName().isEmpty()) {
-            model.addAttribute("subcategories", accountConfig.getExpenseSubCategories(filterObject.getCategoryName()));
-        }
         return "expenses";
     }
 

@@ -3,6 +3,8 @@ package planner.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +33,9 @@ public class ExpensesController {
 
 
     @GetMapping("/all")
-    public String getExpenses(Model model, HttpSession session, Pageable pageable, ExpenseIncomeFilter filterObject) {
+    public String getExpenses(Model model, HttpSession session,
+                              ExpenseIncomeFilter filterObject,
+                              @PageableDefault(sort = "created", direction = Sort.Direction.DESC, size = 15) Pageable pageable) {
         UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
         List<ExpenseCategory> categories = accountConfig.getExpenseCategories();
         model.addAttribute("categories", categories);

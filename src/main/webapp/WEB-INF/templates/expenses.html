@@ -308,7 +308,7 @@
             <div class="title-box">
                 <b th:text="#{title.my.expenses}">My expenses</b>
             </div>
-            <div class="sorting-box">
+            <div class="sorting-box" th:if="${expensesPaged.totalPages > 0}">
                 <div class="sort-cell">
                     <b th:text="#{label.expense.amount}">Amount</b>
                     <input type="image" name="submit" th:src="@{/resources/images/down-dark.png}" onclick="getAllSorted('amount','desc')">

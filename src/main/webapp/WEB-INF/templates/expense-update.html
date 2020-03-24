@@ -11,6 +11,9 @@
             padding-top: 100px;
             padding-left: 50px;
         }
+        .create-card {
+            width: 60%;
+        }
     </style>
 
     <script th:inline="javascript">
@@ -84,8 +87,9 @@
 </head>
 <body>
 <div th:replace="fragments/fragments :: navPanel"></div>
-<div class="container" style="margin-left: 50px">
-    <div class="col-sm-7">
+<div th:replace="fragments/fragments :: sidePanel"></div>
+<div class="main">
+    <div class="create-card">
         <div class="card bg-light mb-3" style="max-width: 50rem; min-width: 650px">
             <div class="card-header"><h5><b th:text="#{label.page.expenses.update}">Update Expense</b></h5></div>
             <div class="card-body">
@@ -159,6 +163,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

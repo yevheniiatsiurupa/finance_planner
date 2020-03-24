@@ -15,7 +15,8 @@
 </head>
 <body>
 <div th:replace="fragments/fragments :: navPanel"></div>
-<div class="container" style="margin-left: 50px">
+<div th:replace="fragments/fragments :: sidePanel"></div>
+<div class="main">
     <div class="col-sm-7">
         <div class="row">
             <h5 th:text="|#{message.success.update} #{label.page.expense} ${expense.amount} #{${session.userAccountConfig.currency.sign}} ${expense.categoryName} - ${expense.subCategoryName}. |">Fill</h5>
@@ -29,6 +30,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

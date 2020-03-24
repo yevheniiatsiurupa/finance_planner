@@ -10,6 +10,9 @@
             padding-top: 100px;
             padding-left: 50px;
         }
+        .create-card {
+            width: 60%;
+        }
     </style>
 
     <script>
@@ -91,7 +94,7 @@
             var nodes = parent.childNodes;
             for (var i = 0; i < nodes.length; i++) {
                 var elem = nodes[i];
-                if (elem.nodeValue != '') {
+                if (elem.nodeValue !== '') {
                     parent.removeChild(elem);
                     i--;
                 }
@@ -107,8 +110,9 @@
 </head>
 <body>
 <div th:replace="fragments/fragments :: navPanel"></div>
-<div class="container" style="margin-left: 50px">
-    <div class="col-sm-7">
+<div th:replace="fragments/fragments :: sidePanel"></div>
+<div class="main">
+    <div class="create-card">
         <div class="card bg-light mb-3" style="max-width: 50rem; min-width: 650px">
             <div class="card-header"><h5><b th:text="#{label.page.expenses.add}">AddExpenses</b></h5></div>
             <div class="card-body">
@@ -129,14 +133,14 @@
 
                             <div class="form-group">
                                 <label for="category" th:text="#{label.expense.categoryName}">Category</label>
-                                <select th:field="*{categoryName}" class="form-control" id="category" onchange="getSubcategories()">
+                                <select th:value="*{categoryName}" name="categoryName" class="form-control" id="category" onchange="getSubcategories()">
                                     <option value="" disabled selected th:text="#{message.placeholder.dropdown}">Dropdown</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label for="subCategory" th:text="#{label.expense.subcategoryName}">SubCategory</label>
-                                <select th:field="*{subCategoryName}" class="form-control" id="subCategory">
+                                <select th:value="*{subCategoryName}" name="subCategoryName" class="form-control" id="subCategory">
                                     <option value="" disabled selected th:text="#{message.placeholder.dropdown}">Dropdown</option>
                                 </select>
                             </div>
@@ -180,6 +184,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

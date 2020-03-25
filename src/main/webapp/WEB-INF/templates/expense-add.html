@@ -3,17 +3,15 @@
     <th:block th:include="fragments/fragments :: headerfiles">
     </th:block>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/resources/css/expense-income.css}" type="text/css">
+    <script th:src="@{/resources/scripts/getSubCategories.js}"></script>
+    <script th:src="@{/resources/scripts/getCategories.js}"></script>
+
     <title id="pageTitle" th:text="#{label.page.expenses.add}">Add Expenses</title>
 
-    <style>
-        body {
-            padding-top: 100px;
-            padding-left: 50px;
-        }
-        .create-card {
-            width: 60%;
-        }
-    </style>
+    <script th:inline="javascript">
+        $(document).ready(getCategoriesRequest(/*[[@{/configs/expense-categories}]]*/))
+    </script>
 
     <script>
         $( function() {
@@ -40,67 +38,6 @@
         }
     </script>
 
-
-    <script th:inline="javascript">
-        $(document).ready(function () {
-            $.ajax({
-                url: /*[[@{/configs/expense-categories}]]*/ './../configs/expense-categories',
-                dataType: 'json',
-                success: function (data, status, settings) {
-                    getCategories(data);
-                }
-            })
-        })
-    </script>
-
-    <script>
-        function getCategories(data) {
-            var arr = data;
-            for (i = 0; i < arr.length; i++){
-                var category = arr[i];
-                var opt = document.createElement('option');
-                opt.innerHTML = category['categoryName'];
-                opt.value = category['categoryName'];
-                document.getElementById('category').appendChild(opt);
-            }
-        }
-    </script>
-
-    <script th:inline="javascript">
-        function getSubcategories() {
-            deleteOptions();
-            var countryVal = $('#category').val();
-            $.ajax({
-                type: 'POST',
-                url: /*[[@{/configs/expense-subcategories}]]*/ './../configs/expense-subcategories',
-                data: countryVal,
-                contentType: "text/plain",
-                datatype: 'json',
-                success: function (data, status, settings) {
-                    var arr = data;
-                    for (var i = 0; i < arr.length; i++) {
-                        var subcategory = arr[i];
-                        var opt = document.createElement('option');
-                        opt.innerHTML = subcategory['subCategoryName'];
-                        opt.value = subcategory['subCategoryName'];
-                        document.getElementById('subCategory').appendChild(opt);
-                    }
-                }
-            })
-        }
-
-        function deleteOptions() {
-            var parent = document.getElementById('subCategory');
-            var nodes = parent.childNodes;
-            for (var i = 0; i < nodes.length; i++) {
-                var elem = nodes[i];
-                if (elem.nodeValue !== '') {
-                    parent.removeChild(elem);
-                    i--;
-                }
-            }
-        }
-    </script>
     <script>
         function submitForm() {
             var date = $("#created").datepicker('getDate');
@@ -133,14 +70,14 @@
 
                             <div class="form-group">
                                 <label for="category" th:text="#{label.expense.categoryName}">Category</label>
-                                <select th:value="*{categoryName}" name="categoryName" class="form-control" id="category" onchange="getSubcategories()">
+                                <select th:value="*{categoryNumber}" name="categoryNumber" class="form-control" id="category" th:onchange="|getSubcategories('@{/configs/expense-subcategories}')|">
                                     <option value="" disabled selected th:text="#{message.placeholder.dropdown}">Dropdown</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label for="subCategory" th:text="#{label.expense.subcategoryName}">SubCategory</label>
-                                <select th:value="*{subCategoryName}" name="subCategoryName" class="form-control" id="subCategory">
+                                <select th:value="*{subCategoryNumber}" name="subCategoryNumber" class="form-control" id="subCategory">
                                     <option value="" disabled selected th:text="#{message.placeholder.dropdown}">Dropdown</option>
                                 </select>
                             </div>
@@ -151,7 +88,6 @@
                         <div class="col-sm-1"></div>
 
                         <div class="col-sm-6">
-
                             <div class="row">
                                 <div class="col-sm-5">
                                     <div class="form-group">
@@ -171,12 +107,10 @@
                                 </div>
                             </div>
 
-
                             <div class="form-group">
                                 <label for="comment" th:text="#{label.expense.comment}">Comment</label>
-                                <textarea class="form-control" th:field="*{comment}" id="comment" rows="5" th:placeholder="#{message.placeholder.comment}"/>
+                                <textarea class="form-control" th:field="*{comment}" id="comment" rows="5" th:placeholder="#{message.placeholder.comment}"></textarea>
                             </div>
-
                         </div>
                     </div>
                 </form>

@@ -27,8 +27,14 @@ public class Income {
     @Column(name = "category_name", nullable = false)
     private String categoryName;
 
+    @Transient
+    private String categoryNumber;
+
     @Column(name = "sub_category_name", nullable = false)
     private String subCategoryName;
+
+    @Transient
+    private String subCategoryNumber;
 
     @Column(name = "created")
     private Date created;

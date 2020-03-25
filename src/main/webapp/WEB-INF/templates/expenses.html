@@ -4,179 +4,19 @@
 <head>
     <th:block th:include="fragments/fragments :: headerfiles">
     </th:block>
+    <link rel="stylesheet" th:href="@{/resources/css/expense-income.css}" type="text/css">
+    <script th:src="@{/resources/scripts/getSubCategories.js}"></script>
+    <script th:src="@{/resources/scripts/reloaders.js}"></script>
+    <script th:src="@{/resources/scripts/switchers.js}"></script>
     <title th:text="#{label.page.expenses}">My Expenses</title>
-    <style>
-        .main-table {
-            padding: 15px 0;
-            width: 70%;
-            display: inline-block;
-            vertical-align: top;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .table-text tr td th {
-            font-size: 9pt;
-            line-height: 22px;
-            font-weight: 700;
-        }
-        .filters {
-            margin: 15px;
-            padding: 10px 20px;
-            width: 25%;
-            background-color: #e7e7e7;
-            display: inline-block;
-            vertical-align: top;
-            font-size: 9pt;
-            line-height: 22px;
-            font-weight: 500;
-            text-transform: uppercase;
-        }
-        .table-sm {
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-            font-size: 10pt;
-            line-height: 22px;
-            font-weight: 500;
-            width: 80%;
-            min-height: 80%;
-        }
-        .table-sm th {
-            text-transform: uppercase;
-        }
-        .filter-part, .filter-part input, .filter-part label {
-            margin-top: auto;
-            margin-bottom: auto;
-            vertical-align: center;
-        }
-        .filter-part-side {
-            width: 35%;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-        .filter-heading {
-            letter-spacing: 2px;
-            text-decoration: underline;
-            font-weight: 700;
-            font-size: 9pt;
-            color: #8f8e8e;
-        }
-        .filter-title {
-            letter-spacing: 4px;
-            font-size: 10pt;
-            font-weight: 900;
-            color: #646363;
-        }
-        .filter-select {
-            margin-left: 15px;
-            margin-right: 15px;
-        }
-        .spacing {
-            height: 10px;
-        }
-        .paging {
-            padding-left: 10%;
-        }
-        .title-line {
-            margin-left: auto;
-            margin-right: auto;
-            width: 80%;
-            height: 35px;
-        }
-        .title-box {
-            width: 50%;
-            font-size: 14pt;
-            line-height: 22px;
-            font-weight: 300;
-            letter-spacing: 4px;
-            color: #8f8e8e;
-        }
-        .message {
-            margin-left: auto;
-            margin-right: auto;
-            font-size: 12pt;
-            font-weight: 500;
-            width: 80%;
-            height: 35px;
-            letter-spacing: 2px;
-            color: #646363;
-            text-transform: uppercase;
-        }
-        .sorting-box {
-            font-size: 8pt;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: #3E3F3A;
-            text-transform: uppercase;
-        }
-        .sort-cell {
-            display: inline-block;
-            margin: 5px 8px;
-        }
-        .sort-cell input {
-            width: 13px;
-            height: 13px;
-            margin: 0;
-            vertical-align: text-bottom;
-        }
-    </style>
+
     <script>
         function confirmDelete() {
             var message = 'Are you sure?';
             return confirm(message);
         }
     </script>
-    <script>
-        function switchAmountMin() {
-            document.getElementById('amountMin').disabled = !document.getElementById('amountMinSwitcher').checked;
-        }
-        function switchAmountMax() {
-            document.getElementById('amountMax').disabled = !document.getElementById('amountMaxSwitcher').checked;
-        }
-        function switchCreatedMin() {
-            document.getElementById('createdMin').disabled = !document.getElementById('createdMinSwitcher').checked;
-        }
-        function switchCreatedMax() {
-            document.getElementById('createdMax').disabled = !document.getElementById('createdMaxSwitcher').checked;
-        }
-    </script>
 
-    <script th:inline="javascript">
-        function getSubcategories() {
-            deleteOptions();
-            var cat =  document.getElementById('category');
-            var categoryVal = cat.options[cat.selectedIndex].text;
-            $.ajax({
-                type: 'POST',
-                url: /*[[@{/configs/expense-subcategories}]]*/ './../configs/expense-subcategories',
-                data: categoryVal,
-                contentType: "text/plain",
-                datatype: 'json',
-                success: function (data, status, settings) {
-                    var arr = data;
-                    for (var i = 0; i < arr.length; i++) {
-                        var subcategory = arr[i];
-                        var opt = document.createElement('option');
-                        opt.innerHTML = subcategory['subCategoryName'];
-                        opt.value = subcategory['subCategoryNumber'];
-                        document.getElementById('subCategory').appendChild(opt);
-                    }
-                }
-            })
-        }
-
-        function deleteOptions() {
-            var parent = document.getElementById('subCategory');
-            var nodes = parent.childNodes;
-            for (var i = 0; i < nodes.length; i++) {
-                var elem = nodes[i];
-                if (elem.value !== '') {
-                    parent.removeChild(elem);
-                    i--;
-                }
-            }
-        }
-    </script>
     <script>
         $( function() {
             $.datepicker.setDefaults(
@@ -205,99 +45,6 @@
             }
         }
     </script>
-
-    <script>
-        function getAllFiltered(pageNumber) {
-            var requestParams = "?";
-            requestParams += "page=" + pageNumber + "&";
-            if (!document.getElementById("amountMin").disabled) {
-                requestParams += "amountMin=" + document.getElementById("amountMin").value + "&";
-            }
-            if (!document.getElementById("amountMax").disabled) {
-                requestParams += "amountMax=" + document.getElementById("amountMax").value + "&";
-            }
-            if (document.getElementById("category").value !== "") {
-                requestParams += "categoryNumber=" + document.getElementById("category").value + "&";
-            }
-            if (document.getElementById("subCategory").value !== "") {
-                requestParams += "subCategoryNumber=" + document.getElementById("subCategory").value + "&";
-            }
-            if (!document.getElementById("createdMin").disabled) {
-                var date = $("#createdMin").datepicker('getDate');
-                var formatDate = $.datepicker.formatDate("dd-mm-yy", date);
-                requestParams += "createdMin=" + formatDate + "&";
-            }
-            if (!document.getElementById("createdMax").disabled) {
-                var date2 = $("#createdMax").datepicker('getDate');
-                var formatDate2 = $.datepicker.formatDate("dd-mm-yy", date2);
-                requestParams += "createdMax=" + formatDate2 + "&";
-            }
-            var comment = document.querySelector('input[name="commentRadio"]:checked').value;
-            if (comment !== "") {
-                requestParams += "comment=" + comment + "&";
-            }
-
-            var cache = document.querySelector('input[name="paymentRadio"]:checked').value;
-            if (cache !== "") {
-                requestParams += "cache=" + cache + "&";
-            }
-
-            if (requestParams.length > 1) {
-                requestParams = requestParams.substring(0, requestParams.length - 1);
-            }
-
-            var url = window.location.href.split('?')[0];
-            window.location.href = url + requestParams;
-        }
-    </script>
-    <script>
-        function getAllSorted(sortVar, dir) {
-            var prevUrl = window.location.href;
-            if (!prevUrl.includes("?")) {
-                window.location.href = prevUrl + "?sort=" + sortVar + "," + dir;
-            }
-            var url = window.location.href.split("?")[0];
-            var params = window.location.href.split("?")[1];
-            if (params === "") {
-                window.location.href = prevUrl + "sort=" + sortVar + "," + dir;
-            }
-            if (params.includes("sort=")) {
-                var arr = params.split("&");
-                for (i = 0; i < arr.length; i++) {
-                    if (arr[i].includes("sort=")) {
-                        arr[i] = "sort=" + sortVar + "," + dir;
-                    }
-                }
-                window.location.href = url + "?" + arr.join("&");
-            } else {
-                window.location.href = prevUrl + "&sort=" + sortVar + "," + dir;
-            }
-        }
-    </script>
-    <script>
-        function getAllPaged(pageNumber) {
-            var prevUrl = window.location.href;
-            if (!prevUrl.includes("?")) {
-                window.location.href = prevUrl + "?page=" + pageNumber;
-            }
-            var url = window.location.href.split("?")[0];
-            var params = window.location.href.split("?")[1];
-            if (params === "") {
-                window.location.href = prevUrl + "page=" + pageNumber;
-            }
-            if (params.includes("page=")) {
-                var arr = params.split("&");
-                for (i = 0; i < arr.length; i++) {
-                    if (arr[i].includes("page=")) {
-                        arr[i] = "page=" + pageNumber;
-                    }
-                }
-                window.location.href = url + "?" + arr.join("&");
-            } else {
-                window.location.href = prevUrl + "&page=" + pageNumber;
-            }
-        }
-    </script>
 </head>
 <body>
 <div th:replace="fragments/fragments :: navPanel"></div>
@@ -311,18 +58,18 @@
             <div class="sorting-box" th:if="${expensesPaged.totalPages > 0}">
                 <div class="sort-cell">
                     <b th:text="#{label.expense.amount}">Amount</b>
-                    <input type="image" name="submit" th:src="@{/resources/images/down-dark.png}" onclick="getAllSorted('amount','desc')">
-                    <input type="image" name="submit" th:src="@{/resources/images/up-dark.png}" onclick="getAllSorted('amount','asc')">
+                    <input type="image" name="submit" th:src="@{/resources/images/down-dark.png}" onclick="reloadWithSort('amount','desc')">
+                    <input type="image" name="submit" th:src="@{/resources/images/up-dark.png}" onclick="reloadWithSort('amount','asc')">
                 </div>
                 <div class="sort-cell">
                     <b th:text="#{label.expense.created.short}">Created</b>
-                    <input type="image" name="submit" th:src="@{/resources/images/down-dark.png}" onclick="getAllSorted('created','desc')">
-                    <input type="image" name="submit" th:src="@{/resources/images/up-dark.png}" onclick="getAllSorted('created','asc')">
+                    <input type="image" name="submit" th:src="@{/resources/images/down-dark.png}" onclick="reloadWithSort('created','desc')">
+                    <input type="image" name="submit" th:src="@{/resources/images/up-dark.png}" onclick="reloadWithSort('created','asc')">
                 </div>
                 <div class="sort-cell">
                     <b th:text="#{label.expense.categoryName}">Category</b>
-                    <input type="image" name="submit" th:src="@{/resources/images/down-dark.png}" onclick="getAllSorted('categoryName','desc')">
-                    <input type="image" name="submit" th:src="@{/resources/images/up-dark.png}" onclick="getAllSorted('categoryName','asc')">
+                    <input type="image" name="submit" th:src="@{/resources/images/down-dark.png}" onclick="reloadWithSort('categoryName','desc')">
+                    <input type="image" name="submit" th:src="@{/resources/images/up-dark.png}" onclick="reloadWithSort('categoryName','asc')">
                 </div>
             </div>
         </div>
@@ -368,14 +115,14 @@
         <div class="row paging" th:if="${expensesPaged.totalPages > 0}">
             <ul class="pagination pagination-sm">
                 <li class="page-item" th:disabled="${expensesPaged.hasPrevious()}">
-                    <button type="button" class="page-link" th:onclick="|getAllPaged('${expensesPaged.number - 1}')|">&laquo;</button>
+                    <button type="button" class="page-link" th:onclick="|reloadWithPage('${expensesPaged.number - 1}')|">&laquo;</button>
                 </li>
                 <li class="page-item" th:classappend="${i eq expensesPaged.number + 1} ? 'active'"
                     th:each="i : ${#numbers.sequence( expensesPaged.totalPages > 10 ? expensesPaged.number + 1 : 1, expensesPaged.totalPages > 10 + expensesPaged.number ? expensesPaged.number + 10 : expensesPaged.totalPages, 1)}">
-                    <button type="button" class="page-link" th:onclick="|getAllPaged('${i - 1}')|" th:text="${i}" th:title="${'Page '+ i}" rel="tooltip"></button>
+                    <button type="button" class="page-link" th:onclick="|reloadWithPage('${i - 1}')|" th:text="${i}" th:title="${'Page '+ i}" rel="tooltip"></button>
                 </li>
                 <li class="page-item" th:disabled="${expensesPaged.hasNext()}">
-                    <button type="button" class="page-link" th:onclick="|getAllPaged('${expensesPaged.number + 1}')|">&raquo;</button>
+                    <button type="button" class="page-link" th:onclick="|reloadWithPage('${expensesPaged.number + 1}')|">&raquo;</button>
                 </li>
             </ul>
         </div>
@@ -417,7 +164,7 @@
 
         <label class="filter-heading" th:text="#{label.expense.categoryName}">CategoryName</label>
         <div class="row">
-            <select class="filter-select form-control" id="category" onchange="getSubcategories()">
+            <select class="filter-select form-control" id="category" th:onchange="|getSubcategories('@{/configs/expense-subcategories}')|">
                 <option value="" th:text="#{message.placeholder.show.all}">Show all</option>
                 <option th:each="cat: ${categories}" th:value="${cat.categoryNumber}" th:text="${cat.categoryName}" th:selected="${cat.categoryName==filterObject.categoryName}"></option>
             </select>
@@ -495,7 +242,7 @@
 
         <div class="row">
             <div class="col-sm-6">
-                <button type="button" class="btn btn-primary" th:text="#{label.button.apply}" onclick="getAllFiltered('0')">Apply</button>
+                <button type="button" class="btn btn-primary" th:text="#{label.button.apply}" onclick="reloadWithFilters()">Apply</button>
             </div>
             <div class="col-sm-6">
                 <form action="#" th:action="@{/expense/all}" method="get">

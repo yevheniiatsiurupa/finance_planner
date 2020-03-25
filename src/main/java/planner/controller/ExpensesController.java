@@ -22,6 +22,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/expense")
+@SessionAttributes({"categories"})
 public class ExpensesController {
 
     private final ExpenseService expenseService;
@@ -31,17 +32,22 @@ public class ExpensesController {
         this.expenseService = expenseService;
     }
 
+    @ModelAttribute("categories")
+    public ArrayList<ExpenseCategory> getCategories(HttpSession session) {
+        UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
+        return (ArrayList<ExpenseCategory>) accountConfig.getExpenseCategories();
+    }
+
 
     @GetMapping("/all")
-    public String getExpenses(Model model, HttpSession session,
+    public String getExpenses(Model model,
                               ExpenseIncomeFilter filterObject,
-                              @PageableDefault(sort = "created", direction = Sort.Direction.DESC, size = 15) Pageable pageable) {
-        UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
-        List<ExpenseCategory> categories = accountConfig.getExpenseCategories();
-        model.addAttribute("categories", categories);
+                              @PageableDefault(sort = "created", direction = Sort.Direction.DESC, size = 15) Pageable pageable,
+                              @ModelAttribute("categories") ArrayList<ExpenseCategory> categories) {
         List<ExpenseSubCategory> subCategories;
         if (filterObject.getCategoryNumber() != null) {
-            subCategories = accountConfig.getExpenseSubCategories(filterObject.getCategoryNumber());
+            ExpenseCategory category = ExpenseCategory.getCategoryByNumber(categories, filterObject.getCategoryNumber());
+            subCategories = category.getSubCategories();
         } else {
             subCategories = new ArrayList<>();
         }
@@ -65,13 +71,15 @@ public class ExpensesController {
     }
 
     @PostMapping("/add")
-    public String addExpensePost(Model model,
+    public String addExpensePost(Model model, HttpSession session,
                                  @ModelAttribute("expense") Expense expense,
-                                 HttpSession session) {
+                                 @ModelAttribute("categories") List<ExpenseCategory> categories) {
         UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
         UserAccountConfig config = (UserAccountConfig) session.getAttribute("userAccountConfig");
         expense.setUserAccount(userAccount);
         expense.setCurrency(config.getCurrency());
+
+        fillCategoryNames(expense, categories);
 
         expenseService.save(expense);
         String message = "Ok";
@@ -81,26 +89,37 @@ public class ExpensesController {
 
     @GetMapping("/update/{id}")
     public String updateExpense(@PathVariable Integer id,
-                                Model model,
-                                HttpSession session) {
+                                @ModelAttribute("categories") List<ExpenseCategory> categories,
+                                Model model) {
         Expense expense = expenseService.findById(id);
         model.addAttribute("expense", expense);
 
-        UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
-        model.addAttribute("categories", accountConfig.getExpenseCategories());
-
         String expenseCategory = expense.getCategoryName();
-        model.addAttribute("subcategories", accountConfig.getExpenseSubCategories(expenseCategory));
+        ExpenseCategory category = ExpenseCategory.getCategoryByName(categories, expenseCategory);
+        model.addAttribute("subcategories", category.getSubCategories());
         return "expense-update";
     }
 
     @PostMapping("/update")
     public String updateExpensePost(Model model,
-                                 @ModelAttribute("expense") Expense expense) {
+                                    @ModelAttribute("expense") Expense expense,
+                                    @ModelAttribute("categories") List<ExpenseCategory> categories) {
+        fillCategoryNames(expense, categories);
+
         expenseService.save(expense);
         String message = "Ok";
         model.addAttribute("message", message);
         return "expense-update-post";
+    }
+
+    private void fillCategoryNames(Expense expense, List<ExpenseCategory> categories) {
+        ExpenseCategory category = ExpenseCategory.getCategoryByNumber(
+                categories, Integer.parseInt(expense.getCategoryNumber()));
+        ExpenseSubCategory subCategory = ExpenseSubCategory.getSubcategoryByNumber(
+                category.getSubCategories(), Integer.parseInt(expense.getSubCategoryNumber()));
+
+        expense.setCategoryName(category.getCategoryName());
+        expense.setSubCategoryName(subCategory.getSubCategoryName());
     }
 
     @GetMapping("/delete/{id}")

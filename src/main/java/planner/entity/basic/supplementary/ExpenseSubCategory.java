@@ -2,6 +2,7 @@ package planner.entity.basic.supplementary;
 
 import lombok.Data;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 /**
@@ -27,5 +28,35 @@ public class ExpenseSubCategory {
                     .orElse(null);
         }
         return null;
+    }
+
+
+    public static ExpenseSubCategory getSubcategoryByNumber(List<ExpenseSubCategory> list, Integer subCategoryNumber) {
+        ExpenseSubCategory subCategory = null;
+        if (subCategoryNumber != null) {
+            subCategory = list.stream()
+                    .filter(cat -> subCategoryNumber == cat.getSubCategoryNumber())
+                    .findFirst()
+                    .orElse(null);
+        }
+        if (subCategory == null) {
+            throw new EntityNotFoundException("Category was not found.");
+        }
+        return subCategory;
+    }
+
+
+    public static ExpenseSubCategory getSubcategoryByName(List<ExpenseSubCategory> list, String subCategoryName) {
+        ExpenseSubCategory subCategory = null;
+        if (subCategoryName != null) {
+            subCategory = list.stream()
+                    .filter(cat -> subCategoryName.equals(cat.getSubCategoryNumber()))
+                    .findFirst()
+                    .orElse(null);
+        }
+        if (subCategory == null) {
+            throw new EntityNotFoundException("Category was not found.");
+        }
+        return subCategory;
     }
 }

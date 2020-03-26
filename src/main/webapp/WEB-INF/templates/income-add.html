@@ -1,0 +1,112 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/fragments :: headerfiles">
+    </th:block>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/resources/css/expense-income.css}" type="text/css">
+    <script th:src="@{/resources/scripts/getSubCategories.js}"></script>
+    <script th:src="@{/resources/scripts/getCategories.js}"></script>
+
+    <title id="pageTitle" th:text="#{label.page.incomes.add}">Add Incomes</title>
+
+    <script th:inline="javascript">
+        $(document).ready(getCategoriesRequest(/*[[@{/configs/income-categories}]]*/))
+    </script>
+
+    <script>
+        $( function() {
+            $.datepicker.setDefaults(
+                $.datepicker.regional[getDatepickerLocale()]
+            );
+
+            $( "#created" ).datepicker({
+                dateFormat: "D, d MM"
+            }).datepicker('setDate', new Date());
+        } );
+    </script>
+
+    <script th:inline="javascript">
+        function getDatepickerLocale() {
+            /*<![CDATA[*/
+            var loc = /*[[${#locale}]]*/ 'en-GB';
+            /*]]>*/
+            if (loc === 'ru_RU') {
+                return 'ru';
+            } else {
+                return 'en-GB';
+            }
+        }
+    </script>
+
+    <script>
+        function submitForm() {
+            var date = $("#created").datepicker('getDate');
+            $("#created").val(date);
+        }
+    </script>
+</head>
+<body>
+<div th:replace="fragments/fragments :: navPanel"></div>
+<div th:replace="fragments/fragments :: sidePanel"></div>
+<div class="main">
+    <div class="create-card">
+        <div class="card bg-light mb-3" style="max-width: 50rem; min-width: 650px">
+            <div class="card-header"><h5><b th:text="#{label.page.incomes.add}">AddIncomes</b></h5></div>
+            <div class="card-body">
+
+                <form action="#" th:action="@{/income/add}" th:object="${income}" method="post" onsubmit="submitForm()">
+                    <input th:field="*{id}" name="id" type="hidden"/>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label for="amount" th:text="#{label.expense.amount}">Amount</label>
+                                <div class="input-group mb-3">
+                                    <input th:field="*{amount}" id="amount" type="text" class="form-control" th:placeholder="#{message.placeholder.amount}"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="category" th:text="#{label.expense.categoryName}">Category</label>
+                                <select th:value="*{categoryNumber}" name="categoryNumber" class="form-control" id="category" th:onchange="|getSubcategories('@{/configs/income-subcategories}')|">
+                                    <option value="" disabled selected th:text="#{message.placeholder.dropdown}">Dropdown</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subCategory" th:text="#{label.expense.subcategoryName}">SubCategory</label>
+                                <select th:value="*{subCategoryNumber}" name="subCategoryNumber" class="form-control" id="subCategory">
+                                    <option value="" disabled selected th:text="#{message.placeholder.dropdown}">Dropdown</option>
+                                </select>
+                            </div>
+                            <br/>
+                            <button type="submit" class="btn btn-primary" th:text="#{message.add}">Add</button>
+                        </div>
+
+                        <div class="col-sm-1"></div>
+
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <div class="form-group">
+                                        <label for="created" th:text="#{label.expense.created}">Created</label>
+                                        <input th:field="*{created}" id="created" type="text" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="comment" th:text="#{label.expense.comment}">Comment</label>
+                                <textarea class="form-control" th:field="*{comment}" id="comment" rows="5" th:placeholder="#{message.placeholder.comment}"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

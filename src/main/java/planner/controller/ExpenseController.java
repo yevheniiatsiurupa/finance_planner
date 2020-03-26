@@ -23,12 +23,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/expense")
 @SessionAttributes({"categories"})
-public class ExpensesController {
+public class ExpenseController {
 
     private final ExpenseService expenseService;
 
     @Autowired
-    public ExpensesController(ExpenseService expenseService) {
+    public ExpenseController(ExpenseService expenseService) {
         this.expenseService = expenseService;
     }
 

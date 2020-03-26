@@ -22,14 +22,16 @@ function reloadWithFilters() {
         var formatDate2 = $.datepicker.formatDate("dd-mm-yy", date2);
         requestParams += "createdMax=" + formatDate2 + "&";
     }
+
     var comment = document.querySelector('input[name="commentRadio"]:checked').value;
     if (comment !== "") {
         requestParams += "comment=" + comment + "&";
     }
-
-    var cache = document.querySelector('input[name="paymentRadio"]:checked').value;
-    if (cache !== "") {
-        requestParams += "cache=" + cache + "&";
+    if (document.querySelector('input[name="paymentRadio"]:checked') != null) {
+        var cache = document.querySelector('input[name="paymentRadio"]:checked').value;
+        if (cache !== "") {
+            requestParams += "cache=" + cache + "&";
+        }
     }
 
     if (requestParams.length > 1) {

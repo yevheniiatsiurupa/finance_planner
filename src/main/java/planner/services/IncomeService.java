@@ -31,28 +31,28 @@ public class IncomeService {
     }
 
     public List<Income> findAllFiltered(ExpenseIncomeFilter filterObj) {
-        IncomeSpecification IncomeSpec = new IncomeSpecification(filterObj);
-        return repository.findAll(IncomeSpec);
+        IncomeSpecification incomeSpec = new IncomeSpecification(filterObj);
+        return repository.findAll(incomeSpec);
     }
 
     public Page<Income> findAllFiltered(ExpenseIncomeFilter filterObj, Pageable pageable) {
-        IncomeSpecification IncomeSpec = new IncomeSpecification(filterObj);
-        return repository.findAll(IncomeSpec, pageable);
+        IncomeSpecification incomeSpec = new IncomeSpecification(filterObj);
+        return repository.findAll(incomeSpec, pageable);
     }
 
-    public void save(Income Income) {
-        repository.save(Income);
+    public void save(Income income) {
+        repository.save(income);
     }
 
     public Income findById(Integer id) {
-        Optional<Income> Income = repository.findById(id);
-        if (Income.isEmpty()) {
+        Optional<Income> income = repository.findById(id);
+        if (income.isEmpty()) {
             throw new EntityNotFoundException("Income is not found.");
         }
-        return Income.get();
+        return income.get();
     }
 
-    public void delete(Income Income) {
-        repository.delete(Income);
+    public void delete(Income income) {
+        repository.delete(income);
     }
 }

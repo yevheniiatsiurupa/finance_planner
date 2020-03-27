@@ -11,9 +11,9 @@ import java.util.Date;
  * Class represents planned expense record for user.
  */
 @Entity
-@Table(name = "expenses_planned")
+@Table(name = "incomes_planned")
 @Data
-public class ExpensePlanned {
+public class IncomePlanned {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

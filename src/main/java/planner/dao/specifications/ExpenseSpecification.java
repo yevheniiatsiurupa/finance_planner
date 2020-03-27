@@ -58,7 +58,7 @@ public class ExpenseSpecification implements Specification<Expense> {
         if (criteria.getCache() != null && !criteria.getCache().isEmpty()) {
             if (TEXT_TRUE.equals(criteria.getCache())) {
                 predicates.add(cb.isTrue(cache));
-            } else if (TEXT_FALSE.equals(criteria.getCache())){
+            } else if (TEXT_FALSE.equals(criteria.getCache())) {
                 predicates.add(cb.isFalse(cache));
             }
         }

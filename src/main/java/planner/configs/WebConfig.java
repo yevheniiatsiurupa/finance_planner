@@ -49,6 +49,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/current").setViewName("current");
+        registry.addViewController("/short-plan").setViewName("short-plan-main");
     }
 
     //thymeleaf

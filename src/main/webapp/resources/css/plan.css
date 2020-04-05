@@ -46,24 +46,24 @@
 }
 .plan-expense-block, .plan-income-block {
     margin: 10px;
-    padding: 20px;
-    background-color: #F8F5F0;
+    padding: 5px;
     min-height: 80%;
-    width: 45%;
+    width: 37%;
     display: inline-block;
     vertical-align: top;
 }
 .category-title {
-    letter-spacing: 2px;
-    text-decoration: underline;
-    font-weight: 700;
-    font-size: 12pt;
+    display: flex;
+    letter-spacing: 1px;
+    font-weight: 500;
     color: #393838;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     margin-top: 10px;
 }
 .category-marker {
     width: 5%;
+    text-decoration: none;
+
 }
 .category-marker, .category-name, .button-add, .button-delete, .subcat-name,.subcat-value,
 .subcat-value input, .subcat-comment, .subcat-value-text, .subcat-value-append, .subcat-value-text input{
@@ -73,14 +73,14 @@
 .subcategory {
     padding-right: 20px;
     padding-left: 5%;
-    font-weight: 300;
+    font-weight: 200;
     font-size: 10pt;
-    color: #393838;
-    line-height: 25px;
+    color: #575656;
+    line-height: 20px;
     display: flex;
 }
 .subcat-name {
-    width:30%;
+    width:35%;
 }
 .subcat-value {
     width:25%;
@@ -91,10 +91,9 @@
 .subcat-name,.subcat-value, .subcat-comment {
     background-clip: padding-box;
     border: 1px solid;
-    border-radius: 0;
+    border-radius: 0.25rem;
 }
 .subcat-name {
-    font-weight: 600;
     letter-spacing: 1px;
     padding-left: 5px;
     padding-right: 5px;
@@ -103,9 +102,15 @@
     background-color: #e1efcd;
     border-color: #c7e1a1
 }
+.income-color:hover {
+    background-color: #cddbb9;
+}
 .expense-color {
     background-color: #c6d2de;
     border-color: #94abc1;
+}
+.expense-color:hover {
+    background-color: #b2beca;
 }
 .subcat-value, .subcat-comment {
     background-color: #fff;
@@ -113,8 +118,9 @@
     display: flex;
 }
 .subcat-value-text input, .subcat-comment input {
-    line-height: 25px;
-    padding: 0 5px;
+    line-height: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
     border: 0 transparent;
 }
 .subcat-value-text {
@@ -159,14 +165,84 @@
     background-color: #a2a098;
 }
 .button-add, .button-delete{
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
 }
-
-
-
-
-
+.disable-color {
+    color: #8f8e8e;
+    background-color: rgb(235, 235, 228);
+    border-color: #DFD7CA;
+}
+.title-box {
+    width: 50%;
+    font-size: 14pt;
+    line-height: 22px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: #8f8e8e;
+}
+.menu-box {
+    margin: 10px;
+    padding: 10px 20px;
+    width: 20%;
+    background-color: #e7e7e7;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 9pt;
+    line-height: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    border-radius: 0.5rem;
+}
+.menu-box-title {
+    letter-spacing: 4px;
+    font-size: 10pt;
+    font-weight: 900;
+    color: #646363;
+}
+.menu-box-heading {
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-size: 9pt;
+    color: #8f8e8e;
+}
+section {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 10px;
+}
+section > * {
+    padding: 0;
+    margin: 0;
+}
+hr {
+    margin: 5px 0;
+}
+.dots {
+    flex: 1;
+    overflow: hidden;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.currency {
+    margin-left: 5px;
+}
+.total, .currency{
+    letter-spacing: 1px;
+    font-weight: 400;
+    font-size: 9pt;
+    color: #464545;
+    text-transform: none;
+}
+.spacing {
+    height: 10px;
+}
+.spacing-md {
+    height: 30px;
+}
+.spacing-lg {
+    height: 50px;
+}
 
 
 
@@ -187,18 +263,7 @@
     line-height: 22px;
     font-weight: 700;
 }
-.filters {
-    margin: 15px;
-    padding: 10px 20px;
-    width: 25%;
-    background-color: #e7e7e7;
-    display: inline-block;
-    vertical-align: top;
-    font-size: 9pt;
-    line-height: 22px;
-    font-weight: 500;
-    text-transform: uppercase;
-}
+
 .table-sm {
     text-align: center;
     margin-left: auto;
@@ -222,26 +287,12 @@
     padding-left: 15px;
     padding-right: 15px;
 }
-.filter-heading {
-    letter-spacing: 2px;
-    text-decoration: underline;
-    font-weight: 700;
-    font-size: 9pt;
-    color: #8f8e8e;
-}
-.filter-title {
-    letter-spacing: 4px;
-    font-size: 10pt;
-    font-weight: 900;
-    color: #646363;
-}
+
 .filter-select {
     margin-left: 15px;
     margin-right: 15px;
 }
-.spacing {
-    height: 10px;
-}
+
 .paging {
     padding-left: 10%;
 }
@@ -251,14 +302,7 @@
     width: 80%;
     height: 35px;
 }
-.title-box {
-    width: 50%;
-    font-size: 14pt;
-    line-height: 22px;
-    font-weight: 300;
-    letter-spacing: 4px;
-    color: #8f8e8e;
-}
+
 .message {
     margin-left: auto;
     margin-right: auto;

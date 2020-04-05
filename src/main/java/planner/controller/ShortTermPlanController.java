@@ -40,9 +40,15 @@ public class ShortTermPlanController {
 //    }
 
     @GetMapping("/add")
-    public String addExpense(Model model) {
+    public String addPlanStep1(Model model) {
         model.addAttribute("plan", new ShortTermPlan());
         return "short-plan-add";
+    }
+
+    @GetMapping("/add/plan-page")
+    public String addPlanStep2(Model model) {
+        model.addAttribute("plan", new ShortTermPlan());
+        return "short-plan-add-page";
     }
 
 //    @PostMapping("/add")

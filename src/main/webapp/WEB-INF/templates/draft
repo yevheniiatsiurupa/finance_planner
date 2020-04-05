@@ -1,0 +1,435 @@
+<div class="plan-expense-block">
+        <div class="category-group">
+            <div class="category-title">
+                <div class="category-marker">
+                    *
+                </div>
+                <div class="category-name">
+                    <span>Еда / Напитки</span>
+                </div>
+            </div>
+            <div class="subcategory">
+                <div class="subcat-name expense-color">
+                    Супермаркет
+                </div>
+                <div class="subcat-value">
+                    <div class="subcat-value-text">
+                        <input type="text" value="500"/>
+                    </div>
+                    <div class="subcat-value-append">
+                        <span>руб.</span>
+                    </div>
+                </div>
+                <div class="subcat-comment">
+                    <input type="text" placeholder="Комментарий"/>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="button-box">
+                        <img class="button-add" th:src="@{/resources/images/add-simple-white.png}">
+                    </button>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="button-box">
+                        <img class="button-delete" th:src="@{/resources/images/subtract-simple-white.png}">
+                    </button>
+                </div>
+            </div>
+            <div class="subcategory">
+                <div class="subcat-name expense-color">
+                    Рынок
+                </div>
+                <div class="subcat-value">
+                    <div class="subcat-value-text">
+                        <input type="text" value="1000"/>
+                    </div>
+                    <div class="subcat-value-append">
+                        <span>руб.</span>
+                    </div>
+                </div>
+                <div class="subcat-comment">
+                    <input type="text" placeholder="Комментарий"/>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="btn btn-secondary button-box">
+                        <img class="button-add" th:src="@{/resources/images/add-simple-white.png}">
+                    </button>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="btn btn-secondary button-box">
+                        <img class="button-delete" th:src="@{/resources/images/subtract-simple-white.png}">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-group">
+            <div class="category-title">
+                <div class="category-marker">
+                    *
+                </div>
+                <div class="category-name">
+                    <span>Еда / Напитки</span>
+                </div>
+            </div>
+            <div class="subcategory">
+                <div class="subcat-name expense-color">
+                    Супермаркет
+                </div>
+                <div class="subcat-value">
+                    <div class="subcat-value-text">
+                        <input type="text" value="500"/>
+                    </div>
+                    <div class="subcat-value-append">
+                        <span>руб.</span>
+                    </div>
+                </div>
+                <div class="subcat-comment">
+                    <input type="text" placeholder="Комментарий"/>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="button-box">
+                        <img class="button-add" th:src="@{/resources/images/add-simple-white.png}">
+                    </button>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="button-box">
+                        <img class="button-delete" th:src="@{/resources/images/subtract-simple-white.png}">
+                    </button>
+                </div>
+            </div>
+            <div class="subcategory">
+                <div class="subcat-name expense-color">
+                    Рынок
+                </div>
+                <div class="subcat-value">
+                    <div class="subcat-value-text">
+                        <input type="text" value="1000"/>
+                    </div>
+                    <div class="subcat-value-append">
+                        <span>руб.</span>
+                    </div>
+                </div>
+                <div class="subcat-comment">
+                    <input type="text" placeholder="Комментарий"/>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="btn btn-secondary button-box">
+                        <img class="button-add" th:src="@{/resources/images/add-simple-white.png}">
+                    </button>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="btn btn-secondary button-box">
+                        <img class="button-delete" th:src="@{/resources/images/subtract-simple-white.png}">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-group">
+            <div class="category-title">
+                <div class="category-marker">
+                    *
+                </div>
+                <div class="category-name">
+                    <span>Еда / Напитки</span>
+                </div>
+            </div>
+            <div class="subcategory">
+                <div class="subcat-name expense-color">
+                    Супермаркет
+                </div>
+                <div class="subcat-value">
+                    <div class="subcat-value-text">
+                        <input type="text" value="500"/>
+                    </div>
+                    <div class="subcat-value-append">
+                        <span>руб.</span>
+                    </div>
+                </div>
+                <div class="subcat-comment">
+                    <input type="text" placeholder="Комментарий"/>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="button-box">
+                        <img class="button-add" th:src="@{/resources/images/add-simple-white.png}">
+                    </button>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="button-box">
+                        <img class="button-delete" th:src="@{/resources/images/subtract-simple-white.png}">
+                    </button>
+                </div>
+            </div>
+            <div class="subcategory">
+                <div class="subcat-name expense-color">
+                    Рынок
+                </div>
+                <div class="subcat-value">
+                    <div class="subcat-value-text">
+                        <input type="text" value="1000"/>
+                    </div>
+                    <div class="subcat-value-append">
+                        <span>руб.</span>
+                    </div>
+                </div>
+                <div class="subcat-comment">
+                    <input type="text" placeholder="Комментарий"/>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="btn btn-secondary button-box">
+                        <img class="button-add" th:src="@{/resources/images/add-simple-white.png}">
+                    </button>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="btn btn-secondary button-box">
+                        <img class="button-delete" th:src="@{/resources/images/subtract-simple-white.png}">
+                    </button>
+                </div>
+            </div>
+            <div class="subcategory">
+                <div class="subcat-name expense-color">
+                    Рынок
+                </div>
+                <div class="subcat-value">
+                    <div class="subcat-value-text">
+                        <input type="text" value="1000"/>
+                    </div>
+                    <div class="subcat-value-append">
+                        <span>руб.</span>
+                    </div>
+                </div>
+                <div class="subcat-comment">
+                    <input type="text" placeholder="Комментарий"/>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="btn btn-secondary button-box">
+                        <img class="button-add" th:src="@{/resources/images/add-simple-white.png}">
+                    </button>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="btn btn-secondary button-box">
+                        <img class="button-delete" th:src="@{/resources/images/subtract-simple-white.png}">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="plan-income-block">
+        <div class="category-group">
+            <div class="category-title">
+                <div class="category-marker">
+                    *
+                </div>
+                <div class="category-name">
+                    <span>Еда / Напитки</span>
+                </div>
+            </div>
+            <div class="subcategory">
+                <div class="subcat-name income-color">
+                    Супермаркет
+                </div>
+                <div class="subcat-value">
+                    <div class="subcat-value-text">
+                        <input type="text" value="500"/>
+                    </div>
+                    <div class="subcat-value-append">
+                        <span>руб.</span>
+                    </div>
+                </div>
+                <div class="subcat-comment">
+                    <input type="text" placeholder="Комментарий"/>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="button-box">
+                        <img class="button-add" th:src="@{/resources/images/add-simple-white.png}">
+                    </button>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="button-box">
+                        <img class="button-delete" th:src="@{/resources/images/subtract-simple-white.png}">
+                    </button>
+                </div>
+            </div>
+            <div class="subcategory">
+                <div class="subcat-name income-color">
+                    Рынок
+                </div>
+                <div class="subcat-value">
+                    <div class="subcat-value-text">
+                        <input type="text" value="1000"/>
+                    </div>
+                    <div class="subcat-value-append">
+                        <span>руб.</span>
+                    </div>
+                </div>
+                <div class="subcat-comment">
+                    <input type="text" placeholder="Комментарий"/>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="btn btn-secondary button-box">
+                        <img class="button-add" th:src="@{/resources/images/add-simple-white.png}">
+                    </button>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="btn btn-secondary button-box">
+                        <img class="button-delete" th:src="@{/resources/images/subtract-simple-white.png}">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-group">
+            <div class="category-title">
+                <div class="category-marker">
+                    *
+                </div>
+                <div class="category-name">
+                    <span>Еда / Напитки</span>
+                </div>
+            </div>
+            <div class="subcategory">
+                <div class="subcat-name income-color">
+                    Супермаркет
+                </div>
+                <div class="subcat-value">
+                    <div class="subcat-value-text">
+                        <input type="text" value="500"/>
+                    </div>
+                    <div class="subcat-value-append">
+                        <span>руб.</span>
+                    </div>
+                </div>
+                <div class="subcat-comment">
+                    <input type="text" placeholder="Комментарий"/>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="button-box">
+                        <img class="button-add" th:src="@{/resources/images/add-simple-white.png}">
+                    </button>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="button-box">
+                        <img class="button-delete" th:src="@{/resources/images/subtract-simple-white.png}">
+                    </button>
+                </div>
+            </div>
+            <div class="subcategory">
+                <div class="subcat-name income-color">
+                    Рынок
+                </div>
+                <div class="subcat-value">
+                    <div class="subcat-value-text">
+                        <input type="text" value="1000"/>
+                    </div>
+                    <div class="subcat-value-append">
+                        <span>руб.</span>
+                    </div>
+                </div>
+                <div class="subcat-comment">
+                    <input type="text" placeholder="Комментарий"/>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="btn btn-secondary button-box">
+                        <img class="button-add" th:src="@{/resources/images/add-simple-white.png}">
+                    </button>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="btn btn-secondary button-box">
+                        <img class="button-delete" th:src="@{/resources/images/subtract-simple-white.png}">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-group">
+            <div class="category-title">
+                <div class="category-marker">
+                    *
+                </div>
+                <div class="category-name">
+                    <span>Еда / Напитки</span>
+                </div>
+            </div>
+            <div class="subcategory">
+                <div class="subcat-name income-color">
+                    Супермаркет
+                </div>
+                <div class="subcat-value">
+                    <div class="subcat-value-text">
+                        <input type="text" value="500"/>
+                    </div>
+                    <div class="subcat-value-append">
+                        <span>руб.</span>
+                    </div>
+                </div>
+                <div class="subcat-comment">
+                    <input type="text" placeholder="Комментарий"/>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="button-box">
+                        <img class="button-add" th:src="@{/resources/images/add-simple-white.png}">
+                    </button>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="button-box">
+                        <img class="button-delete" th:src="@{/resources/images/subtract-simple-white.png}">
+                    </button>
+                </div>
+            </div>
+            <div class="subcategory">
+                <div class="subcat-name income-color">
+                    Рынок
+                </div>
+                <div class="subcat-value">
+                    <div class="subcat-value-text">
+                        <input type="text" value="1000"/>
+                    </div>
+                    <div class="subcat-value-append">
+                        <span>руб.</span>
+                    </div>
+                </div>
+                <div class="subcat-comment">
+                    <input type="text" placeholder="Комментарий"/>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="btn btn-secondary button-box">
+                        <img class="button-add" th:src="@{/resources/images/add-simple-white.png}">
+                    </button>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="btn btn-secondary button-box">
+                        <img class="button-delete" th:src="@{/resources/images/subtract-simple-white.png}">
+                    </button>
+                </div>
+            </div>
+            <div class="subcategory">
+                <div class="subcat-name income-color">
+                    Рынок
+                </div>
+                <div class="subcat-value">
+                    <div class="subcat-value-text">
+                        <input type="text" value="1000"/>
+                    </div>
+                    <div class="subcat-value-append">
+                        <span>руб.</span>
+                    </div>
+                </div>
+                <div class="subcat-comment">
+                    <input type="text" placeholder="Комментарий"/>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="btn btn-secondary button-box">
+                        <img class="button-add" th:src="@{/resources/images/add-simple-white.png}">
+                    </button>
+                </div>
+                <div class="button-div">
+                    <button type="button" class="btn btn-secondary button-box">
+                        <img class="button-delete" th:src="@{/resources/images/subtract-simple-white.png}">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

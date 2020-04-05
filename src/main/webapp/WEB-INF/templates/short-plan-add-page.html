@@ -1,0 +1,121 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/fragments :: headerfiles">
+    </th:block>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/resources/css/plan.css}" type="text/css">
+    <script>document.write('<script src="../../resources/scripts/fillMonthPlans.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');</script>
+
+    <title th:text="#{label.page.plan.create}">Create Plan</title>
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            fillExpensesPlan(/*[[@{/configs/expense-categories}]]*/);
+            fillIncomesPlan(/*[[@{/configs/income-categories}]]*/);
+        });
+    </script>
+    <script>
+        $( function() {
+            $.datepicker.setDefaults(
+                $.datepicker.regional[getDatepickerLocale()]
+            );
+
+            let paramsString = window.location.href.split("?")[1];
+            let params = paramsString.split("&");
+
+            let startDate;
+            let endDate;
+            for (let i = 0; i < params.length; i++) {
+                let param = params[i];
+                if (param.startsWith("start")) {
+                    let dateData = param.split("=")[1].split("-");
+                    let year = Number(dateData[2]);
+                    let month = dateData[1] - 1;
+                    let day = Number(dateData[0]);
+
+                    startDate = new Date(year, month ,day );
+                }
+                if (param.startsWith("end")) {
+                    endDate = param.split("=")[1];
+                    let dateData = param.split("=")[1].split("-");
+                    let year = Number(dateData[2]);
+                    let month = dateData[1] - 1;
+                    let day = Number(dateData[0]);
+
+                    endDate = new Date(year, month ,day );
+                }
+            }
+
+            $( "#start-date" ).datepicker({
+                dateFormat: "dd.mm.yy"
+            }).datepicker('setDate', startDate);
+
+            $( "#end-date" ).datepicker({
+                dateFormat: "dd.mm.yy"
+            }).datepicker('setDate', endDate);
+        } );
+    </script>
+
+    <script th:inline="javascript">
+        function getDatepickerLocale() {
+            /*<![CDATA[*/
+            var loc = /*[[${#locale}]]*/ 'en-GB';
+            /*]]>*/
+            if (loc === 'ru_RU') {
+                return 'ru';
+            } else {
+                return 'en-GB';
+            }
+        }
+    </script>
+</head>
+<body>
+<div th:replace="fragments/fragments :: navPanel"></div>
+<div th:replace="fragments/fragments :: sidePanel"></div>
+<div class="main" id="main">
+    <div class="menu-box" id="right-menu">
+        <b class="menu-box-title" th:text="#{label.page.plan.create}">Filters</b>
+        <div class="spacing"></div>
+
+        <label for="start-date" class="menu-box-heading" th:text="#{message.placeholder.period.start}"></label>
+        <input id="start-date" type="text" class="form-control"/>
+        <div class="spacing"></div>
+
+        <label for="end-date" class="menu-box-heading" th:text="#{message.placeholder.period.end}"></label>
+        <input id="end-date" type="text" class="form-control"/>
+        <div class="spacing-lg"></div>
+
+        <div class="menu-box-heading">
+            <section>
+                <span th:text="#{label.plan.expenses.total}"></span>
+                <span class="dots">.......................................</span>
+                <span id="expenses-total" class="total">0</span>
+                <span class="currency" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
+            </section>
+        </div>
+        <div class="menu-box-heading">
+            <section>
+                <span th:text="#{label.plan.incomes.total}"></span>
+                <span class="dots">.......................................</span>
+                <span id="incomes-total" class="total">0</span>
+                <span class="currency" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
+            </section>
+        </div>
+        <hr>
+        <div class="menu-box-heading">
+            <section>
+                <span th:text="#{label.plan.difference}"></span>
+                <span class="dots">.......................................</span>
+                <span id="difference" class="total">0</span>
+                <span class="currency" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
+            </section>
+        </div>
+        <div class="spacing-md"></div>
+
+        <button type="button" class="btn btn-primary" th:text="#{label.button.save}" onclick="">Apply</button>
+        <div class="spacing"></div>
+    </div>
+</div>
+
+</body>
+</html>

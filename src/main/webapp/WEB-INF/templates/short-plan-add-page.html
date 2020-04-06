@@ -83,6 +83,10 @@
 
         <label for="end-date" class="menu-box-heading" th:text="#{message.placeholder.period.end}"></label>
         <input id="end-date" type="text" class="form-control"/>
+        <div class="spacing"></div>
+
+        <label for="plan-comment" class="menu-box-heading" th:text="#{label.expense.comment}"></label>
+        <textarea class="form-control"  id="plan-comment" rows="5" th:placeholder="#{message.placeholder.comment}"></textarea>
         <div class="spacing-lg"></div>
 
         <div class="menu-box-heading">
@@ -112,7 +116,7 @@
         </div>
         <div class="spacing-md"></div>
 
-        <button type="button" class="btn btn-primary" th:text="#{label.button.save}" onclick="">Apply</button>
+        <button type="button" class="btn btn-primary" th:text="#{label.button.save}" onclick="savePlan()">Apply</button>
         <div class="spacing"></div>
     </div>
 </div>

@@ -29,17 +29,19 @@ function fillExpenses(data) {
         let catNumber = category['categoryNumber'];
         let catId = "exp-cat-" + catNumber;
         let catHtml = `
-        <div class="category-group" id="${catId}">
-             <div class="category-title">
-                 <div class="category-marker">
-                 *
+        <div class="exp-cat">
+            <div class="category-group" id="${catId}">
+                 <div class="category-title">
+                     <div class="category-marker">
+                     *
+                     </div>
+                     <div class="category-name">
+                     <span>${category['categoryName']}</span>
+                     </div>
                  </div>
-                 <div class="category-name">
-                 <span>${category['categoryName']}</span>
-                 </div>
-             </div>
+            </div>
+            ${fillSubExpenses(category['subCategories'], catId)}
         </div>
-        ${fillSubExpenses(category['subCategories'], catId)}
         `;
         resultCat.push(catHtml);
     }
@@ -120,17 +122,19 @@ function fillIncomes(data) {
         let catNumber = category['categoryNumber'];
         let catId = "inc-cat-" + catNumber;
         let catHtml = `
-        <div class="category-group" id="$catId">
-             <div class="category-title">
-                 <div class="category-marker">
-                 *
+        <div class="inc-cat">
+            <div class="category-group" id="$catId">
+                 <div class="category-title">
+                     <div class="category-marker">
+                     *
+                     </div>
+                     <div class="category-name">
+                     <span>${category['categoryName']}</span>
+                     </div>
                  </div>
-                 <div class="category-name">
-                 <span>${category['categoryName']}</span>
-                 </div>
-             </div>
+            </div>
+            ${fillSubIncomes(category['subCategories'], catId)}
         </div>
-        ${fillSubIncomes(category['subCategories'], catId)}
         `;
         resultCat.push(catHtml);
     }
@@ -366,4 +370,109 @@ function updateTotalIncomes() {
     let expenses = document.getElementById('expenses-total').innerText;
     let difference = tot - expenses;
     document.getElementById('difference').innerText = String(difference);
+}
+
+function getCategoryName(cat) {
+    let nameElem = cat.getElementsByClassName("category-name")[0];
+    return nameElem.children[0].innerText;
+}
+
+function getSubcategoryName(subcat) {
+    return subcat.getElementsByClassName("subcat-name")[0].innerText;
+}
+
+function getSubcategoryValue(subcat) {
+    return subcat.getElementsByClassName("subcat-value-text")[0].children[0].value;
+}
+
+function getSubcategoryComment(subcat) {
+    return subcat.getElementsByClassName("subcat-comment")[0].children[0].value;
+}
+
+function makeSubcatObject(subcat) {
+    let subcatName = getSubcategoryName(subcat);
+    let subcatValue = getSubcategoryValue(subcat);
+    let subcatComment = getSubcategoryComment(subcat);
+    return {
+        amount: subcatValue,
+        comment: subcatComment,
+        subCategoryName: subcatName,
+        categoryName: ''
+    };
+}
+
+function getPlanComment() {
+    return document.getElementById("plan-comment").innerText;
+}
+
+function getPlanDate(dateId) {
+    return $(dateId).datepicker('getDate');
+}
+
+function getSubcatObjects(catClassName) {
+    let subcatObjects = [];
+    let cats = document.getElementsByClassName(catClassName);
+    for (let i = 0; i < cats.length; i++) {
+        let cat = cats[i];
+        let catName = getCategoryName(cat);
+        let subcats = cat.getElementsByClassName("subcategory");
+        for (let j = 0; j < subcats.length; j++) {
+            let subcat = subcats[j];
+            let subcatObj = makeSubcatObject(subcat);
+            if (subcatObj.amount !== '' && subcatObj.amount !== '0') {
+                subcatObj.categoryName = catName;
+                subcatObjects.push(subcatObj);
+            }
+        }
+    }
+    return subcatObjects;
+}
+
+function createShortPlanObject() {
+    let expenseObjects = getSubcatObjects("exp-cat");
+    let incomeObjects = getSubcatObjects("inc-cat");
+    let planComment = getPlanComment();
+    let startDate = getPlanDate("#start-date");
+    let endDate = getPlanDate("#end-date");
+    return {
+        comment: planComment,
+        startDate: startDate,
+        endDate: endDate,
+        expenses: expenseObjects,
+        incomes: incomeObjects
+    };
+}
+
+
+function savePlan() {
+    let planObj = createShortPlanObject();
+
+    $.ajax({
+        url: window.location.href,
+        type: 'post',
+        contentType: 'application/json',
+        data: JSON.stringify(planObj),
+        dataType: 'text',
+        success: function (data, status, settings) {
+            console.log(data);
+            showMessage(data);
+
+        }
+    })
+}
+
+function showMessage(data) {
+    document.getElementById("main").innerHTML = `
+            <div class="col-sm-7">
+                <div class="row">
+                    <h5>${data}</h5>
+                </div>
+                <br/>
+                <div class="row">
+                    <form action="../../"  method="get">
+                        <button type="submit" class="btn btn-outline-primary">На главную</button>
+                    </form>
+                </div>
+            </div>
+            `;
 }

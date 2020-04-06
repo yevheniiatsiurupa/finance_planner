@@ -32,6 +32,10 @@ public class ExpensePlannedService {
         repository.save(expense);
     }
 
+    public void saveAll(List<ExpensePlanned> expenses) {
+        repository.saveAll(expenses);
+    }
+
     public ExpensePlanned findById(Integer id) {
         Optional<ExpensePlanned> expense = repository.findById(id);
         if (expense.isEmpty()) {

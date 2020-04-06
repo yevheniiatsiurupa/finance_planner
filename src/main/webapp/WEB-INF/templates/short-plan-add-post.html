@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/fragments :: headerfiles">
+    </th:block>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/resources/css/expense-income.css}" type="text/css">
+    <title th:text="#{label.page.plan.create}">Create Plan</title>
+</head>
+<body>
+<div th:replace="fragments/fragments :: navPanel"></div>
+<div th:replace="fragments/fragments :: sidePanel"></div>
+<div class="main">
+    <div class="col-sm-7">
+        <div class="row">
+            <h5 th:text="|#{message.success.add} #{label.page.plan.short} #{label.from} ${start} #{label.to} ${end} |">Fill</h5>
+        </div>
+        <br/>
+        <div class="row">
+            <form th:action="@{/}"  method="get">
+                <button type="submit" class="btn btn-outline-primary" th:text="#{label.page.home.to}">Home</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

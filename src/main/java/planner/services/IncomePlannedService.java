@@ -32,6 +32,10 @@ public class IncomePlannedService {
         repository.save(income);
     }
 
+    public void saveAll(List<IncomePlanned> expenses) {
+        repository.saveAll(expenses);
+    }
+
     public IncomePlanned findById(Integer id) {
         Optional<IncomePlanned> income = repository.findById(id);
         if (income.isEmpty()) {

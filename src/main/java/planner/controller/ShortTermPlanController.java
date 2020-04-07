@@ -2,8 +2,13 @@ package planner.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import planner.entity.basic.Currency;
 import planner.entity.basic.UserAccount;
@@ -66,8 +71,10 @@ public class ShortTermPlanController {
         List<IncomePlanned> incomes = plan.getIncomes();
 
         plan.setUserAccount(userAccount);
+        plan.setCreated(new Date());
         plan.setExpenses(null);
         plan.setIncomes(null);
+        fillPlanName(locale, plan);
 
         planService.save(plan);
 
@@ -90,6 +97,15 @@ public class ShortTermPlanController {
         return getMessage(locale, plan.getStartDate(), plan.getEndDate());
     }
 
+    private void fillPlanName(Locale locale, ShortTermPlan plan) {
+        if (plan.getName() == null || plan.getName().isEmpty()) {
+            String planString = messageSource.getMessage("label.page.plan.short", null, locale);
+            DateFormat df = new SimpleDateFormat("-yyyy-MM", locale);
+            String dateString = df.format(plan.getStartDate());
+            plan.setName(planString + dateString);
+        }
+    }
+
     private String getMessage(Locale locale, Date start, Date end) {
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -100,5 +116,20 @@ public class ShortTermPlanController {
         String from = messageSource.getMessage("label.from", null, locale);
         String to = messageSource.getMessage("label.to", null, locale);
         return String.format("%s %s %s %s %s %s", message, plan, from, startString, to, endString);
+    }
+
+    @GetMapping("/all")
+    public String getPlans(Model model,
+                              @PageableDefault(sort = "created", direction = Sort.Direction.DESC, size = 15) Pageable pageable) {
+       Page<ShortTermPlan> plans = planService.findAll(pageable);
+        model.addAttribute("plansPaged", plans);
+        return "short-plan-all";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deletePlan(@PathVariable Integer id) {
+        ShortTermPlan plan = planService.findById(id);
+        planService.delete(plan);
+        return "redirect:/short-plan/all";
     }
 }

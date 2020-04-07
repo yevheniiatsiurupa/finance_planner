@@ -30,6 +30,9 @@ public class ShortTermPlan {
     @Column(name = "end_date")
     private Date endDate;
 
+    @Column(name = "created")
+    private Date created;
+
     @ManyToOne
     @JoinColumn(name = "user_account_id")
     private UserAccount userAccount;

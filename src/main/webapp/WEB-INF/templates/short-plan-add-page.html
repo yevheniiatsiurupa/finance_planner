@@ -85,9 +85,13 @@
         <input id="end-date" type="text" class="form-control"/>
         <div class="spacing"></div>
 
-        <label for="plan-comment" class="menu-box-heading" th:text="#{label.expense.comment}"></label>
-        <textarea class="form-control"  id="plan-comment" rows="5" th:placeholder="#{message.placeholder.comment}"></textarea>
-        <div class="spacing-lg"></div>
+        <label for="plan-name" class="menu-box-heading" th:text="#{label.plan.name}">Name</label>
+        <input id="plan-name" type="text" class="form-control"/>
+        <div class="spacing"></div>
+
+        <label for="plan-comment" class="menu-box-heading" th:text="#{label.plan.comment}">Comment</label>
+        <textarea class="form-control"  id="plan-comment" rows="3" th:placeholder="#{message.placeholder.comment}"></textarea>
+        <div class="spacing-md"></div>
 
         <div class="menu-box-heading">
             <section>
@@ -114,7 +118,7 @@
                 <span class="currency" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
             </section>
         </div>
-        <div class="spacing-md"></div>
+        <div class="spacing"></div>
 
         <button type="button" class="btn btn-primary" th:text="#{label.button.save}" onclick="savePlan()">Apply</button>
         <div class="spacing"></div>

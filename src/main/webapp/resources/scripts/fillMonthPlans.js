@@ -401,8 +401,12 @@ function makeSubcatObject(subcat) {
     };
 }
 
+function getPlanName() {
+    return document.getElementById("plan-name").value;
+}
+
 function getPlanComment() {
-    return document.getElementById("plan-comment").innerText;
+    return document.getElementById("plan-comment").value;
 }
 
 function getPlanDate(dateId) {
@@ -431,10 +435,12 @@ function getSubcatObjects(catClassName) {
 function createShortPlanObject() {
     let expenseObjects = getSubcatObjects("exp-cat");
     let incomeObjects = getSubcatObjects("inc-cat");
+    let planName = getPlanName();
     let planComment = getPlanComment();
     let startDate = getPlanDate("#start-date");
     let endDate = getPlanDate("#end-date");
     return {
+        name: planName,
         comment: planComment,
         startDate: startDate,
         endDate: endDate,

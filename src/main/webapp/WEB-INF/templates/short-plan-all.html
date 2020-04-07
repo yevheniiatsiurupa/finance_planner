@@ -4,7 +4,7 @@
 <head>
     <th:block th:include="fragments/fragments :: headerfiles">
     </th:block>
-    <link rel="stylesheet" th:href="@{/resources/css/expense-income.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/resources/css/plan.css}" type="text/css">
     <script th:src="@{/resources/scripts/reloaders.js}"></script>
     <title th:text="#{label.page.plan.all.my}">My Plans</title>
 
@@ -21,29 +21,35 @@
 <div class="main">
     <div class="main-table">
         <div class="row title-line">
-            <div class="title-box" style="width: 40%">
+            <div class="title-box">
                 <b th:text="#{label.page.plan.all.my}">My plans</b>
             </div>
             <div class="sorting-box" th:if="${plansPaged.totalPages > 0}">
                 <div class="sort-cell">
-                    <b th:text="#{label.plan.created.short}">Created</b>
-                    <input type="image" name="submit" th:src="@{/resources/images/down-dark.png}" onclick="reloadWithSort('created','desc')">
-                    <input type="image" name="submit" th:src="@{/resources/images/up-dark.png}" onclick="reloadWithSort('created','asc')">
+                    <b th:text="#{label.plan.name}">Name</b>
+                    <input type="image" name="submit" th:src="@{/resources/images/down-dark.png}" onclick="reloadWithSort('name','desc')">
+                    <input type="image" name="submit" th:src="@{/resources/images/up-dark.png}" onclick="reloadWithSort('name','asc')">
                 </div>
+                <div class="sort-cell">
+                    <b th:text="#{label.plan.total.exp}">Expenses</b>
+                    <input type="image" name="submit" th:src="@{/resources/images/down-dark.png}" onclick="reloadWithSort('totalExpenses','desc')">
+                    <input type="image" name="submit" th:src="@{/resources/images/up-dark.png}" onclick="reloadWithSort('totalExpenses','asc')">
+                </div>
+                <div class="sort-cell">
+                    <b th:text="#{label.plan.total.inc}">Incomes</b>
+                    <input type="image" name="submit" th:src="@{/resources/images/down-dark.png}" onclick="reloadWithSort('totalIncomes','desc')">
+                    <input type="image" name="submit" th:src="@{/resources/images/up-dark.png}" onclick="reloadWithSort('totalIncomes','asc')">
+                </div>
+
                 <div class="sort-cell">
                     <b th:text="#{label.plan.start.short}">Start</b>
                     <input type="image" name="submit" th:src="@{/resources/images/down-dark.png}" onclick="reloadWithSort('startDate','desc')">
                     <input type="image" name="submit" th:src="@{/resources/images/up-dark.png}" onclick="reloadWithSort('startDate','asc')">
                 </div>
                 <div class="sort-cell">
-                    <b th:text="#{label.plan.end.short}">End</b>
-                    <input type="image" name="submit" th:src="@{/resources/images/down-dark.png}" onclick="reloadWithSort('endDate','desc')">
-                    <input type="image" name="submit" th:src="@{/resources/images/up-dark.png}" onclick="reloadWithSort('endDate','asc')">
-                </div>
-                <div class="sort-cell">
-                    <b th:text="#{label.plan.name}">Name</b>
-                    <input type="image" name="submit" th:src="@{/resources/images/down-dark.png}" onclick="reloadWithSort('name','desc')">
-                    <input type="image" name="submit" th:src="@{/resources/images/up-dark.png}" onclick="reloadWithSort('name','asc')">
+                    <b th:text="#{label.plan.created.short}">Created</b>
+                    <input type="image" name="submit" th:src="@{/resources/images/down-dark.png}" onclick="reloadWithSort('created','desc')">
+                    <input type="image" name="submit" th:src="@{/resources/images/up-dark.png}" onclick="reloadWithSort('created','asc')">
                 </div>
             </div>
         </div>
@@ -51,27 +57,34 @@
             <table class="table-sm  table-hover" id="table">
                 <tr class="table-text table-active">
                     <th th:text="#{label.plan.name}">Name</th>
-                    <th th:text="#{label.plan.created}">Created</th>
-                    <th th:text="#{label.plan.comment}">Comment</th>
+                    <th th:text="#{label.plan.total.exp}">Expenses</th>
+                    <th th:text="#{label.plan.total.inc}">Incomes</th>
                     <th th:text="#{label.plan.start}">Start</th>
                     <th th:text="#{label.plan.end}">End</th>
+                    <th th:text="#{label.plan.comment}">Comment</th>
+                    <th th:text="#{label.plan.created}">Created</th>
+                    <th></th>
                     <th></th>
                     <th></th>
                 </tr>
                 <tr th:each="plan: ${plansPaged}" class="table-text table-default" >
-                    <td th:text="${plan.name}"></td>
-                    <td th:text="${#dates.format(plan.created, 'dd MMM yyyy')}"></td>
-                    <td th:text="${plan.comment}"></td>
+                    <td>
+                        <a th:href="@{/short-plan/{id}(id=${plan.id})}" href="#" th:text="${plan.name}">Name</a>
+                    </td>
+                    <td th:text="|${plan.totalExpenses} #{${plan.currency.sign}}|"></td>
+                    <td th:text="|${plan.totalIncomes} #{${plan.currency.sign}}|"></td>
                     <td th:text="${#dates.format(plan.startDate, 'dd MMM yyyy')}"></td>
                     <td th:text="${#dates.format(plan.endDate, 'dd MMM yyyy')}"></td>
+                    <td th:text="${plan.comment}"></td>
+                    <td th:text="${#dates.format(plan.created, 'dd MMM yyyy')}"></td>
                     <td>
-                        <form action="#" th:action="@{/short-plan/update/{id}(id=${plan.id})}" method="get" style="margin:0; padding:0">
-                            <input type="image" name="submit" th:src="@{/resources/images/edit.png}" width="20" height="20" style="margin:0; padding:2px">
+                        <form action="#" th:action="@{/short-plan/update/{id}(id=${plan.id})}" method="get" class="button-form">
+                            <input type="image" name="submit" th:src="@{/resources/images/edit.png}" width="20" height="20" class="button-image">
                         </form>
                     </td>
                     <td>
-                        <form action="#" th:action="@{/short-plan/delete/{id}(id=${plan.id})}" method="get" style="margin:0; padding:0" >
-                            <input type="image" name="submit" th:src="@{/resources/images/delete.png}" onclick="confirmDelete()" width="20" height="20" style="margin:0; padding:2px">
+                        <form action="#" th:action="@{/short-plan/delete/{id}(id=${plan.id})}" method="get" class="button-form">
+                            <input type="image" name="submit" th:src="@{/resources/images/delete.png}" onclick="confirmDelete()" width="20" height="20" class="button-image">
                         </form>
                     </td>
                 </tr>

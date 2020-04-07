@@ -74,6 +74,7 @@ public class ShortTermPlanController {
         plan.setCreated(new Date());
         plan.setExpenses(null);
         plan.setIncomes(null);
+        plan.setCurrency(currency);
         fillPlanName(locale, plan);
 
         planService.save(plan);

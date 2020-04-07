@@ -174,7 +174,7 @@
     border-color: #DFD7CA;
 }
 .title-box {
-    width: 50%;
+    width: 40%;
     font-size: 14pt;
     line-height: 22px;
     font-weight: 300;
@@ -243,21 +243,29 @@ hr {
 .spacing-lg {
     height: 50px;
 }
-
-
-
-
-
-
-
 .main-table {
     padding: 15px 0;
-    width: 70%;
+    width: 85%;
     display: inline-block;
     vertical-align: top;
     margin-left: auto;
     margin-right: auto;
 }
+.button-form {
+    margin: 0;
+    padding: 0;
+}
+.button-image {
+    margin: 0;
+    padding: 2px;
+}
+
+
+
+
+
+
+
 .table-text tr td th {
     font-size: 9pt;
     line-height: 22px;

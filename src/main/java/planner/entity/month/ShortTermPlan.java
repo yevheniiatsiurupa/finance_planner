@@ -1,6 +1,7 @@
 package planner.entity.month;
 
 import lombok.Data;
+import planner.entity.basic.Currency;
 import planner.entity.basic.UserAccount;
 
 import javax.persistence.*;
@@ -33,9 +34,19 @@ public class ShortTermPlan {
     @Column(name = "created")
     private Date created;
 
+    @Column(name = "total_expenses")
+    private int totalExpenses;
+
+    @Column(name = "total_incomes")
+    private int totalIncomes;
+
     @ManyToOne
     @JoinColumn(name = "user_account_id")
     private UserAccount userAccount;
+
+    @ManyToOne
+    @JoinColumn(name = "currency_id")
+    private Currency currency;
 
     @OneToMany(mappedBy = "shortTermPlan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ExpensePlanned> expenses;

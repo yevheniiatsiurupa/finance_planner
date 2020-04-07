@@ -413,6 +413,10 @@ function getPlanDate(dateId) {
     return $(dateId).datepicker('getDate');
 }
 
+function getPlanTotalExp(totalId) {
+    return document.getElementById(totalId).innerText;
+}
+
 function getSubcatObjects(catClassName) {
     let subcatObjects = [];
     let cats = document.getElementsByClassName(catClassName);
@@ -432,6 +436,8 @@ function getSubcatObjects(catClassName) {
     return subcatObjects;
 }
 
+
+
 function createShortPlanObject() {
     let expenseObjects = getSubcatObjects("exp-cat");
     let incomeObjects = getSubcatObjects("inc-cat");
@@ -439,13 +445,17 @@ function createShortPlanObject() {
     let planComment = getPlanComment();
     let startDate = getPlanDate("#start-date");
     let endDate = getPlanDate("#end-date");
+    let totalExp = getPlanTotalExp("expenses-total");
+    let totalInc = getPlanTotalExp("incomes-total");
     return {
         name: planName,
         comment: planComment,
         startDate: startDate,
         endDate: endDate,
         expenses: expenseObjects,
-        incomes: incomeObjects
+        incomes: incomeObjects,
+        totalExpenses: totalExp,
+        totalIncomes: totalInc
     };
 }
 

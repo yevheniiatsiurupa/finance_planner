@@ -5,54 +5,27 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <link rel="stylesheet" th:href="@{/resources/css/plan.css}" type="text/css">
-    <script>document.write('<script src=' + Math.floor(Math.random() * 100) + '"../../resources/scripts/plan-create.js?dev="\><\/script>');</script>
+    <script>document.write('<script src="../../resources/scripts/plan-update.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');</script>
 
-    <title th:text="#{label.page.plan.create}">Create Plan</title>
+    <title th:text="#{label.page.plan.update}">Update Plan</title>
     <script th:inline="javascript">
         $(document).ready(function () {
-            fillExpensesPlan(/*[[@{/configs/expense-categories}]]*/);
-            fillIncomesPlan(/*[[@{/configs/income-categories}]]*/);
+            loadPlanForUpdate();
         });
     </script>
-    <script>
+    <script th:inline="javascript">
         $( function() {
             $.datepicker.setDefaults(
                 $.datepicker.regional[getDatepickerLocale()]
             );
 
-            let paramsString = window.location.href.split("?")[1];
-            let params = paramsString.split("&");
-
-            let startDate;
-            let endDate;
-            for (let i = 0; i < params.length; i++) {
-                let param = params[i];
-                if (param.startsWith("start")) {
-                    let dateData = param.split("=")[1].split("-");
-                    let year = Number(dateData[2]);
-                    let month = dateData[1] - 1;
-                    let day = Number(dateData[0]);
-
-                    startDate = new Date(year, month ,day );
-                }
-                if (param.startsWith("end")) {
-                    endDate = param.split("=")[1];
-                    let dateData = param.split("=")[1].split("-");
-                    let year = Number(dateData[2]);
-                    let month = dateData[1] - 1;
-                    let day = Number(dateData[0]);
-
-                    endDate = new Date(year, month ,day );
-                }
-            }
-
             $( "#start-date" ).datepicker({
                 dateFormat: "dd.mm.yy"
-            }).datepicker('setDate', startDate);
+            }).datepicker('setDate', /*[[${plan.startDate}]]*/);
 
             $( "#end-date" ).datepicker({
                 dateFormat: "dd.mm.yy"
-            }).datepicker('setDate', endDate);
+            }).datepicker('setDate', /*[[${plan.endDate}]]*/);
         } );
     </script>
 
@@ -74,7 +47,7 @@
 <div th:replace="fragments/fragments :: sidePanel"></div>
 <div class="main" id="main">
     <div class="menu-box" id="right-menu">
-        <b class="menu-box-title" th:text="#{label.page.plan.create}">Menu</b>
+        <b class="menu-box-title" th:text="#{label.page.plan.update}">Menu</b>
         <div class="spacing"></div>
 
         <label for="start-date" class="menu-box-heading" th:text="#{message.placeholder.period.start}"></label>
@@ -86,18 +59,18 @@
         <div class="spacing"></div>
 
         <label for="plan-name" class="menu-box-heading" th:text="#{label.plan.name}">Name</label>
-        <input id="plan-name" type="text" class="form-control"/>
+        <input id="plan-name" type="text" class="form-control" th:value="${plan.name}"/>
         <div class="spacing"></div>
 
         <label for="plan-comment" class="menu-box-heading" th:text="#{label.plan.comment}">Comment</label>
-        <textarea class="form-control"  id="plan-comment" rows="3" th:placeholder="#{message.placeholder.comment}"></textarea>
+        <textarea class="form-control"  id="plan-comment" rows="3" th:placeholder="#{message.placeholder.comment}" th:text="${plan.comment}"></textarea>
         <div class="spacing-md"></div>
 
         <div class="menu-box-heading">
             <section>
                 <span th:text="#{label.plan.expenses.total}"></span>
                 <span class="dots">.......................................</span>
-                <span id="expenses-total" class="total">0</span>
+                <span id="expenses-total" class="total" th:text="${plan.totalExpenses}">0</span>
                 <span class="currency" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
             </section>
         </div>
@@ -105,7 +78,7 @@
             <section>
                 <span th:text="#{label.plan.incomes.total}"></span>
                 <span class="dots">.......................................</span>
-                <span id="incomes-total" class="total">0</span>
+                <span id="incomes-total" class="total" th:text="${plan.totalIncomes}">0</span>
                 <span class="currency" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
             </section>
         </div>
@@ -114,7 +87,7 @@
             <section>
                 <span th:text="#{label.plan.difference}"></span>
                 <span class="dots">.......................................</span>
-                <span id="difference" class="total">0</span>
+                <span id="difference" class="total" th:text="${plan.totalIncomes - plan.totalExpenses}">0</span>
                 <span class="currency" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
             </section>
         </div>

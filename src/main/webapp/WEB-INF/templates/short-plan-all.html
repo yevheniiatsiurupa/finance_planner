@@ -8,9 +8,9 @@
     <script th:src="@{/resources/scripts/reloaders.js}"></script>
     <title th:text="#{label.page.plan.all.my}">My Plans</title>
 
-    <script>
+    <script th:inline="javascript">
         function confirmDelete() {
-            var message = 'Are you sure?';
+            var message = /*[[#{message.warning.delete}]]*/ 'Are you sure?';
             return confirm(message);
         }
     </script>

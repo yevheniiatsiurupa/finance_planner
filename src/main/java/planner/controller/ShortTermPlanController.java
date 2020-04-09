@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import planner.entity.basic.Currency;
 import planner.entity.basic.UserAccount;
 import planner.entity.basic.UserAccountConfig;
+import planner.entity.basic.supplementary.ExpenseCategory;
+import planner.entity.basic.supplementary.IncomeCategory;
 import planner.entity.month.ExpensePlanned;
 import planner.entity.month.IncomePlanned;
 import planner.entity.month.ShortTermPlan;
@@ -132,5 +134,71 @@ public class ShortTermPlanController {
         ShortTermPlan plan = planService.findById(id);
         planService.delete(plan);
         return "redirect:/short-plan/all";
+    }
+
+    @GetMapping("/update/{id}")
+    public String updatePlan(@PathVariable Integer id, Model model) {
+        ShortTermPlan plan = planService.findById(id);
+        model.addAttribute("plan", plan);
+        return "short-plan-update-page";
+    }
+
+    @GetMapping("/{id}")
+    public String showPlan(@PathVariable int id, Model model) {
+        ShortTermPlan plan = planService.findById(id);
+        model.addAttribute("plan", plan);
+        return "short-plan";
+    }
+
+    @PostMapping(value = "/show/expenses", consumes = "text/plain")
+    @ResponseBody
+    public List<List<ExpensePlanned>> getExpensesByPlanId(@RequestBody String id, HttpSession session) {
+        int parsedId = Integer.parseInt(id);
+        ShortTermPlan plan = new ShortTermPlan();
+        plan.setId(parsedId);
+        List<ExpensePlanned> expensePlanned = expenseService.findByPlan(plan);
+
+        UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
+        List<ExpenseCategory> categories = accountConfig.getExpenseCategories();
+        return expenseService.getGroupedList(categories, expensePlanned, false);
+    }
+
+    @PostMapping(value = "/show/expenses-update", consumes = "text/plain")
+    @ResponseBody
+    public List<List<ExpensePlanned>> getExpensesByPlanIdForUpdate(@RequestBody String id, HttpSession session) {
+        int parsedId = Integer.parseInt(id);
+        ShortTermPlan plan = new ShortTermPlan();
+        plan.setId(parsedId);
+        List<ExpensePlanned> expensePlanned = expenseService.findByPlan(plan);
+
+        UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
+        List<ExpenseCategory> categories = accountConfig.getExpenseCategories();
+        return expenseService.getGroupedList(categories, expensePlanned, true);
+    }
+
+    @PostMapping(value = "/show/incomes", consumes = "text/plain")
+    @ResponseBody
+    public List<List<IncomePlanned>> getIncomesByPlanId(@RequestBody String id, HttpSession session) {
+        int parsedId = Integer.parseInt(id);
+        ShortTermPlan plan = new ShortTermPlan();
+        plan.setId(parsedId);
+        List<IncomePlanned> incomePlanned = incomeService.findByPlan(plan);
+
+        UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
+        List<IncomeCategory> categories = accountConfig.getIncomeCategories();
+        return incomeService.getGroupedList(categories, incomePlanned, false);
+    }
+
+    @PostMapping(value = "/show/incomes-update", consumes = "text/plain")
+    @ResponseBody
+    public List<List<IncomePlanned>> getIncomesByPlanIdForUpdate(@RequestBody String id, HttpSession session) {
+        int parsedId = Integer.parseInt(id);
+        ShortTermPlan plan = new ShortTermPlan();
+        plan.setId(parsedId);
+        List<IncomePlanned> incomePlanned = incomeService.findByPlan(plan);
+
+        UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
+        List<IncomeCategory> categories = accountConfig.getIncomeCategories();
+        return incomeService.getGroupedList(categories, incomePlanned, true);
     }
 }

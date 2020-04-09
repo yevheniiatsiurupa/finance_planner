@@ -1,14 +1,30 @@
-function fillExpensesPlan(urlVar) {
+function loadPlanForUpdate() {
+    let urlParts = window.location.href.split("?")[0].split("/");
+    let id = urlParts[urlParts.length - 1];
     $.ajax({
-        url: urlVar,
+        url: "../show/expenses-update",
+        type: 'post',
+        contentType: 'text/plain',
+        data: id,
         dataType: 'json',
         success: function (data, status, settings) {
-            fillExpenses(data);
+            fillExpensesForUpdate(data);
+            disableEmptyItems("plan-expense-block");
         }
-    })
+    });
+    $.ajax({
+        url: "../show/incomes-update",
+        type: 'post',
+        contentType: 'text/plain',
+        data: id,
+        dataType: 'json',
+        success: function (data, status, settings) {
+            fillIncomesForUpdate(data);
+            disableEmptyItems("plan-income-block");
+        }
+    });
 }
-
-function fillExpenses(data) {
+function fillExpensesForUpdate(data) {
     let arr = data;
     let root = document.createElement('div');
     root.classList.add("plan-expense-block");
@@ -25,8 +41,9 @@ function fillExpenses(data) {
     `;
     resultCat.push(intro);
     for (i = 0; i < arr.length; i++){
-        let category = arr[i];
-        let catNumber = category['categoryNumber'];
+        let itemList = arr[i];
+        let item = itemList[0];
+        let catNumber = item['categoryNumber'];
         let catId = "exp-cat-" + catNumber;
         let catHtml = `
         <div class="exp-cat">
@@ -36,11 +53,11 @@ function fillExpenses(data) {
                      *
                      </div>
                      <div class="category-name">
-                     <span>${category['categoryName']}</span>
+                     <span>${item['categoryName']}</span>
                      </div>
                  </div>
             </div>
-            ${fillSubExpenses(category['subCategories'], catId)}
+            ${fillSubExpensesForUpdate(itemList, catId)}
         </div>
         `;
         resultCat.push(catHtml);
@@ -51,28 +68,28 @@ function fillExpenses(data) {
     parentElem.insertBefore(root, parentElem.firstChild);
 }
 
-function fillSubExpenses(data, catId) {
+function fillSubExpensesForUpdate(data, catId) {
     let arr = data;
     let result = [];
     for (j = 0; j < arr.length; j++){
-        let subcategory = arr[j];
-        let subcatNumber = subcategory['subCategoryNumber'];
+        let item = arr[j];
+        let subcatNumber = item['subCategoryNumber'];
         let subcatId = catId + "-subcat-" + subcatNumber + "_0";
         let subcatHtml = `
         <div class="subcategory" id="${subcatId}">
            <div class="subcat-name expense-color">
-           ${subcategory['subCategoryName']}
+           ${item['subCategoryName']}
            </div>
            <div class="subcat-value">
               <div class="subcat-value-text">
-              <input name="exp-val" type="text" placeholder="0" onblur="updateTotalExpenses()"/>
+              <input name="exp-val" type="text" placeholder="0" onblur="updateTotalExpenses()" value="${item['amount']}"/>
               </div>
               <div class="subcat-value-append">
               <span>руб.</span>
               </div>
            </div>
            <div class="subcat-comment">
-           <input type="text" placeholder="Комментарий"/>
+           <input type="text" placeholder="Комментарий" value="${item['comment']}"/>
            </div>
            <div class="button-div">
               <button type="button" class="button-box" onclick="addPlanElement('${subcatId}')" title="Копировать">
@@ -91,17 +108,7 @@ function fillSubExpenses(data, catId) {
     return result.join('');
 }
 
-function fillIncomesPlan(urlVar) {
-    $.ajax({
-        url: urlVar,
-        dataType: 'json',
-        success: function (data, status, settings) {
-            fillIncomes(data);
-        }
-    })
-}
-
-function fillIncomes(data) {
+function fillIncomesForUpdate(data) {
     let arr = data;
     let root = document.createElement('div');
     root.classList.add("plan-income-block");
@@ -118,8 +125,9 @@ function fillIncomes(data) {
     `;
     resultCat.push(intro);
     for (i = 0; i < arr.length; i++){
-        let category = arr[i];
-        let catNumber = category['categoryNumber'];
+        let itemList = arr[i];
+        let item = itemList[0];
+        let catNumber = item['categoryNumber'];
         let catId = "inc-cat-" + catNumber;
         let catHtml = `
         <div class="inc-cat">
@@ -129,11 +137,11 @@ function fillIncomes(data) {
                      *
                      </div>
                      <div class="category-name">
-                     <span>${category['categoryName']}</span>
+                     <span>${item['categoryName']}</span>
                      </div>
                  </div>
             </div>
-            ${fillSubIncomes(category['subCategories'], catId)}
+            ${fillSubIncomesForUpdate(itemList, catId)}
         </div>
         `;
         resultCat.push(catHtml);
@@ -144,28 +152,28 @@ function fillIncomes(data) {
     parentElem.insertBefore(root, document.getElementById('right-menu'));
 }
 
-function fillSubIncomes(data, catId) {
+function fillSubIncomesForUpdate(data, catId) {
     let arr = data;
     let result = [];
     for (j = 0; j < arr.length; j++){
-        let subcategory = arr[j];
-        let subcatNumber = subcategory['subCategoryNumber'];
+        let item = arr[j];
+        let subcatNumber = item['subCategoryNumber'];
         let subcatId = catId + "-subcat-" + subcatNumber + "_0";
         let subcatHtml = `
         <div class="subcategory" id="${subcatId}">
            <div class="subcat-name income-color">
-           ${subcategory['subCategoryName']}
+           ${item['subCategoryName']}
            </div>
            <div class="subcat-value">
               <div class="subcat-value-text">
-              <input name="inc-val" type="text" placeholder="0" onblur="updateTotalIncomes()"/>
+              <input name="inc-val" type="text" placeholder="0" onblur="updateTotalIncomes()" value="${item['amount']}"/>
               </div>
               <div class="subcat-value-append">
               <span>руб.</span>
               </div>
            </div>
            <div class="subcat-comment">
-           <input type="text" placeholder="Комментарий"/>
+           <input type="text" placeholder="Комментарий" value="${item['comment']}"/>
            </div>
            <div class="button-div">
               <button type="button" class="button-box" onclick="addPlanElement('${subcatId}')" title="Копировать">
@@ -472,9 +480,8 @@ function savePlan() {
         success: function (data, status, settings) {
             console.log(data);
             showMessage(data);
-
         }
-    })
+    });
 }
 
 function showMessage(data) {
@@ -491,4 +498,16 @@ function showMessage(data) {
                 </div>
             </div>
             `;
+}
+
+function disableEmptyItems(rootId) {
+    let root = document.getElementById(rootId);
+    let subcats = root.getElementsByClassName("subcategory");
+    for (let i = 0; i < subcats.length; i++) {
+        let subcat = subcats[i];
+        let subcatValue = subcat.getElementsByClassName("subcat-value-text")[0].children[0].value;
+        if (subcatValue === '0') {
+            disableSubcategory(subcat.getAttribute('id'));
+        }
+    }
 }

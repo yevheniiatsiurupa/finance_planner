@@ -1,5 +1,6 @@
 package planner.entity.month;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import planner.entity.basic.Currency;
 import planner.entity.basic.UserAccount;
@@ -45,10 +46,12 @@ public class IncomePlanned {
 
     @ManyToOne
     @JoinColumn(name = "user_account_id")
+    @JsonIgnore
     private UserAccount userAccount;
 
     @ManyToOne
     @JoinColumn(name = "short_term_plan_id")
+    @JsonIgnore
     private ShortTermPlan shortTermPlan;
 
 }

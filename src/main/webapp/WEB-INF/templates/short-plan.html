@@ -1,0 +1,95 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/fragments :: headerfiles">
+    </th:block>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/resources/css/plan.css}" type="text/css">
+    <script>document.write('<script src="../resources/scripts/plan-show.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');</script>
+
+    <title th:text="#{label.page.plan.create}">Create Plan</title>
+    <script>
+        $(document).ready(function () {
+            loadPlan();
+        });
+    </script>
+    <script th:inline="javascript">
+        function confirmDelete() {
+            var message = /*[[#{message.warning.delete}]]*/ 'Are you sure?';
+            return confirm(message);
+        }
+    </script>
+</head>
+<body>
+<div th:replace="fragments/fragments :: navPanel"></div>
+<div th:replace="fragments/fragments :: sidePanel"></div>
+<div class="main" id="main">
+    <div class="menu-box" id="right-menu">
+        <b class="menu-box-title" th:text="#{label.page.plan.short}">Plan</b>
+        <div class="spacing"></div>
+
+        <label for="start-date" class="menu-box-heading" th:text="#{message.placeholder.period.start}"></label>
+        <textarea rows="1" id="start-date" class="form-control"
+                  th:text="${#dates.format(plan.startDate, 'dd MMM yyyy')}" disabled></textarea>
+        <div class="spacing"></div>
+
+        <label for="end-date" class="menu-box-heading" th:text="#{message.placeholder.period.end}"></label>
+        <textarea rows="1" id="end-date" class="form-control"
+                  th:text="${#dates.format(plan.endDate, 'dd MMM yyyy')}" disabled></textarea>
+        <div class="spacing"></div>
+
+        <label for="plan-name" class="menu-box-heading" th:text="#{label.plan.name}">Name</label>
+        <textarea rows="1" id="plan-name" class="form-control"
+                  th:text="${plan.name}" disabled></textarea>
+        <div class="spacing"></div>
+
+        <label for="plan-comment" class="menu-box-heading" th:text="#{label.plan.comment}">Comment</label>
+        <textarea class="form-control"  id="plan-comment" rows="3" th:text="${plan.comment}" disabled></textarea>
+        <div class="spacing-md"></div>
+
+        <div class="menu-box-heading">
+            <section>
+                <span th:text="#{label.plan.expenses.total}"></span>
+                <span class="dots">.......................................</span>
+                <span id="expenses-total" class="total" th:text="${plan.totalExpenses}">0</span>
+                <span class="currency" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
+            </section>
+        </div>
+        <div class="menu-box-heading">
+            <section>
+                <span th:text="#{label.plan.incomes.total}"></span>
+                <span class="dots">.......................................</span>
+                <span id="incomes-total" class="total" th:text="${plan.totalIncomes}">0</span>
+                <span class="currency" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
+            </section>
+        </div>
+        <hr>
+        <div class="menu-box-heading">
+            <section>
+                <span th:text="#{label.plan.difference}"></span>
+                <span class="dots">.......................................</span>
+                <span id="difference" class="total" th:text="${plan.totalIncomes - plan.totalExpenses}">0</span>
+                <span class="currency" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
+            </section>
+        </div>
+        <div class="spacing"></div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <form action="#" th:action="|@{/short-plan/update/}${plan.id}|" method="get">
+                    <button type="submit" class="btn btn-success" th:text="#{label.button.edit}">Edit</button>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <form action="#" th:action=|@{/short-plan/delete/}${plan.id}| method="get">
+                    <button type="submit" class="btn btn-danger" th:text="#{label.button.delete}" onclick="confirmDelete()">Delete</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="spacing"></div>
+    </div>
+</div>
+
+</body>
+</html>

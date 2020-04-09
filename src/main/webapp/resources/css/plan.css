@@ -126,9 +126,13 @@
 .subcat-value-text {
     width: 60%;
 }
-.subcat-value-text input {
+.subcat-value-text input{
     width: 100%;
     text-align: right;
+}
+.subcat-value-text span {
+    float: right;
+    padding-right: 5px;
 }
 .subcat-comment input {
     width: 100%;

@@ -1,0 +1,92 @@
+.title-box {
+    width: 40%;
+    font-size: 14pt;
+    line-height: 22px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: #8f8e8e;
+}
+.spacing {
+    height: 10px;
+}
+.spacing-md {
+    height: 30px;
+}
+.spacing-lg {
+    height: 50px;
+}
+.main-table {
+    padding: 15px 0;
+    width: 55%;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: auto;
+    margin-right: auto;
+}
+.button-form {
+    margin: 0;
+    padding: 0;
+}
+.button-image {
+    margin: 0;
+    padding: 2px;
+}
+.table-text tr td th {
+    font-size: 9pt;
+    line-height: 22px;
+    font-weight: 700;
+}
+
+.table-sm {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 10pt;
+    line-height: 22px;
+    font-weight: 500;
+    width: 80%;
+    min-height: 80%;
+}
+.table-sm th {
+    text-transform: uppercase;
+}
+.table-sm-left {
+    text-align: left;
+}
+.paging {
+    padding-left: 10%;
+}
+.title-line {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    height: 35px;
+}
+.message {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 12pt;
+    font-weight: 500;
+    width: 80%;
+    height: 35px;
+    letter-spacing: 2px;
+    color: #646363;
+    text-transform: uppercase;
+}
+.sorting-box {
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #3E3F3A;
+    text-transform: uppercase;
+}
+.sort-cell {
+    display: inline-block;
+    margin: 5px 8px;
+}
+.sort-cell input {
+    width: 13px;
+    height: 13px;
+    margin: 0;
+    vertical-align: text-bottom;
+}

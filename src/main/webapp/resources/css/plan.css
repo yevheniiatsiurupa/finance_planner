@@ -178,7 +178,7 @@
     border-color: #DFD7CA;
 }
 .title-box {
-    width: 40%;
+    width: 35%;
     font-size: 14pt;
     line-height: 22px;
     font-weight: 300;
@@ -285,6 +285,9 @@ hr {
     font-weight: 500;
     width: 80%;
     min-height: 80%;
+}
+.table-sm-left {
+    text-align: left;
 }
 .table-sm th {
     text-transform: uppercase;

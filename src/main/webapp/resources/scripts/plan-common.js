@@ -274,32 +274,22 @@ function createShortPlanObject() {
 }
 
 
-function savePlan() {
-    let planObj = createShortPlanObject();
-
-    $.ajax({
-        url: window.location.href,
-        type: 'post',
-        contentType: 'application/json',
-        data: JSON.stringify(planObj),
-        dataType: 'text',
-        success: function (data, status, settings) {
-            console.log(data);
-            showMessage(data);
-        }
-    });
-}
-
 function showMessage(data) {
     document.getElementById("main").innerHTML = `
             <div class="col-sm-7">
                 <div class="row">
-                    <h5>${data}</h5>
+                    <h5>${data['message']}</h5>
                 </div>
                 <br/>
                 <div class="row">
+                    <form action="../../short-plan"  method="get">
+                        <button type="submit" class="btn btn-outline-primary">${data['button1']}</button>
+                    </form>
+                </div>
+                <div class="spacing"></div>
+                <div class="row">
                     <form action="../../"  method="get">
-                        <button type="submit" class="btn btn-outline-primary">На главную</button>
+                        <button type="submit" class="btn btn-outline-primary">${data['button2']}</button>
                     </form>
                 </div>
             </div>

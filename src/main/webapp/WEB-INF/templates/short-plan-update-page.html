@@ -5,6 +5,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <link rel="stylesheet" th:href="@{/resources/css/plan.css}" type="text/css">
+    <script>document.write('<script src="../../resources/scripts/plan-common.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');</script>
     <script>document.write('<script src="../../resources/scripts/plan-update.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');</script>
 
     <title th:text="#{label.page.plan.update}">Update Plan</title>
@@ -21,11 +22,11 @@
 
             $( "#start-date" ).datepicker({
                 dateFormat: "dd.mm.yy"
-            }).datepicker('setDate', /*[[${plan.startDate}]]*/);
+            }).datepicker('setDate', new Date(/*[[${plan.startDate}]]*/));
 
             $( "#end-date" ).datepicker({
                 dateFormat: "dd.mm.yy"
-            }).datepicker('setDate', /*[[${plan.endDate}]]*/);
+            }).datepicker('setDate', new Date(/*[[${plan.endDate}]]*/));
         } );
     </script>
 
@@ -93,7 +94,7 @@
         </div>
         <div class="spacing"></div>
 
-        <button type="button" class="btn btn-primary" th:text="#{label.button.save}" onclick="savePlan()">Apply</button>
+        <button type="button" class="btn btn-primary" th:text="#{label.button.save}" onclick="updatePlan()">Apply</button>
         <div class="spacing"></div>
     </div>
 </div>

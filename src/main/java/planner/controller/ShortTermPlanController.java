@@ -25,9 +25,7 @@ import planner.services.ShortTermPlanService;
 import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Controller
 @RequestMapping("/short-plan")
@@ -60,11 +58,16 @@ public class ShortTermPlanController {
     }
 
     @Transactional
-    @PostMapping(value = "/add/plan-page", produces = "text/plain;charset=UTF-8")
+    @PostMapping(value = "/add/plan-page")
     @ResponseBody
-    public String addExpensePost(HttpSession session,
+    public Map<String, String> addPlanPost(HttpSession session,
                                  Locale locale,
                                  @RequestBody ShortTermPlan plan) {
+        savePlan(session, locale, plan, new Date());
+        return getMessage(locale, plan.getStartDate(), plan.getEndDate(), "add");
+    }
+
+    private void savePlan(HttpSession session, Locale locale, @RequestBody ShortTermPlan plan, Date created) {
         UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
         UserAccount userAccount = accountConfig.getUserAccount();
         Currency currency = accountConfig.getCurrency();
@@ -73,7 +76,7 @@ public class ShortTermPlanController {
         List<IncomePlanned> incomes = plan.getIncomes();
 
         plan.setUserAccount(userAccount);
-        plan.setCreated(new Date());
+        plan.setCreated(created);
         plan.setExpenses(null);
         plan.setIncomes(null);
         plan.setCurrency(currency);
@@ -83,21 +86,19 @@ public class ShortTermPlanController {
 
         expenses.forEach(expense -> {
             expense.setCurrency(currency);
-            expense.setCreated(new Date());
+            expense.setCreated(created);
             expense.setUserAccount(userAccount);
             expense.setShortTermPlan(plan);
         });
         incomes.forEach(income -> {
             income.setCurrency(currency);
-            income.setCreated(new Date());
+            income.setCreated(created);
             income.setUserAccount(userAccount);
             income.setShortTermPlan(plan);
         });
 
         expenseService.saveAll(expenses);
         incomeService.saveAll(incomes);
-
-        return getMessage(locale, plan.getStartDate(), plan.getEndDate());
     }
 
     private void fillPlanName(Locale locale, ShortTermPlan plan) {
@@ -109,16 +110,26 @@ public class ShortTermPlanController {
         }
     }
 
-    private String getMessage(Locale locale, Date start, Date end) {
+    private Map<String, String> getMessage(Locale locale, Date start, Date end, String keyEnd) {
+        Map<String, String> result = new HashMap<>();
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
 
         String startString = df.format(start);
         String endString = df.format(end);
-        String message = messageSource.getMessage("message.success.add", null, locale);
+        String fullKey = String.format("message.success.%s", keyEnd);
+        String message = messageSource.getMessage(fullKey, null, locale);
         String plan = messageSource.getMessage("label.page.plan.short", null, locale);
         String from = messageSource.getMessage("label.from", null, locale);
         String to = messageSource.getMessage("label.to", null, locale);
-        return String.format("%s %s %s %s %s %s", message, plan, from, startString, to, endString);
+
+        String returnMessage =  String.format("%s %s %s %s %s %s", message, plan, from, startString, to, endString);
+        String button1 = messageSource.getMessage("label.page.plan.month", null, locale);
+        String button2 = messageSource.getMessage("label.page.home.to", null, locale);
+
+        result.put("message", returnMessage);
+        result.put("button1", button1);
+        result.put("button2", button2);
+        return result;
     }
 
     @GetMapping("/all")
@@ -141,6 +152,20 @@ public class ShortTermPlanController {
         ShortTermPlan plan = planService.findById(id);
         model.addAttribute("plan", plan);
         return "short-plan-update-page";
+    }
+
+    @Transactional
+    @PostMapping(value = "/update/{id}")
+    @ResponseBody
+    public Map<String, String> updatePlanPost(@PathVariable Integer id,
+                                 HttpSession session,
+                                 Locale locale,
+                                 @RequestBody ShortTermPlan plan) {
+        ShortTermPlan planDelete = planService.findById(id);
+        Date created = planDelete.getCreated();
+        planService.delete(planDelete);
+        savePlan(session, locale, plan, created);
+        return getMessage(locale, plan.getStartDate(), plan.getEndDate(), "update");
     }
 
     @GetMapping("/{id}")
@@ -200,5 +225,13 @@ public class ShortTermPlanController {
         UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
         List<IncomeCategory> categories = accountConfig.getIncomeCategories();
         return incomeService.getGroupedList(categories, incomePlanned, true);
+    }
+
+    @GetMapping("/compare")
+    public String comparePlansMain(Model model,
+                           @PageableDefault(sort = "created", direction = Sort.Direction.DESC, size = 15) Pageable pageable) {
+        Page<ShortTermPlan> plans = planService.findAll(pageable);
+        model.addAttribute("plansPaged", plans);
+        return "short-plan-compare-main";
     }
 }

@@ -433,3 +433,80 @@
         </div>
     </div>
 </div>
+
+
+
+
+<tr>
+                            <td class="border-right">
+                                <div class="category">
+                                    <div class="category-marker">*</div>
+                                    <div class="category-name">
+                                        <span>Категория 1</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td class="border-left"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-right">
+                                <div class="subcategory">
+                                    <span>Подкатегория 1</span>
+                                </div>
+                            </td>
+                            <td>3000</td>
+                            <td>5000</td>
+                            <td class="text-danger border-left"><b>-2000</b></td>
+                        </tr>
+                        <tr>
+                            <td class="border-right">
+                                <div class="subcategory">
+                                    <span>Подкатегория 2</span>
+                                </div>
+                            </td>
+                            <td>20</td>
+                            <td>30</td>
+                            <td class="text-danger border-left"><b>-10</b></td>
+                        </tr>
+                        <tr>
+                            <td class="border-right">
+                                <div class="category">
+                                    <div class="category-marker">*</div>
+                                    <div class="category-name">
+                                        <span>Категория 2</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td class="border-left"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-right">
+                                <div class="subcategory">
+                                    <span>Подкатегория 1</span>
+                                </div>
+                            </td>
+                            <td>5000</td>
+                            <td>4000</td>
+                            <td class="text-success border-left"><b>+1000</b></td>
+                        </tr>
+                        <tr>
+                            <td class="border-right">
+                                <div class="subcategory">
+                                    <span>Подкатегория 2</span>
+                                </div>
+                            </td>
+                            <td>20</td>
+                            <td>47</td>
+                            <td class="text-danger border-left"><b>-27</b></td>
+                        </tr>
+                        <tr></tr>
+                        <tr class="border-top">
+                            <td class="border-right">Итог</td>
+                            <td>5000</td>
+                            <td>4000</td>
+                            <td class="text-success border-left"><b>+1000</b></td>
+                        </tr>

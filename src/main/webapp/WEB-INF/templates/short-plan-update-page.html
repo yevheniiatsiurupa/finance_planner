@@ -9,7 +9,7 @@
     <script>document.write('<script src="../../resources/scripts/plan-update.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');</script>
 
     <title th:text="#{label.page.plan.update}">Update Plan</title>
-    <script th:inline="javascript">
+    <script>
         $(document).ready(function () {
             loadPlanForUpdate();
         });

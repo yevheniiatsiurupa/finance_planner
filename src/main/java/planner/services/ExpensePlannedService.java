@@ -7,14 +7,20 @@ import org.springframework.stereotype.Service;
 import planner.dao.ExpensePlannedRepository;
 import planner.entity.basic.supplementary.ExpenseCategory;
 import planner.entity.basic.supplementary.ExpenseSubCategory;
+import planner.entity.month.Expense;
+import planner.entity.month.ExpenseIncomeComparison;
 import planner.entity.month.ExpensePlanned;
 import planner.entity.month.ShortTermPlan;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.summingInt;
 
 @Service
 public class ExpensePlannedService {
@@ -58,8 +64,8 @@ public class ExpensePlannedService {
     }
 
     public List<List<ExpensePlanned>> getGroupedList(List<ExpenseCategory> categories,
-                                                            List<ExpensePlanned> expenses,
-                                                            boolean needEmptyEntities) {
+                                                     List<ExpensePlanned> expenses,
+                                                     boolean needEmptyEntities) {
         List<List<ExpensePlanned>> resultList = new ArrayList<>();
         if (expenses == null || expenses.size() == 0) {
             return resultList;
@@ -101,5 +107,51 @@ public class ExpensePlannedService {
                 .filter(expense -> categoryName.equals(expense.getCategoryName()) &&
                         subcategoryName.equals(expense.getSubCategoryName()))
                 .collect(Collectors.toList());
+    }
+
+    public List<ExpenseIncomeComparison> getComparison(List<ExpensePlanned> listPlanned, List<Expense> listActual, List<ExpenseCategory> categories) {
+        Map<String, Map<String, Integer>> groupedPlanned = listPlanned.stream()
+                .collect(groupingBy(ExpensePlanned::getCategoryName,
+                        groupingBy(ExpensePlanned::getSubCategoryName, summingInt(ExpensePlanned::getAmount))));
+        Map<String, Map<String, Integer>> groupedActual = listActual.stream()
+                .collect(groupingBy(Expense::getCategoryName,
+                        groupingBy(Expense::getSubCategoryName, summingInt(Expense::getAmount))));
+        List<ExpenseIncomeComparison> result = new ArrayList<>();
+
+        categories.forEach(category -> {
+            String catName = category.getCategoryName();
+            ExpenseIncomeComparison comparison = new ExpenseIncomeComparison();
+            comparison.setCategoryName(catName);
+
+            List<ExpenseSubCategory> subCategories = category.getSubCategories();
+            subCategories.forEach(subcategory -> {
+                String subcatName = subcategory.getSubCategoryName();
+
+                Integer plannedValue = getValueFromMaps(catName, subcatName, groupedPlanned);
+                Integer actualValue = getValueFromMaps(catName, subcatName, groupedActual);
+
+                if (plannedValue != null || actualValue != null) {
+                    ExpenseIncomeComparison.Item compareItem =
+                            ExpenseIncomeComparison.Item.createItem(subcatName, plannedValue, actualValue);
+                    comparison.addItem(compareItem);
+                }
+            });
+
+            if (comparison.getComparisons().size() != 0) {
+                result.add(comparison);
+            }
+        });
+        return result;
+    }
+
+    private Integer getValueFromMaps(String catName, String subcatName, Map<String, Map<String, Integer>> map) {
+        if (catName == null || subcatName == null) {
+            return null;
+        }
+        Map<String, Integer> innerMap = map.get(catName);
+        if (innerMap == null) {
+            return null;
+        }
+        return innerMap.get(subcatName);
     }
 }

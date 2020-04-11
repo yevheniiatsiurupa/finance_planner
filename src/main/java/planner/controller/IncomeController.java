@@ -22,7 +22,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/income")
-@SessionAttributes({"categories"})
+@SessionAttributes({"incomeCategories"})
 public class IncomeController {
 
     private final IncomeService incomeService;
@@ -32,7 +32,7 @@ public class IncomeController {
         this.incomeService = incomeService;
     }
 
-    @ModelAttribute("categories")
+    @ModelAttribute("incomeCategories")
     public ArrayList<IncomeCategory> getCategories(HttpSession session) {
         UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
         return (ArrayList<IncomeCategory>) accountConfig.getIncomeCategories();
@@ -43,7 +43,7 @@ public class IncomeController {
     public String getIncomes(Model model,
                               ExpenseIncomeFilter filterObject,
                               @PageableDefault(sort = "created", direction = Sort.Direction.DESC, size = 15) Pageable pageable,
-                              @ModelAttribute("categories") ArrayList<IncomeCategory> categories) {
+                              @ModelAttribute("incomeCategories") ArrayList<IncomeCategory> categories) {
         List<IncomeSubCategory> subCategories;
         if (filterObject.getCategoryNumber() != null) {
             IncomeCategory category = IncomeCategory.getCategoryByNumber(categories, filterObject.getCategoryNumber());
@@ -73,7 +73,7 @@ public class IncomeController {
     @PostMapping("/add")
     public String addIncomePost(Model model, HttpSession session,
                                  @ModelAttribute("income") Income income,
-                                 @ModelAttribute("categories") List<IncomeCategory> categories) {
+                                 @ModelAttribute("incomeCategories") List<IncomeCategory> categories) {
         UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
         UserAccountConfig config = (UserAccountConfig) session.getAttribute("userAccountConfig");
         income.setUserAccount(userAccount);
@@ -89,7 +89,7 @@ public class IncomeController {
 
     @GetMapping("/update/{id}")
     public String updateIncome(@PathVariable Integer id,
-                                @ModelAttribute("categories") List<IncomeCategory> categories,
+                                @ModelAttribute("incomeCategories") List<IncomeCategory> categories,
                                 Model model) {
         Income income = incomeService.findById(id);
         model.addAttribute("income", income);
@@ -103,7 +103,7 @@ public class IncomeController {
     @PostMapping("/update")
     public String updateIncomePost(Model model,
                                     @ModelAttribute("income") Income income,
-                                    @ModelAttribute("categories") List<IncomeCategory> categories) {
+                                    @ModelAttribute("incomeCategories") List<IncomeCategory> categories) {
         fillCategoryNames(income, categories);
 
         incomeService.save(income);

@@ -22,7 +22,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/expense")
-@SessionAttributes({"categories"})
+@SessionAttributes({"expenseCategories"})
 public class ExpenseController {
 
     private final ExpenseService expenseService;
@@ -32,7 +32,7 @@ public class ExpenseController {
         this.expenseService = expenseService;
     }
 
-    @ModelAttribute("categories")
+    @ModelAttribute("expenseCategories")
     public ArrayList<ExpenseCategory> getCategories(HttpSession session) {
         UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
         return (ArrayList<ExpenseCategory>) accountConfig.getExpenseCategories();
@@ -43,7 +43,7 @@ public class ExpenseController {
     public String getExpenses(Model model,
                               ExpenseIncomeFilter filterObject,
                               @PageableDefault(sort = "created", direction = Sort.Direction.DESC, size = 15) Pageable pageable,
-                              @ModelAttribute("categories") ArrayList<ExpenseCategory> categories) {
+                              @ModelAttribute("expenseCategories") ArrayList<ExpenseCategory> categories) {
         List<ExpenseSubCategory> subCategories;
         if (filterObject.getCategoryNumber() != null) {
             ExpenseCategory category = ExpenseCategory.getCategoryByNumber(categories, filterObject.getCategoryNumber());
@@ -73,7 +73,7 @@ public class ExpenseController {
     @PostMapping("/add")
     public String addExpensePost(Model model, HttpSession session,
                                  @ModelAttribute("expense") Expense expense,
-                                 @ModelAttribute("categories") List<ExpenseCategory> categories) {
+                                 @ModelAttribute("expenseCategories") List<ExpenseCategory> categories) {
         UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
         UserAccountConfig config = (UserAccountConfig) session.getAttribute("userAccountConfig");
         expense.setUserAccount(userAccount);
@@ -89,7 +89,7 @@ public class ExpenseController {
 
     @GetMapping("/update/{id}")
     public String updateExpense(@PathVariable Integer id,
-                                @ModelAttribute("categories") List<ExpenseCategory> categories,
+                                @ModelAttribute("expenseCategories") List<ExpenseCategory> categories,
                                 Model model) {
         Expense expense = expenseService.findById(id);
         model.addAttribute("expense", expense);
@@ -103,7 +103,7 @@ public class ExpenseController {
     @PostMapping("/update")
     public String updateExpensePost(Model model,
                                     @ModelAttribute("expense") Expense expense,
-                                    @ModelAttribute("categories") List<ExpenseCategory> categories) {
+                                    @ModelAttribute("expenseCategories") List<ExpenseCategory> categories) {
         fillCategoryNames(expense, categories);
 
         expenseService.save(expense);

@@ -10,6 +10,7 @@ import planner.entity.filters.ExpenseIncomeFilter;
 import planner.entity.month.Income;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,5 +55,9 @@ public class IncomeService {
 
     public void delete(Income income) {
         repository.delete(income);
+    }
+
+    public List<Income> findByDateRange(Date start, Date end) {
+        return repository.findAllByCreatedBetween(start, end);
     }
 }

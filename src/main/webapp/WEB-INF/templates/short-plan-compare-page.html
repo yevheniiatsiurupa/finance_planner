@@ -1,0 +1,98 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:include="fragments/fragments :: headerfiles">
+    </th:block>
+    <link rel="stylesheet" th:href="@{/resources/css/plan-compare-full.css}" type="text/css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script>document.write('<script src="../../resources/scripts/plan-compare.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');</script>
+    <script>
+        $(document).ready(function () {
+            loadComparison();
+        });
+    </script>
+    <title th:text="#{label.plan.comparison.short}">Comparison</title>
+</head>
+<body>
+<div th:replace="fragments/fragments :: navPanel"></div>
+<div th:replace="fragments/fragments :: sidePanel"></div>
+<div class="main">
+    <div class="compare-main">
+        <div class="title-line">
+            <div class="title-box">
+                <b th:text="#{label.plan.comparison}"></b>
+            </div>
+            <div class="spacing-md"></div>
+            <div class="info-box">
+                <div class="info-box-column">
+                    <div class="fixed">
+                        <span><b th:text="|#{label.page.plan.short}:|">Plan:</b></span>
+                    </div>
+
+                    <span th:text="${plan.name}">PlanName</span>
+                </div>
+                <div class="info-box-column">
+                    <div class="fixed">
+                        <span><b th:text="|#{label.from}:|">From:</b></span>
+                    </div>
+                    <span th:text="${#dates.format(plan.startDate, 'dd MMM yyyy')}">StartDate</span>
+                    <br/>
+
+                    <div class="fixed">
+                        <span><b th:text="|#{label.to}:|">To:</b></span>
+                    </div>
+                    <span th:text="${#dates.format(plan.endDate, 'dd MMM yyyy')}">EndDate</span>
+                </div>
+            </div>
+            <div class="spacing-md"></div>
+        </div>
+        <div class="comparison-box">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#overall-box" th:text="#{label.plan.comparison.overall}">Overall</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#expenses-box" th:text="#{label.plan.comparison.expenses}">Expenses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#incomes-box" th:text="#{label.plan.comparison.incomes}">Profile</a>
+                </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade active show" id="overall-box">
+                    <table class="table-sm  table-hover" id="table-overall">
+                        <tr class="table-text table-secondary border-bottom">
+                            <th></th>
+                            <th th:text="#{label.plan.comparison.column.plan}">Planned</th>
+                            <th th:text="#{label.plan.comparison.column.actual}">Actual</th>
+                            <th th:text="#{label.plan.comparison.column.difference}">Difference</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="tab-pane fade show" id="expenses-box">
+                    <table class="table-sm  table-hover" id="table-expenses">
+                        <tr class="table-text table-secondary border-bottom">
+                            <th></th>
+                            <th th:text="#{label.plan.comparison.column.plan}">Planned</th>
+                            <th th:text="#{label.plan.comparison.column.actual}">Actual</th>
+                            <th th:text="#{label.plan.comparison.column.difference}">Difference</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="tab-pane fade show" id="incomes-box">
+                    <table class="table-sm  table-hover" id="table-incomes">
+                        <tr class="table-text table-secondary border-bottom">
+                            <th></th>
+                            <th th:text="#{label.plan.comparison.column.plan}">Planned</th>
+                            <th th:text="#{label.plan.comparison.column.actual}">Actual</th>
+                            <th th:text="#{label.plan.comparison.column.difference}">Difference</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -15,12 +15,8 @@ import planner.entity.basic.UserAccount;
 import planner.entity.basic.UserAccountConfig;
 import planner.entity.basic.supplementary.ExpenseCategory;
 import planner.entity.basic.supplementary.IncomeCategory;
-import planner.entity.month.ExpensePlanned;
-import planner.entity.month.IncomePlanned;
-import planner.entity.month.ShortTermPlan;
-import planner.services.ExpensePlannedService;
-import planner.services.IncomePlannedService;
-import planner.services.ShortTermPlanService;
+import planner.entity.month.*;
+import planner.services.*;
 
 import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
@@ -33,16 +29,22 @@ import java.util.*;
 public class ShortTermPlanController {
 
     @Autowired
-    private IncomePlannedService incomeService;
+    private IncomePlannedService incomePlannedService;
 
     @Autowired
-    private ExpensePlannedService expenseService;
+    private ExpensePlannedService expensePlannedService;
 
     @Autowired
     private ShortTermPlanService planService;
 
     @Autowired
     private MessageSource messageSource;
+
+    @Autowired
+    private ExpenseService expenseService;
+
+    @Autowired
+    private IncomeService incomeService;
 
     public ShortTermPlanController() {
     }
@@ -97,8 +99,8 @@ public class ShortTermPlanController {
             income.setShortTermPlan(plan);
         });
 
-        expenseService.saveAll(expenses);
-        incomeService.saveAll(incomes);
+        expensePlannedService.saveAll(expenses);
+        incomePlannedService.saveAll(incomes);
     }
 
     private void fillPlanName(Locale locale, ShortTermPlan plan) {
@@ -181,11 +183,11 @@ public class ShortTermPlanController {
         int parsedId = Integer.parseInt(id);
         ShortTermPlan plan = new ShortTermPlan();
         plan.setId(parsedId);
-        List<ExpensePlanned> expensePlanned = expenseService.findByPlan(plan);
+        List<ExpensePlanned> expensePlanned = expensePlannedService.findByPlan(plan);
 
         UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
         List<ExpenseCategory> categories = accountConfig.getExpenseCategories();
-        return expenseService.getGroupedList(categories, expensePlanned, false);
+        return expensePlannedService.getGroupedList(categories, expensePlanned, false);
     }
 
     @PostMapping(value = "/show/expenses-update", consumes = "text/plain")
@@ -194,11 +196,11 @@ public class ShortTermPlanController {
         int parsedId = Integer.parseInt(id);
         ShortTermPlan plan = new ShortTermPlan();
         plan.setId(parsedId);
-        List<ExpensePlanned> expensePlanned = expenseService.findByPlan(plan);
+        List<ExpensePlanned> expensePlanned = expensePlannedService.findByPlan(plan);
 
         UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
         List<ExpenseCategory> categories = accountConfig.getExpenseCategories();
-        return expenseService.getGroupedList(categories, expensePlanned, true);
+        return expensePlannedService.getGroupedList(categories, expensePlanned, true);
     }
 
     @PostMapping(value = "/show/incomes", consumes = "text/plain")
@@ -207,11 +209,11 @@ public class ShortTermPlanController {
         int parsedId = Integer.parseInt(id);
         ShortTermPlan plan = new ShortTermPlan();
         plan.setId(parsedId);
-        List<IncomePlanned> incomePlanned = incomeService.findByPlan(plan);
+        List<IncomePlanned> incomePlanned = incomePlannedService.findByPlan(plan);
 
         UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
         List<IncomeCategory> categories = accountConfig.getIncomeCategories();
-        return incomeService.getGroupedList(categories, incomePlanned, false);
+        return incomePlannedService.getGroupedList(categories, incomePlanned, false);
     }
 
     @PostMapping(value = "/show/incomes-update", consumes = "text/plain")
@@ -220,11 +222,11 @@ public class ShortTermPlanController {
         int parsedId = Integer.parseInt(id);
         ShortTermPlan plan = new ShortTermPlan();
         plan.setId(parsedId);
-        List<IncomePlanned> incomePlanned = incomeService.findByPlan(plan);
+        List<IncomePlanned> incomePlanned = incomePlannedService.findByPlan(plan);
 
         UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
         List<IncomeCategory> categories = accountConfig.getIncomeCategories();
-        return incomeService.getGroupedList(categories, incomePlanned, true);
+        return incomePlannedService.getGroupedList(categories, incomePlanned, true);
     }
 
     @GetMapping("/compare")
@@ -233,5 +235,47 @@ public class ShortTermPlanController {
         Page<ShortTermPlan> plans = planService.findAll(pageable);
         model.addAttribute("plansPaged", plans);
         return "short-plan-compare-main";
+    }
+
+    @GetMapping("/compare/{id}")
+    public String comparePlan(@PathVariable Integer id, Model model) {
+        ShortTermPlan plan = planService.findById(id);
+        model.addAttribute("plan", plan);
+        return "short-plan-compare-page";
+    }
+
+    @PostMapping(value = "/compare", consumes = "text/plain")
+    @ResponseBody
+    public Map<String, Object> comparePlanPost(@RequestBody String id, HttpSession session) {
+        int parsedId = Integer.parseInt(id);
+        ShortTermPlan plan = planService.findById(parsedId);
+
+        List<ExpensePlanned> expensePlanned = expensePlannedService.findByPlan(plan);
+        List<IncomePlanned> incomePlanned = incomePlannedService.findByPlan(plan);
+
+        Date start = plan.getStartDate();
+        Date end = plan.getEndDate();
+
+        List<Expense> expenseActual = expenseService.findByDateRange(start, end);
+        List<Income> incomeActual = incomeService.findByDateRange(start, end);
+
+        UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
+        List<ExpenseCategory> expCategories = accountConfig.getExpenseCategories();
+        List<IncomeCategory> incCategories = accountConfig.getIncomeCategories();
+
+        List<ExpenseIncomeComparison> expensesCompare =
+                expensePlannedService.getComparison(expensePlanned, expenseActual, expCategories);
+        List<ExpenseIncomeComparison> incomesCompare =
+                incomePlannedService.getComparison(incomePlanned, incomeActual, incCategories);
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("expensesCompare", expensesCompare);
+        resultMap.put("incomesCompare", incomesCompare);
+
+        resultMap.put("expensesPlannedSum", expensePlanned.stream().mapToInt(ExpensePlanned::getAmount).sum());
+        resultMap.put("expensesActualSum", expenseActual.stream().mapToInt(Expense::getAmount).sum());
+        resultMap.put("incomesPlannedSum", incomePlanned.stream().mapToInt(IncomePlanned::getAmount).sum());
+        resultMap.put("incomesActualSum", incomeActual.stream().mapToInt(Income::getAmount).sum());
+        return resultMap;
     }
 }

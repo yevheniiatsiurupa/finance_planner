@@ -1,0 +1,164 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:include="fragments/fragments :: headerfiles">
+    </th:block>
+    <link rel="stylesheet" th:href="@{/resources/css/categories-update.css}" type="text/css">
+    <script>document.write('<script src="../../resources/scripts/categories-update.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');</script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <title th:text="#{label.configs.categories.update}">Update Categories</title>
+</head>
+<body>
+<div th:replace="fragments/fragments :: navPanel"></div>
+<div th:replace="fragments/fragments :: sidePanel"></div>
+<div class="main">
+    <div class="config-main">
+        <div class="title-line">
+            <div class="title-box">
+                <b th:text="#{label.configs.categories.update}"></b>
+            </div>
+            <div class="spacing-md"></div>
+        </div>
+        <div class="config-box">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#expenses-box" th:text="#{label.plan.comparison.expenses}">Expenses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#incomes-box" th:text="#{label.plan.comparison.incomes}">Profile</a>
+                </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade show active" id="expenses-box">
+                    <div class="tab-box">
+                        <div class="card-box">
+                            <div th:each="category: ${expenseCategories}" class="card bg-light mb-3">
+                                <div class="card-body">
+                                    <div class="category">
+                                        <div class="card-box-col-lg border-right">
+                                            <div class="category-box">
+                                                <div class="category-marker">●</div>
+                                                <div class="category-input">
+                                                    <input type="text" class="form-control expense-color" th:value="${category.categoryName}"
+                                                           th:id="|exp-cat-${category.categoryNumber}|"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-box-col-sm">
+                                            <div class="button-box">
+                                                <button class="button-down" th:title="#{label.configs.categories.down}"
+                                                        th:onclick="|moveDownCategory('exp-cat-${category.categoryNumber}')|"></button>
+                                                <button class="button-up" th:title="#{label.configs.categories.up}"
+                                                        th:onclick="|moveUpCategory('exp-cat-${category.categoryNumber}')|"></button>
+                                                <button class="button-delete" th:title="#{label.configs.categories.delete}"
+                                                        th:onclick="|deleteCategory('exp-cat-${category.categoryNumber}')|"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="subcategories">
+                                        <div class="subcategory" th:each="subcategory: ${category.subCategories}">
+                                            <div class="card-box-col-lg border-right">
+                                                <div class="subcategory-input">
+                                                    <input type="text" class="form-control" th:value="${subcategory.subCategoryName}"
+                                                           th:id="|exp-cat-${category.categoryNumber}-subcat-${subcategory.subCategoryNumber}|"/>
+                                                </div>
+                                            </div>
+                                            <div class="card-box-col-sm">
+                                                <div class="button-box">
+                                                    <button class="button-down" th:title="#{label.configs.categories.down}"
+                                                            th:onclick="|moveDownSubcategory('exp-cat-${category.categoryNumber}-subcat-${subcategory.subCategoryNumber}')|"></button>
+                                                    <button class="button-up" th:title="#{label.configs.categories.up}"
+                                                            th:onclick="|moveUpSubcategory('exp-cat-${category.categoryNumber}-subcat-${subcategory.subCategoryNumber}')|"></button>
+                                                    <button class="button-delete" th:title="#{label.configs.categories.delete}"
+                                                            th:onclick="|deleteSubcategory('exp-cat-${category.categoryNumber}-subcat-${subcategory.subCategoryNumber}')|"></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="button-add-subcat">
+                                        <button class="btn btn-primary" th:onclick="|addSubcategory('exp-cat-${category.categoryNumber}')|">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-right">
+                            <button type="button" class="btn btn-primary btn-lg menu-button" th:text="#{label.configs.categories.add}" onclick="addExpenseCategory()">Добавить категорию</button>
+                            <div class="spacing"></div>
+
+                            <button type="button" class="btn btn-primary btn-lg menu-button" th:text="#{label.button.save}">Save</button>
+                            <div class="spacing-lg"></div>
+
+                            <button type="button" class="btn btn-secondary btn-lg menu-button" th:text="#{label.configs.categories.default}">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade show" id="incomes-box">
+                    <div class="tab-box">
+                        <div class="card-box">
+                            <div th:each="category: ${incomeCategories}" class="card bg-light mb-3">
+                                <div class="card-body">
+                                    <div class="category">
+                                        <div class="card-box-col-lg border-right">
+                                            <div class="category-box">
+                                                <div class="category-marker">●</div>
+                                                <div class="category-input">
+                                                    <input type="text" class="form-control income-color" th:value="${category.categoryName}"
+                                                           th:id="|inc-cat-${category.categoryNumber}|"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-box-col-sm">
+                                            <div class="button-box">
+                                                <button class="button-down" th:title="#{label.configs.categories.down}"
+                                                        th:onclick="|moveDownCategory('inc-cat-${category.categoryNumber}')|"></button>
+                                                <button class="button-up" th:title="#{label.configs.categories.up}"
+                                                        th:onclick="|moveUpCategory('inc-cat-${category.categoryNumber}')|"></button>
+                                                <button class="button-delete" th:title="#{label.configs.categories.delete}"
+                                                        th:onclick="|deleteCategory('inc-cat-${category.categoryNumber}')|"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="subcategories">
+                                        <div class="subcategory" th:each="subcategory: ${category.subCategories}">
+                                            <div class="card-box-col-lg border-right">
+                                                <div class="subcategory-input">
+                                                    <input type="text" class="form-control" th:value="${subcategory.subCategoryName}"
+                                                           th:id="|inc-cat-${category.categoryNumber}-subcat-${subcategory.subCategoryNumber}|"/>
+                                                </div>
+                                            </div>
+                                            <div class="card-box-col-sm">
+                                                <div class="button-box">
+                                                    <button class="button-down" th:title="#{label.configs.categories.down}"
+                                                            th:onclick="|moveDownSubcategory('inc-cat-${category.categoryNumber}-subcat-${subcategory.subCategoryNumber}')|"></button>
+                                                    <button class="button-up" th:title="#{label.configs.categories.up}"
+                                                            th:onclick="|moveUpSubcategory('inc-cat-${category.categoryNumber}-subcat-${subcategory.subCategoryNumber}')|"></button>
+                                                    <button class="button-delete" th:title="#{label.configs.categories.delete}"
+                                                            th:onclick="|deleteSubcategory('inc-cat-${category.categoryNumber}-subcat-${subcategory.subCategoryNumber}')|"></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="button-add-subcat">
+                                        <button class="btn btn-primary" th:onclick="|addSubcategory('inc-cat-${category.categoryNumber}')|">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-right">
+                            <button type="button" class="btn btn-primary btn-lg menu-button" th:text="#{label.configs.categories.add}" onclick="addIncomeCategory()">Добавить категорию</button>
+                            <div class="spacing"></div>
+
+                            <button type="button" class="btn btn-primary btn-lg menu-button" th:text="#{label.button.save}">Save</button>
+                            <div class="spacing-lg"></div>
+
+                            <button type="button" class="btn btn-secondary btn-lg menu-button" th:text="#{label.configs.categories.default}">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,194 @@
+.config-main {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+.config-box {
+    width: 60%
+}
+.title-box {
+    font-size: 14pt;
+    line-height: 22px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: #8f8e8e;
+    margin-top: 20px;
+}
+.spacing {
+    height: 10px;
+}
+.spacing-md {
+    height: 30px;
+}
+.spacing-lg {
+    height: 50px;
+}
+.tab-box {
+    display: flex;
+}
+.card-box, .menu-right, .card-box-col-lg, .card-box-col-sm, .category-input, .category-marker, .button-box {
+    display: inline-block;
+    vertical-align: top;
+}
+.card-box {
+    width: 55%;
+}
+.menu-right {
+    width: 45%
+}
+.card-body {
+    padding: 10px;
+}
+.card-box-col-lg{
+    width: 75%;
+    padding-right: 4px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+.card-box-col-sm{
+    width: 25%;
+    padding-left: 4px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+.category, .subcategory, .category-box, .button-box {
+    display: flex;
+}
+.category-marker {
+    width: 10%;
+    text-decoration: none;
+}
+.category-input {
+    width: 90%;
+}
+.subcategory-input {
+    padding-left: 20%;
+}
+.button-down, .button-up, .button-delete {
+    width: 20px;
+    height: 30px;
+    padding: 0 0;
+    display:block;
+    border: none;
+    outline:none;
+}
+.button-down {
+    background: transparent url(../../resources/images/arrow-down.png) no-repeat center center;
+    background-size: 80%;
+}
+.button-down:hover {
+    background:transparent url(../../resources/images/arrow-down-dark.png) center center no-repeat;
+    background-size: 80%;
+}
+.button-up {
+    background: transparent url(../../resources/images/arrow-up.png) no-repeat center center;
+    background-size: 80%;
+}
+.button-up:hover {
+    background:transparent url(../../resources/images/arrow-up-dark.png) center center no-repeat;
+    background-size: 80%;
+}
+.button-delete {
+    background: transparent url(../../resources/images/delete-line-red-lg.png) no-repeat center center;
+    background-size: 80%;
+}
+.button-delete:hover {
+    background:transparent url(../../resources/images/delete-line-red-lg-dark.png) center center no-repeat;
+    background-size: 80%;
+}
+.button-delete {
+    margin-left: 10px;
+}
+.button-add-subcat {
+    padding-left: 15%;
+    padding-right: calc(25% + 4px);
+}
+.button-add-subcat button {
+    margin-top: 10px;
+    width: 100%;
+    height: 15px;
+    line-height: 12px;
+    padding: 0;
+    font-size: 12pt;
+    font-weight: 700;
+}
+.expense-color {
+    background-color: rgba(50, 93, 136, 0.05);
+}
+.income-color {
+    background-color: rgba(147, 197, 75, 0.15);
+}
+.category-input input, .subcategory-input input {
+    height: 30px;
+    padding: 2px 4px;
+}
+.menu-right {
+    padding-left: 10%;
+}
+.menu-button {
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+/*.info-box-column {*/
+/*margin: 0 8px;*/
+/*max-width: 30%;*/
+/*font-size: 9pt;*/
+/*font-weight: 400;*/
+/*letter-spacing: 2px;*/
+/*color: #3E3F3A;*/
+/*}*/
+/*.info-box-column .fixed {*/
+/*min-width: 25px;*/
+/*font-weight: 700;*/
+/*}*/
+/*.category {*/
+/*display: flex;*/
+/*letter-spacing: 1px;*/
+/*font-weight: 500;*/
+/*color: #393838;*/
+/*}*/
+/*.category-marker {*/
+/*width: 10%;*/
+/*text-decoration: none;*/
+
+/*}*/
+/*.category-name {*/
+/*letter-spacing: 1px;*/
+/*font-weight: 500;*/
+/*color: #393838;*/
+/*}*/
+/*.subcategory {*/
+/*padding-right: 20px;*/
+/*padding-left: 20%;*/
+/*font-weight: 200;*/
+/*font-size: 10pt;*/
+/*color: #575656;*/
+/*line-height: 20px;*/
+/*display: flex;*/
+/*}*/
+/*.table-text tr td th {*/
+/*font-size: 9pt;*/
+/*line-height: 22px;*/
+/*font-weight: 700;*/
+/*}*/
+
+/*.table-sm {*/
+/*text-align: center;*/
+/*font-size: 10pt;*/
+/*line-height: 22px;*/
+/*font-weight: 500;*/
+/*width: 50%;*/
+/*}*/
+/*.table-sm th {*/
+/*text-transform: uppercase;*/
+/*}*/
+/*.table-sm-left {*/
+/*text-align: left;*/
+/*}*/

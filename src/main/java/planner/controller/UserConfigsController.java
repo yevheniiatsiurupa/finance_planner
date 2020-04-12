@@ -1,6 +1,7 @@
 package planner.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import planner.entity.basic.UserAccountConfig;
 import planner.entity.basic.supplementary.ExpenseCategory;
@@ -43,5 +44,16 @@ public class UserConfigsController {
                                                           HttpSession session) {
         UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
         return accountConfig.getIncomeSubCategories(categoryName);
+    }
+
+    @GetMapping("/categories/update")
+    public String updateCategories(HttpSession session, Model model) {
+        UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
+        List<ExpenseCategory> expenseCategories = accountConfig.getExpenseCategories();
+        List<IncomeCategory> incomeCategories = accountConfig.getIncomeCategories();
+
+        model.addAttribute("expenseCategories", expenseCategories);
+        model.addAttribute("incomeCategories", incomeCategories);
+        return "categories-update";
     }
 }

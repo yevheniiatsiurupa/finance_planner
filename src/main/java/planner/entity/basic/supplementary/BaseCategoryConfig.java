@@ -1,5 +1,6 @@
 package planner.entity.basic.supplementary;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class BaseCategoryConfig<T> {
      */
     private List<T> config;
 
+    @JsonIgnore
     public String getJsonString() throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(this);

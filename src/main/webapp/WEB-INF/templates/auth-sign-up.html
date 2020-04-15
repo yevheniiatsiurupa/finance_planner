@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/fragments :: headerfiles">
+    </th:block>
+    <link rel="stylesheet" th:href="@{/resources/css/auth.css}" type="text/css">
+    <title th:text="#{label.page.auth.signup}">Sign up</title>
+</head>
+<body>
+<div class="container">
+    <div class="card mb-3 reg-box">
+        <div class="card-header text-white bg-primary" th:text="#{label.page.auth.signup}">Signup</div>
+        <div class="card-body bg-light">
+            <div class="row">
+                <div th:if="${error != null}">
+                    <h5><p class="text-danger" th:text="${error}">Error text</p></h5>
+                    <div class="spacing"></div>
+                </div>
+            </div>
+
+            <form th:action="@{/sign-up}" th:object="${userAccount}" method="post" onsubmit="">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <b th:text="#{label.auth.info}">Basic Info</b>
+                        <hr/>
+
+                        <div class="form-group">
+                            <label for="username" th:text="#{label.user.login}">Login</label>:
+                            <input th:field="*{username}" class="form-control" type="text" id="username" autofocus="autofocus" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password" th:text="#{label.user.password}">Password</label>:
+                            <input th:field="*{password}" class="form-control" type="password" id="password"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" th:text="#{label.user.name}">Name</label>:
+                            <input th:field="*{name}" class="form-control" type="text" id="name"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" th:text="#{label.user.email}">Email</label>:
+                            <input th:field="*{email}" class="form-control" type="email" id="email" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <b th:text="#{label.auth.settigns}">Basic Settings</b>
+                        <hr/>
+
+                        <div class="form-group">
+                            <label for="currency" th:text="#{label.user.currency}">Currency</label>
+                            <select class="form-control" name="currId" id="currency">
+                                <option value="" disabled selected th:text="#{message.placeholder.dropdown}">Dropdown</option>
+                                <option th:each="curr: ${currencies}" th:value="${curr.id}" th:text="|${curr.sign} - #{__${curr.sign}__.name}|"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="spacing-md"></div>
+
+                <button type="submit" class="btn btn-outline-secondary button-long" th:text="#{label.button.signup}">Sign up</button>
+            </form>
+
+
+            <!--<form th:if="${error != null}" th:action="@{/login/process}" method="post">-->
+            <!--<div class="form-group has-danger">-->
+            <!--<label for="username" th:text="#{label.user.login}">Login</label>:-->
+            <!--<input class="form-control is-invalid" type="text" id="username" name="username" autofocus="autofocus" />-->
+            <!--</div>-->
+            <!--<div class="form-group has-danger">-->
+            <!--<label for="password" th:text="#{label.user.password}">Password</label>:-->
+            <!--<input class="form-control is-invalid" type="password" id="password" name="password" />-->
+            <!--</div>-->
+            <!--<div class="spacing-md"></div>-->
+
+            <!--<button type="submit" class="btn btn-outline-secondary button-long" th:text="#{label.button.signin}">Sign in</button>-->
+            <!--</form>-->
+        </div>
+    </div>
+</div>
+</body>
+</html>

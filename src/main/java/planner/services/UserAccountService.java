@@ -3,10 +3,8 @@ package planner.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import planner.dao.UserAccountConfigRepository;
 import planner.dao.UserAccountRepository;
 import planner.entity.basic.UserAccount;
-import planner.entity.basic.UserAccountConfig;
 
 import java.util.Optional;
 
@@ -29,5 +27,9 @@ public class UserAccountService {
 
     public UserAccount findByUsername(String username) {
         return repository.findByUsername(username);
+    }
+
+    public UserAccount save(UserAccount userAccount) {
+        return repository.save(userAccount);
     }
 }

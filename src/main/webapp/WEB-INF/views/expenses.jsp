@@ -13,7 +13,7 @@
     <spring:message code="label.expense.created" var="labelCreated"/>
     <spring:message code="label.currency.name" var="labelCurrencyName"/>
     <spring:message code="label.expense.cache" var="labelCache"/>
-    <spring:message code="label.userAccount.id" var="labelUserId"/>
+    <%--<spring:message code="label.userAccount.id" var="labelUserId"/>--%>
     <spring:message code="label.page.expenses" var="labelMyExpenses"/>
     <title>${labelMyExpenses}</title>
 </head>

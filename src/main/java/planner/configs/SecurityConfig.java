@@ -11,8 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.sql.DataSource;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackages = {"planner"})
@@ -41,11 +39,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests(authorizeRequests ->
-                        authorizeRequests
-                                .anyRequest().authenticated()
-                )
-                .formLogin(withDefaults())
-                .csrf().disable();
+                .authorizeRequests()
+                .antMatchers("/sign-up", "/login").anonymous()
+                .antMatchers("/resources/css/auth.css").anonymous()
+                .antMatchers("/resources/scripts/auth.js").anonymous()
+                .antMatchers("/**").authenticated()
+                .and().csrf().disable()
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login/process")
+                .defaultSuccessUrl("/")
+                .failureUrl("/login?error=true")
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/")
+                .and().logout();
     }
 }

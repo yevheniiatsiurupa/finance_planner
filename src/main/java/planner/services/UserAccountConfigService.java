@@ -28,4 +28,8 @@ public class UserAccountConfigService {
     public UserAccountConfig save(UserAccountConfig config) {
         return repository.save(config);
     }
+
+    public UserAccountConfig saveAnFlush(UserAccountConfig config) {
+        return repository.saveAndFlush(config);
+    }
 }

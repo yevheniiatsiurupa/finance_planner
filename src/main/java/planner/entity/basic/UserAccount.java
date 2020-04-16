@@ -19,22 +19,22 @@ public class UserAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Size(min = 3, message = "Login should have from 3 to 20 characters")
+    @Size(min = 3, message = "message.error.bad.login")
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Size(min = 3, max = 20, message = "Password should have from 3 to 20 characters")
+    @Size(min = 3, message = "message.error.bad.password")
     @Column(name = "password")
     private String password;
 
     @Column(name = "enabled")
     private boolean enabled;
 
-    @Size(min = 3, max = 20, message = "Name should have from 3 to 20 characters")
+    @Size(min = 3, message = "message.error.bad.name")
     @Column(name = "name")
     private String name;
 
-    @Email
+    @Email(message = "message.error.bad.email")
     @Column(name = "email")
     private String email;
 

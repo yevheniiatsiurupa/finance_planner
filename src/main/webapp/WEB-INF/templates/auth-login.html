@@ -12,7 +12,7 @@
         <div class="card-header text-white bg-primary" th:text="#{label.page.auth.login}">Login</div>
         <div class="card-body bg-light">
             <div th:if="${error}">
-                <h5><p class="text-danger" th:text="${error}">Error text</p></h5>
+                <h5><p class="text-danger" th:text="#{${error}}">Error text</p></h5>
                 <div class="spacing"></div>
             </div>
 

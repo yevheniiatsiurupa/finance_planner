@@ -24,3 +24,6 @@ hr {
     margin-top: 5px;
     margin-bottom: 30px;
 }
+.form-control.is-invalid.no-image {
+    background-image: none;
+}

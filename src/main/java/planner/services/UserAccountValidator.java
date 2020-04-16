@@ -21,8 +21,7 @@ public class UserAccountValidator implements Validator {
     public void validate(Object target, Errors errors) {
         UserAccount userAccount = (UserAccount) target;
         if (accountService.findByUsername(userAccount.getUsername()) != null) {
-            //TODO
-            errors.rejectValue("username", "", "This login is already in use");
+            errors.rejectValue("username", "", "message.error.bad.login.used");
         }
     }
 }

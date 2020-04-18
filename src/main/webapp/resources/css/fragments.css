@@ -1,0 +1,67 @@
+.my-nav-bar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+
+}
+.nav-brand-box, .nav-main-box, .nav-user-box, .nav-button {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.nav-brand-box {
+    width: 160px;
+    margin-right: 0;
+    padding: 0.5rem 16px;
+}
+.nav-main-box {
+    padding: 0.5rem 0;
+}
+.nav-user-box {
+    min-width: 110px;
+    margin-left: 0;
+    margin-right: 120px;
+    height: 100%;
+    float: right;
+    padding:0;
+}
+.nav-user-box:hover {
+    background-color: #2f2f2f;
+    cursor: pointer;
+}
+.btn-user {
+    width: 30px;
+    height: 30px;
+    padding: 0 0;
+    display:block;
+    border: none;
+    border-radius: 50%;
+    outline:none;
+}
+.btn-user {
+    background: #efefef url(../../resources/images/user-default.png) no-repeat center center;
+    background-size: 80%;
+}
+.user-group {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 16px 5px;
+}
+a.user-link {
+    color: rgba(255, 255, 255, 0.5);
+}
+.no-padding {
+    padding: 0;
+}
+.spacing {
+    height: 10px;
+}
+.spacing-md {
+    height: 30px;
+}
+.spacing-lg {
+    height: 50px;
+}

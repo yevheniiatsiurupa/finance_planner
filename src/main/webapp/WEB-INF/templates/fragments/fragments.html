@@ -6,10 +6,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://bootswatch.com/_vendor/popper.js/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
     <script th:src="@{/resources/scripts/i18n/datepicker-en-GB.js}"></script>
     <script th:src="@{/resources/scripts/i18n/datepicker-ru.js}"></script>
     <link rel="stylesheet" th:href="@{/resources/css/side-bar.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/resources/css/fragments.css}" type="text/css">
 
     <style>
         body {
@@ -19,7 +22,7 @@
     <style th:inline="text">
         .btn-expense {
             width: 38px;
-            height: auto;
+            height: 38px;
             background:url([[@{/resources/images/expense.png}]]) center center no-repeat;
             background-size: 70% 70%;
             padding: 0 0;
@@ -34,7 +37,7 @@
     <style th:inline="text">
         .btn-income {
             width: 38px;
-            height: auto;
+            height: 38px;
             background:url([[@{/resources/images/income.png}]]) center center no-repeat;
             background-size: 70% 70%;
             padding: 0 0;
@@ -47,28 +50,31 @@
     </style>
 </head>
 <body>
-<nav th:fragment="navPanel" class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary" style="padding-left: 0">
-    <a class="navbar-brand" th:href="@{/}" style="padding-left: 16px; width: 160px; margin-right: 0">Planner</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<div th:fragment="navPanel" class="my-nav-bar navbar-dark bg-primary">
+    <div class="nav-brand-box">
+        <a class="navbar-brand" th:href="@{/}">Planner</a>
 
-    <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav mr-auto">
-            <a class="nav-link btn-expense" th:href="@{/expense/add}" th:title="#{label.page.expenses.add.title}"></a>
-            <a class="nav-link btn-income" th:href="@{/income/add}" th:title="#{label.page.incomes.add.title}"></a>
-            <li class="nav-item">
-                <a class="nav-link" href="#" th:text="#{label.page.incomes}">Incomes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" th:text="#{label.page.accounts}">Accounts</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/configs/categories/update}" href="#" th:text="#{label.page.settings}">Settings</a>
-            </li>
-        </ul>
     </div>
-</nav>
+    <div class="nav-main-box">
+        <div class="nav-button"><a class="nav-link btn-expense" th:href="@{/expense/add}" th:title="#{label.page.expenses.add.title}"></a></div>
+        <div class="nav-button"><a class="nav-link btn-income" th:href="@{/income/add}" th:title="#{label.page.incomes.add.title}"></a></div>
+    </div>
+    <div class="nav-user-box navbar-nav dropdown">
+        <a class="nav-link dropdown-toggle no-padding" id="user-dropdown" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+            <span class="user-group" th:text="${session.userAccount.name}">Name</span>
+            <button class="btn-user user-group"></button>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="user-dropdown">
+            <a class="dropdown-item" th:href="@{/user/my-account}" th:text="#{label.user.my.account}">My account</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" th:href="@{/user/edit}" th:text="#{label.user.edit}">Edit</a>
+            <a class="dropdown-item" th:href="@{/user/change-pass}" th:text="#{label.user.change.pass}">Change pass</a>
+            <a class="dropdown-item" th:href="@{/configs/all}" th:text="#{label.user.settings}">Settings</a>
+            <div class="dropdown-divider" th:text="#{label.user.my.account}"></div>
+            <a class="dropdown-item" th:href="@{/logout}" th:text="#{label.user.logout}">Logout</a>
+        </div>
+    </div>
+</div>
 <div th:fragment="sidePanel" class="sidenav">
     <br/>
     <a class="nav-link" th:href="@{/current}" th:text="#{label.page.current}">Current</a>

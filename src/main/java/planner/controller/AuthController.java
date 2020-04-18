@@ -68,7 +68,7 @@ public class AuthController {
             return "auth-sign-up";
         }
 
-        accountService.save(configureUserAccount(userAccount));
+        accountService.saveWithEncode(configureUserAccount(userAccount));
         configService.save(configureUserAccountConfig(userAccount, currId));
         return "redirect:/login";
     }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/fragments :: headerfiles">
+    </th:block>
+    <link rel="stylesheet" th:href="@{/resources/css/user.css}" type="text/css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title th:text="#{label.user.settings.basic}">Basic settings</title>
+</head>
+<body>
+<div th:replace="fragments/fragments :: navPanel"></div>
+<div th:replace="fragments/fragments :: sidePanel"></div>
+<div class="main container">
+    <div th:if="${message == 'ok'}" class="alert-box alert alert-dismissible alert-light">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong th:text="#{message.success.change.save}">Message</strong>
+    </div>
+
+    <div class="info-box">
+        <div class="info-title border-bottom">
+            <h4 th:text="#{label.user.settings.basic}">Basic settings</h4>
+        </div>
+        <div class="spacing-md"></div>
+
+        <form th:action="@{/configs/basic}" method="post">
+            <div class="info-body has-padding">
+                <div class="currency-box">
+                    <div class="form-group">
+                        <label for="currency" th:text="#{label.user.currency}">Currency</label>
+                        <select class="form-control" name="currency" id="currency">
+                            <option th:each="curr: ${currencies}" th:value="${curr.id}" th:text="|${curr.sign} - #{__${curr.sign}__.name}|"
+                                    th:selected="${curr.id == session.userAccountConfig.currency.id}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="spacing-lg"></div>
+
+            <div class="col-5">
+                <button type="submit" class="btn btn-primary button-long" th:text="#{label.button.save}">Save</button>
+            </div>
+        </form>
+        <div class="spacing"></div>
+
+        <div class="col-5">
+            <form th:action="@{/configs/all}" method="get">
+                <button type="submit" class="btn btn-secondary button-long" th:text="#{label.user.settings}">Settings</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

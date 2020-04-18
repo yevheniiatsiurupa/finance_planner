@@ -32,4 +32,8 @@ public class UserAccountConfigService {
     public UserAccountConfig saveAnFlush(UserAccountConfig config) {
         return repository.saveAndFlush(config);
     }
+
+    public void delete(UserAccountConfig config) {
+        repository.delete(config);
+    }
 }

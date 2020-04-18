@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/fragments :: headerfiles">
+    </th:block>
+    <link rel="stylesheet" th:href="@{/resources/css/user.css}" type="text/css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title th:text="#{label.user.changing.pass}">Changing pass</title>
+</head>
+<body>
+<div th:replace="fragments/fragments :: navPanel"></div>
+<div th:replace="fragments/fragments :: sidePanel"></div>
+<div class="main container">
+    <div th:if="${message == 'ok'}" class="alert-box alert alert-dismissible alert-light">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong th:text="#{message.success.change.save}">Message</strong>
+    </div>
+
+    <div class="info-box">
+        <div class="info-title border-bottom">
+            <h4 th:text="#{label.user.changing.pass}">Changing pass</h4>
+        </div>
+        <div class="spacing-md"></div>
+
+        <form th:action="@{/user/change-pass}" method="post">
+        <div class="info-body has-padding">
+            <div class="pass-box">
+                <div th:class="${oldPass == null ? 'form-group' : 'form-group has-danger'}">
+                    <label for="oldPass" th:text="#{label.user.change.pass.old}">Old Password</label>:
+                    <input class="form-control" type="password" id="oldPass" name="oldPass"
+                           th:class="${oldPass == null ? 'form-control' : 'form-control is-invalid'}"
+                           th:value="${oldPassValue}"/>
+                    <div th:if="${oldPass != null}" class="invalid-feedback" th:text="#{${oldPass}}">Error message</div>
+                </div>
+
+                <div th:class="${newPass == null ? 'form-group' : 'form-group has-danger'}">
+                    <label for="newPass" th:text="#{label.user.change.pass.new}">New Password</label>:
+                    <input class="form-control" type="password" id="newPass" name="newPass"
+                           th:class="${newPass == null ? 'form-control' : 'form-control is-invalid'}"
+                           th:value="${newPassValue}"/>
+                    <div th:if="${newPass != null}" class="invalid-feedback" th:text="#{${newPass}}">Error message</div>
+                </div>
+
+                <div th:class="${confirmPass == null ? 'form-group' : 'form-group has-danger'}">
+                    <label for="confirmPass" th:text="#{label.user.change.pass.repeat}">Confirm Password</label>:
+                    <input class="form-control" type="password" id="confirmPass" name="confirmPass"
+                           th:class="${confirmPass == null ? 'form-control' : 'form-control is-invalid'}"
+                           th:value="${confirmPassValue}"/>
+                    <div th:if="${confirmPass != null}" class="invalid-feedback" th:text="#{${confirmPass}}">Error message</div>
+                </div>
+            </div>
+        </div>
+        <div class="spacing-lg"></div>
+
+        <div class="col-5">
+                <button type="submit" class="btn btn-primary button-long" th:text="#{label.button.save}">Save</button>
+        </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

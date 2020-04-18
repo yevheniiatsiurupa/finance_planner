@@ -1,0 +1,25 @@
+.info-box {
+    margin: 50px;
+    width: 50%;
+}
+.info-title {
+}
+.info-body table{
+    width: 100%;
+}
+.button-long {
+    width: 100%;
+}
+.info-col-1 {
+    width: 50%;
+}
+.alert-box {
+    width: 50%;
+    margin: 15px 50px 0 50px;
+}
+.pass-box, .currency-box {
+    width: 60%;
+}
+.has-padding {
+    padding: 0 15px;
+}

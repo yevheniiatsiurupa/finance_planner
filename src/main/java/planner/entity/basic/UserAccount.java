@@ -1,6 +1,12 @@
 package planner.entity.basic;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import planner.entity.month.Expense;
+import planner.entity.month.Income;
+import planner.entity.month.ShortTermPlan;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -13,13 +19,15 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "users")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class UserAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Size(min = 3, message = "message.error.bad.login")
+    @Size(min = 3, max = 20, message = "message.error.bad.login")
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
@@ -30,7 +38,7 @@ public class UserAccount {
     @Column(name = "enabled")
     private boolean enabled;
 
-    @Size(min = 3, message = "message.error.bad.name")
+    @Size(min = 3, max = 20, message = "message.error.bad.name")
     @Column(name = "name")
     private String name;
 
@@ -41,13 +49,22 @@ public class UserAccount {
     @Column(name = "created")
     private Date created;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(name = "user_authority",
                 joinColumns = @JoinColumn(name = "user_id"),
                 inverseJoinColumns = @JoinColumn(name = "authority_id"))
     private Set<Authority> authorities;
 
-//    @OneToOne(mappedBy = "userAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private UserAccountConfig config;
+    @JsonIgnore
+    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<Expense> expenses;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<Income> incomes;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<ShortTermPlan> shortTermPlans;
 
 }

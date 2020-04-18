@@ -1,6 +1,8 @@
 package planner.entity.month;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import planner.entity.basic.Currency;
 import planner.entity.basic.UserAccount;
 
@@ -12,7 +14,9 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "expenses")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +47,7 @@ public class Expense {
     @JoinColumn(name = "currency_id")
     private Currency currency;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "user_account_id")
     private UserAccount userAccount;
 

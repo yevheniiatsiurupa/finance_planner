@@ -15,15 +15,6 @@
     color: #8f8e8e;
     margin-top: 20px;
 }
-.spacing {
-    height: 10px;
-}
-.spacing-md {
-    height: 30px;
-}
-.spacing-lg {
-    height: 50px;
-}
 .info-box-column {
     margin: 0 8px;
     max-width: 30%;

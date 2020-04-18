@@ -238,15 +238,6 @@ hr {
     color: #464545;
     text-transform: none;
 }
-.spacing {
-    height: 10px;
-}
-.spacing-md {
-    height: 30px;
-}
-.spacing-lg {
-    height: 50px;
-}
 .main-table {
     padding: 15px 0;
     width: 85%;

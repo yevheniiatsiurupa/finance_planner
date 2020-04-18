@@ -33,8 +33,20 @@ public class UserAccountService {
         return repository.findByUsername(username);
     }
 
-    public UserAccount save(UserAccount userAccount) {
+    public UserAccount saveWithEncode(UserAccount userAccount) {
         userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
         return repository.save(userAccount);
+    }
+
+    public UserAccount save(UserAccount userAccount) {
+        return repository.save(userAccount);
+    }
+
+    public boolean checkPassword(String rawPass, String storedPass) {
+        return passwordEncoder.matches(rawPass, storedPass);
+    }
+
+    public void delete(UserAccount userAccount) {
+        repository.delete(userAccount);
     }
 }

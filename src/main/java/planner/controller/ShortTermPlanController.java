@@ -25,7 +25,6 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/short-plan")
-//@SessionAttributes({"expenseCategories", "incomeCategories"})
 public class ShortTermPlanController {
 
     @Autowired

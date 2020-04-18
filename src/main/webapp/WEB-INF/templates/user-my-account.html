@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/fragments :: headerfiles">
+    </th:block>
+    <link rel="stylesheet" th:href="@{/resources/css/user.css}" type="text/css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title th:text="#{label.auth.info}">Basic info</title>
+</head>
+<body>
+<div th:replace="fragments/fragments :: navPanel"></div>
+<div th:replace="fragments/fragments :: sidePanel"></div>
+<div class="main container">
+    <div th:if="${message == 'error'}" class="alert-box alert alert-dismissible alert-light">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong th:text="#{message.warning.delete.user}">Message</strong>
+        <div class="spacing"></div>
+
+        <form th:action="@{/user/delete}" method="post">
+            <button type="submit" class="btn btn-danger" th:text="#{label.button.apply}">Apply</button>
+        </form>
+    </div>
+
+    <div class="info-box">
+        <div class="info-title border-bottom">
+            <h4 th:text="#{label.auth.info}">Basic info</h4>
+        </div>
+        <div class="spacing"></div>
+
+        <div class="info-body">
+            <table class="table table-hover table-light">
+                <tr class="table-text">
+                    <th th:text="#{label.user.login}" class="border-right" style="width: 50%">Login</th>
+                    <td th:text="${session.userAccount.username}">My login</td>
+                </tr>
+                <tr class="table-text">
+                    <th th:text="#{label.user.name}" class="border-right" style="width: 50%">Name</th>
+                    <td th:text="${session.userAccount.name}">My name</td>
+                </tr>
+                <tr class="table-text">
+                    <th th:text="#{label.user.email}" class="border-right" style="width: 50%">Email</th>
+                    <td th:text="${session.userAccount.email}">My email</td>
+                </tr>
+                <tr class="table-text">
+                    <th th:text="#{label.user.created}" class="border-right" style="width: 50%">Created</th>
+                    <td th:text="${#dates.format(session.userAccount.created, 'dd MMM yyyy')}">Created</td>
+                </tr>
+            </table>
+        </div>
+        <div class="spacing-lg"></div>
+
+        <div class="col-5">
+            <form th:action="@{/user/edit}" method="get">
+                <button type="submit" class="btn btn-outline-secondary button-long" th:text="#{label.user.edit}">Edit</button>
+            </form>
+            <div class="spacing"></div>
+
+            <form th:action="@{/user/change-pass}" method="get">
+                <button type="submit" class="btn btn-outline-secondary button-long" th:text="#{label.user.change.pass}">Change pass</button>
+            </form>
+            <div class="spacing-md"></div>
+
+
+
+            <form th:action="@{/user/delete}" method="get">
+                <button type="submit" class="btn btn-outline-danger button-long" th:text="#{label.user.delete.account}">Delete account</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

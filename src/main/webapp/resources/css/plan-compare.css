@@ -6,15 +6,6 @@
     letter-spacing: 2px;
     color: #8f8e8e;
 }
-.spacing {
-    height: 10px;
-}
-.spacing-md {
-    height: 30px;
-}
-.spacing-lg {
-    height: 50px;
-}
 .main-table {
     padding: 15px 0;
     width: 55%;

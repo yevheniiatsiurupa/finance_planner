@@ -23,22 +23,48 @@
 .has-padding {
     padding: 0 15px;
 }
+a.basic-link, a.categories-link {
+    color: #3E3F3A;
+    text-decoration: none;
+}
+.link-button, .link-name {
+    display: inline-block;
+    vertical-align: middle;
+}
+.link-name {
+    padding: 0 10px;
+    margin: 0;
+}
+a.basic-link:hover > .link-name,
+a.categories-link:hover > .link-name {
+    color: #1e1f1b;
+    text-decoration: underline;
+}
 .btn-basic-settings {
     width: 40px;
     height: 40px;
     padding: 0 0;
-    display:block;
     border: none;
     border-radius: 20%;
     outline:none;
     background: #c6d2de38 url(../../resources/images/settings-blue.png) no-repeat center center;
     background-size: 80%;
 }
-.btn-basic-settings:hover {
+a.basic-link:hover > .btn-basic-settings {
     background: #325d882e url(../../resources/images/settings-blue-dark.png) no-repeat center center;
     background-size: 80%;
 }
-a.settings-link {
-    color: #3E3F3A;
-    text-decoration: none;
+.btn-categories-settings {
+    width: 40px;
+    height: 40px;
+    padding: 0 0;
+    border: none;
+    border-radius: 20%;
+    outline:none;
+    background: #c6d2de38 url(../../resources/images/categories-blue.png) no-repeat center center;
+    background-size: 80%;
+}
+a.categories-link:hover > .btn-categories-settings {
+    background: #325d882e url(../../resources/images/categories-blue-dark.png) no-repeat center center;
+    background-size: 80%;
 }

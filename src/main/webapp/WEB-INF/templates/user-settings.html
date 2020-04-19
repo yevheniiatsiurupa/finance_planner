@@ -20,15 +20,19 @@
 
         <div class="info-body">
             <div class="row has-padding">
-                <a class="settings-link" th:href="@{/configs/basic}">
-                    <button class="btn-basic-settings"></button>
-                    <h5 th:text="#{label.user.settings.basic}"><b>Basic settings</b></h5>
+                <a class="basic-link" th:href="@{/configs/basic}">
+                    <button class="link-button btn-basic-settings"></button>
+                    <h5 class="link-name" th:text="#{label.user.settings.basic}">Basic settings</h5>
                 </a>
             </div>
+            <div class="spacing"></div>
 
-
-            <a th:href="@{/configs/basic}" th:text="#{label.user.settings.basic}">Basic settings</a>
-            <a th:href="@{/configs/categories/update}" th:text="#{label.user.settings.categories}">Category settings</a>
+            <div class="row has-padding">
+                <a class="categories-link" th:href="@{/configs/categories/update}">
+                    <button class="link-button btn-categories-settings"></button>
+                    <h5 class="link-name" th:text="#{label.user.settings.categories}">Category settings</h5>
+                </a>
+            </div>
         </div>
     </div>
 </div>

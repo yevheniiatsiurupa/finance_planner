@@ -26,4 +26,5 @@ public class ExpenseIncomeFilter {
     private Currency currency;
     private String comment = "";
     private String cache = "";
+    private Integer userAccountId;
 }

@@ -41,6 +41,7 @@ public class ExpenseController {
 
     @GetMapping("/all")
     public String getExpenses(Model model,
+                              HttpSession session,
                               ExpenseIncomeFilter filterObject,
                               @PageableDefault(sort = "created", direction = Sort.Direction.DESC, size = 15) Pageable pageable,
                               @ModelAttribute("expenseCategories") ArrayList<ExpenseCategory> categories) {
@@ -57,6 +58,9 @@ public class ExpenseController {
         String subCategoryName = ExpenseSubCategory.getNameByNumber(subCategories, filterObject.getSubCategoryNumber());
         filterObject.setCategoryName(categoryName);
         filterObject.setSubCategoryName(subCategoryName);
+
+        UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
+        filterObject.setUserAccountId(userAccount.getId());
 
         Page<Expense> expenses = expenseService.findAllFiltered(filterObject, pageable);
         model.addAttribute("expensesPaged", expenses);

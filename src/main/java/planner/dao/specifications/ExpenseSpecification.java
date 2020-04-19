@@ -1,6 +1,7 @@
 package planner.dao.specifications;
 
 import org.springframework.data.jpa.domain.Specification;
+import planner.entity.basic.UserAccount_;
 import planner.entity.filters.ExpenseIncomeFilter;
 import planner.entity.month.Expense;
 import planner.entity.month.Expense_;
@@ -27,8 +28,12 @@ public class ExpenseSpecification implements Specification<Expense> {
         Path<Date> created = root.get(Expense_.created);
         Path<String> comment = root.get(Expense_.comment);
         Path<Boolean> cache = root.get(Expense_.cache);
+        Path<Integer> userId = root.get(Expense_.userAccount).get(UserAccount_.id);
 
         final List<Predicate> predicates = new ArrayList<>();
+        if (criteria.getUserAccountId() != null) {
+            predicates.add(cb.equal(userId, criteria.getUserAccountId()));
+        }
         if (criteria.getAmountMin() != null) {
             predicates.add(cb.greaterThanOrEqualTo(amount, criteria.getAmountMin()));
         }

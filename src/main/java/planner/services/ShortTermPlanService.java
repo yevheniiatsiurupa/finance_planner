@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import planner.dao.ShortTermPlanRepository;
+import planner.dao.specifications.ShortTermPlanSpecification;
+import planner.entity.basic.UserAccount;
 import planner.entity.month.ShortTermPlan;
 
 import javax.persistence.EntityNotFoundException;
@@ -24,8 +26,9 @@ public class ShortTermPlanService {
         return repository.findAll();
     }
 
-    public Page<ShortTermPlan> findAll(Pageable pageable) {
-        return repository.findAll(pageable);
+    public Page<ShortTermPlan> findAll(Pageable pageable, UserAccount userAccount) {
+        ShortTermPlanSpecification spec = new ShortTermPlanSpecification(userAccount.getId());
+        return repository.findAll(spec, pageable);
     }
 
     public void save(ShortTermPlan plan) {

@@ -19,6 +19,14 @@
         <div class="spacing-md"></div>
 
         <div class="info-body">
+            <div class="row has-padding">
+                <a class="settings-link" th:href="@{/configs/basic}">
+                    <button class="btn-basic-settings"></button>
+                    <h5 th:text="#{label.user.settings.basic}"><b>Basic settings</b></h5>
+                </a>
+            </div>
+
+
             <a th:href="@{/configs/basic}" th:text="#{label.user.settings.basic}">Basic settings</a>
             <a th:href="@{/configs/categories/update}" th:text="#{label.user.settings.categories}">Category settings</a>
         </div>

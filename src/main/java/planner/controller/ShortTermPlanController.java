@@ -62,8 +62,8 @@ public class ShortTermPlanController {
     @PostMapping(value = "/add/plan-page")
     @ResponseBody
     public Map<String, String> addPlanPost(HttpSession session,
-                                 Locale locale,
-                                 @RequestBody ShortTermPlan plan) {
+                                           Locale locale,
+                                           @RequestBody ShortTermPlan plan) {
         savePlan(session, locale, plan, new Date());
         return getMessage(locale, plan.getStartDate(), plan.getEndDate(), "add");
     }
@@ -135,8 +135,11 @@ public class ShortTermPlanController {
 
     @GetMapping("/all")
     public String getPlans(Model model,
-                              @PageableDefault(sort = "created", direction = Sort.Direction.DESC, size = 15) Pageable pageable) {
-       Page<ShortTermPlan> plans = planService.findAll(pageable);
+                           HttpSession session,
+                           @PageableDefault(sort = "created", direction = Sort.Direction.DESC, size = 15) Pageable pageable) {
+        UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
+
+        Page<ShortTermPlan> plans = planService.findAll(pageable, userAccount);
         model.addAttribute("plansPaged", plans);
         return "short-plan-all";
     }
@@ -159,9 +162,9 @@ public class ShortTermPlanController {
     @PostMapping(value = "/update/{id}")
     @ResponseBody
     public Map<String, String> updatePlanPost(@PathVariable Integer id,
-                                 HttpSession session,
-                                 Locale locale,
-                                 @RequestBody ShortTermPlan plan) {
+                                              HttpSession session,
+                                              Locale locale,
+                                              @RequestBody ShortTermPlan plan) {
         ShortTermPlan planDelete = planService.findById(id);
         Date created = planDelete.getCreated();
         planService.delete(planDelete);
@@ -230,8 +233,11 @@ public class ShortTermPlanController {
 
     @GetMapping("/compare")
     public String comparePlansMain(Model model,
-                           @PageableDefault(sort = "created", direction = Sort.Direction.DESC, size = 15) Pageable pageable) {
-        Page<ShortTermPlan> plans = planService.findAll(pageable);
+                                   HttpSession session,
+                                   @PageableDefault(sort = "created", direction = Sort.Direction.DESC, size = 15) Pageable pageable) {
+        UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
+
+        Page<ShortTermPlan> plans = planService.findAll(pageable, userAccount);
         model.addAttribute("plansPaged", plans);
         return "short-plan-compare-main";
     }

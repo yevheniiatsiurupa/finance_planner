@@ -41,9 +41,10 @@ public class IncomeController {
 
     @GetMapping("/all")
     public String getIncomes(Model model,
-                              ExpenseIncomeFilter filterObject,
-                              @PageableDefault(sort = "created", direction = Sort.Direction.DESC, size = 15) Pageable pageable,
-                              @ModelAttribute("incomeCategories") ArrayList<IncomeCategory> categories) {
+                             HttpSession session,
+                             ExpenseIncomeFilter filterObject,
+                             @PageableDefault(sort = "created", direction = Sort.Direction.DESC, size = 15) Pageable pageable,
+                             @ModelAttribute("incomeCategories") ArrayList<IncomeCategory> categories) {
         List<IncomeSubCategory> subCategories;
         if (filterObject.getCategoryNumber() != null) {
             IncomeCategory category = IncomeCategory.getCategoryByNumber(categories, filterObject.getCategoryNumber());
@@ -57,6 +58,9 @@ public class IncomeController {
         String subCategoryName = IncomeSubCategory.getNameByNumber(subCategories, filterObject.getSubCategoryNumber());
         filterObject.setCategoryName(categoryName);
         filterObject.setSubCategoryName(subCategoryName);
+
+        UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
+        filterObject.setUserAccountId(userAccount.getId());
 
         Page<Income> incomes = incomeService.findAllFiltered(filterObject, pageable);
         model.addAttribute("incomesPaged", incomes);

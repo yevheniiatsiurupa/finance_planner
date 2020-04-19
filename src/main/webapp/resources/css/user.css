@@ -23,3 +23,22 @@
 .has-padding {
     padding: 0 15px;
 }
+.btn-basic-settings {
+    width: 40px;
+    height: 40px;
+    padding: 0 0;
+    display:block;
+    border: none;
+    border-radius: 20%;
+    outline:none;
+    background: #c6d2de38 url(../../resources/images/settings-blue.png) no-repeat center center;
+    background-size: 80%;
+}
+.btn-basic-settings:hover {
+    background: #325d882e url(../../resources/images/settings-blue-dark.png) no-repeat center center;
+    background-size: 80%;
+}
+a.settings-link {
+    color: #3E3F3A;
+    text-decoration: none;
+}

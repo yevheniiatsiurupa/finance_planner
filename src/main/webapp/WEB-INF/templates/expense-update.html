@@ -5,7 +5,10 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <link rel="stylesheet" th:href="@{/resources/css/expense-income.css}" type="text/css">
-    <script th:src="@{/resources/scripts/getSubCategories.js}"></script>
+    <link rel="stylesheet" th:href="@{/resources/css/exp-inc-card.css}" type="text/css">
+    <script>document.write('<script src="../resources/scripts/getSubCategories.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');</script>
+    <script>document.write('<script src="../resources/scripts/exp-inc-card.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');</script>
+
 
     <title th:text="#{label.page.expenses.update}">Update Expense</title>
 
@@ -43,74 +46,76 @@
 <body>
 <div th:replace="fragments/fragments :: navPanel"></div>
 <div th:replace="fragments/fragments :: sidePanel"></div>
-<div class="main">
-    <div class="create-card">
-        <div class="card bg-light mb-3" style="max-width: 50rem; min-width: 650px">
-            <div class="card-header"><h5><b th:text="#{label.page.expenses.update}">Update Expense</b></h5></div>
-            <div class="card-body">
+<div class="main container">
+    <div class="main-box">
+        <div class="create-card">
+            <div class="card bg-light mb-3" style="max-width: 50rem; min-width: 650px">
+                <div class="card-header"><h5><b th:text="#{label.page.expenses.update}">Update Expense</b></h5></div>
+                <div class="card-body">
 
-                <form action="#" th:action="@{/expense/update}" th:object="${expense}" method="post" onsubmit="submitForm()">
-                    <input th:field="*{id}" name="id" type="hidden"/>
-                    <input th:field="*{userAccount.id}" name="id" type="hidden"/>
-                    <input th:field="*{currency.id}" name="id" type="hidden"/>
-                    <div class="row">
-                        <div class="col-sm-5">
-                            <div class="form-group">
-                                <label for="amount" th:text="#{label.expense.amount}">Amount</label>
-                                <div class="input-group mb-3">
-                                    <input th:field="*{amount}" id="amount" type="text" class="form-control" th:placeholder="#{message.placeholder.amount}"/>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="category" th:text="#{label.expense.categoryName}">Category</label>
-                                <select class="form-control" id="category" name="categoryNumber" th:onchange="|getSubcategories('@{/configs/expense-subcategories}')|">
-                                    <option th:each="cat: ${categories}" th:value="${cat.categoryNumber}" th:text="${cat.categoryName}" th:selected="${cat.categoryName==expense.categoryName}"></option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="subCategory" th:text="#{label.expense.subcategoryName}">SubCategory</label>
-                                <select class="form-control" id="subCategory" name="subCategoryNumber">
-                                    <option th:each="subcat: ${subcategories}" th:value="${subcat.subCategoryNumber}" th:text="${subcat.subCategoryName}" th:selected="${subcat.subCategoryName==expense.subCategoryName}"></option>
-                                </select>
-                            </div>
-                            <br/>
-                            <button type="submit" class="btn btn-primary" th:text="#{message.save}">Save</button>
-                        </div>
-
-                        <div class="col-sm-1"></div>
-
-                        <div class="col-sm-6">
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <div class="form-group">
-                                        <label for="cache" th:text="#{label.expense.payment}">Payment</label>
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input type="checkbox" th:field="*{cache}" id="cache" class="form-check-input" th:text="#{label.expense.cache}"/>
-                                            </label>
+                    <form action="#" th:action="@{/expense/update}" th:object="${expense}" method="post" onsubmit="submitForm()">
+                        <input th:field="*{id}" name="id" type="hidden"/>
+                        <input th:field="*{userAccount.id}" name="id" type="hidden"/>
+                        <input th:field="*{currency.id}" name="id" type="hidden"/>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <div class="form-group">
+                                    <label for="amount" th:text="#{label.expense.amount}">Amount</label>
+                                    <div class="input-group mb-3">
+                                        <input th:field="*{amount}" id="amount" type="number" min="1" class="form-control" th:placeholder="#{message.placeholder.amount}" onclick="this.select()"/>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" th:text="#{${session.userAccountConfig.currency.sign}}" th:unless="${session == null}">Currency</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-7">
-                                    <div class="form-group">
-                                        <label for="created" th:text="#{label.expense.created}">Created</label>
-                                        <input th:field="*{created}" id="created" type="text" class="form-control"/>
-                                    </div>
+
+                                <div class="form-group">
+                                    <label for="category" th:text="#{label.expense.categoryName}">Category</label>
+                                    <select class="form-control" id="category" name="categoryNumber" th:onchange="|getSubcategories('@{/configs/expense-subcategories}')|">
+                                        <option th:each="cat: ${expenseCategories}" th:value="${cat.categoryNumber}" th:text="${cat.categoryName}" th:selected="${cat.categoryName==expense.categoryName}"></option>
+                                    </select>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="subCategory" th:text="#{label.expense.subcategoryName}">SubCategory</label>
+                                    <select class="form-control" id="subCategory" name="subCategoryNumber">
+                                        <option th:each="subcat: ${subcategories}" th:value="${subcat.subCategoryNumber}" th:text="${subcat.subCategoryName}" th:selected="${subcat.subCategoryName==expense.subCategoryName}"></option>
+                                    </select>
+                                </div>
+                                <br/>
+                                <button type="submit" class="btn btn-primary" th:text="#{message.save}">Save</button>
                             </div>
 
-                            <div class="form-group">
-                                <label for="comment" th:text="#{label.expense.comment}">Comment</label>
-                                <textarea class="form-control" th:field="*{comment}" id="comment" rows="5" th:placeholder="#{message.placeholder.comment}"></textarea>
+                            <div class="col-sm-1"></div>
+
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label for="cache" th:text="#{label.expense.payment}">Payment</label>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" th:field="*{cache}" id="cache" class="form-check-input" th:text="#{label.expense.cache}"/>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <div class="form-group">
+                                            <label for="created" th:text="#{label.expense.created}">Created</label>
+                                            <input th:field="*{created}" id="created" type="text" class="form-control"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="comment" th:text="#{label.expense.comment}">Comment</label>
+                                    <textarea class="form-control" th:field="*{comment}" id="comment" rows="5" th:placeholder="#{message.placeholder.comment}"></textarea>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

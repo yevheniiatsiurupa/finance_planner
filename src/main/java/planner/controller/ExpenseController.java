@@ -1,6 +1,7 @@
 package planner.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -31,6 +32,9 @@ public class ExpenseController {
     public ExpenseController(ExpenseService expenseService) {
         this.expenseService = expenseService;
     }
+
+    @Autowired
+    public MessageSource messageSource;
 
     @ModelAttribute("expenseCategories")
     public ArrayList<ExpenseCategory> getCategories(HttpSession session) {
@@ -86,9 +90,11 @@ public class ExpenseController {
         fillCategoryNames(expense, categories);
 
         expenseService.save(expense);
-        String message = "Ok";
+        String message = "ok";
         model.addAttribute("message", message);
-        return "expense-add-post";
+        model.addAttribute("savedEntity", expense);
+        model.addAttribute("expense", new Expense());
+        return "expense-add";
     }
 
     @GetMapping("/update/{id}")
@@ -105,15 +111,12 @@ public class ExpenseController {
     }
 
     @PostMapping("/update")
-    public String updateExpensePost(Model model,
-                                    @ModelAttribute("expense") Expense expense,
+    public String updateExpensePost(@ModelAttribute("expense") Expense expense,
                                     @ModelAttribute("expenseCategories") List<ExpenseCategory> categories) {
         fillCategoryNames(expense, categories);
 
         expenseService.save(expense);
-        String message = "Ok";
-        model.addAttribute("message", message);
-        return "expense-update-post";
+        return "redirect:/expense/all";
     }
 
     private void fillCategoryNames(Expense expense, List<ExpenseCategory> categories) {

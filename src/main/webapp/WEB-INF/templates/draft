@@ -1,3 +1,70 @@
+.exp-btn {
+    background: #f0f0f0 url(../images/menu-icons/expense-grey1.png) no-repeat center center;
+    background-size: 70%;
+}
+a.exp-link:hover > .exp-btn {
+    background: #c4ecdd url(../images/menu-icons/expense-bl2-75A699.png) no-repeat center center;
+    background-size: 70%;
+}
+.exp-all-btn {
+    background: #f0f0f0 url(../images/menu-icons/expense-many-grey1.png) no-repeat center center;
+    background-size: 80%;
+}
+a.exp-all-link:hover > .exp-all-btn {
+    background: #C4ECDD url(../images/menu-icons/expense-many-bl2-75A699.png) no-repeat center center;
+    background-size: 80%;
+}
+.inc-btn {
+    background: #f0f0f0 url(../images/menu-icons/income-grey1.png) no-repeat center center;
+    background-size: 80%;
+}
+a.inc-link:hover > .inc-btn {
+    background: #F4FADE url(../images/menu-icons/income-gr.png) no-repeat center center;
+    background-size: 80%;
+}
+.inc-all-btn {
+    background: #f0f0f0 url(../images/menu-icons/income-many-grey1.png) no-repeat center center;
+    background-size: 80%;
+}
+a.inc-all-link:hover > .inc-all-btn {
+    background: #F4FADE url(../images/menu-icons/income-many-gr.png) no-repeat center center;
+    background-size: 80%;
+}
+
+
+.exp-btn {
+    background: #c4ecdd url(../images/menu-icons/expense-bl2-75A699.png) no-repeat center center;
+    background-size: 70%;
+}
+a.exp-link:hover > .exp-btn {
+    background: #9dd6c9 url(../images/menu-icons/expense-bl3-63897f.png) no-repeat center center;
+    background-size: 70%;
+}
+.exp-all-btn {
+    background: #C4ECDD url(../images/menu-icons/expense-many-bl2-75A699.png) no-repeat center center;
+    background-size: 80%;
+}
+a.exp-all-link:hover > .exp-all-btn {
+    background: #9dd6c9 url(../images/menu-icons/expense-many-bl3-63897f.png) no-repeat center center;
+    background-size: 80%;
+}
+.inc-btn {
+    background: #F4FADE url(../images/menu-icons/income-gr.png) no-repeat center center;
+    background-size: 80%;
+}
+a.inc-link:hover > .inc-btn {
+    background: #e0eeb5 url(../images/menu-icons/income-gr-dark2-b8c395.png) no-repeat center center;
+    background-size: 80%;
+}
+.inc-all-btn {
+    background: #F4FADE url(../images/menu-icons/income-many-gr.png) no-repeat center center;
+    background-size: 80%;
+}
+a.inc-all-link:hover > .inc-all-btn {
+    background: #e0eeb5 url(../images/menu-icons/income-many-gr-dark2-b8c395.png) no-repeat center center;
+    background-size: 80%;
+}
+
 <div class="plan-expense-block">
         <div class="category-group">
             <div class="category-title">

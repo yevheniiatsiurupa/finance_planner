@@ -1,0 +1,10 @@
+.main-box {
+    margin: 50px;
+    width: 60%;
+}
+.invisible {
+    display: none;
+}
+.form-control.is-invalid.no-image {
+    background-image: none;
+}

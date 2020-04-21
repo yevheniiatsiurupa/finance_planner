@@ -76,8 +76,8 @@ public class IncomeController {
 
     @PostMapping("/add")
     public String addIncomePost(Model model, HttpSession session,
-                                 @ModelAttribute("income") Income income,
-                                 @ModelAttribute("incomeCategories") List<IncomeCategory> categories) {
+                                @ModelAttribute("income") Income income,
+                                @ModelAttribute("incomeCategories") List<IncomeCategory> categories) {
         UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
         UserAccountConfig config = (UserAccountConfig) session.getAttribute("userAccountConfig");
         income.setUserAccount(userAccount);
@@ -86,14 +86,16 @@ public class IncomeController {
         fillCategoryNames(income, categories);
 
         incomeService.save(income);
-        String message = "Ok";
+        String message = "ok";
         model.addAttribute("message", message);
-        return "income-add-post";
+        model.addAttribute("savedEntity", income);
+        model.addAttribute("expense", new Income());
+        return "redirect:/income/all";
     }
 
     @GetMapping("/update/{id}")
     public String updateIncome(@PathVariable Integer id,
-                                @ModelAttribute("incomeCategories") List<IncomeCategory> categories,
+                               @ModelAttribute("incomeCategories") List<IncomeCategory> categories,
                                 Model model) {
         Income income = incomeService.findById(id);
         model.addAttribute("income", income);
@@ -105,14 +107,11 @@ public class IncomeController {
     }
 
     @PostMapping("/update")
-    public String updateIncomePost(Model model,
-                                    @ModelAttribute("income") Income income,
-                                    @ModelAttribute("incomeCategories") List<IncomeCategory> categories) {
+    public String updateIncomePost(@ModelAttribute("income") Income income,
+                                   @ModelAttribute("incomeCategories") List<IncomeCategory> categories) {
         fillCategoryNames(income, categories);
 
         incomeService.save(income);
-        String message = "Ok";
-        model.addAttribute("message", message);
         return "income-update-post";
     }
 

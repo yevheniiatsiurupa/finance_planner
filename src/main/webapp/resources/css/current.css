@@ -1,0 +1,63 @@
+.main-box {
+    margin: 50px;
+    width: 60%;
+}
+a.exp-link, a.inc-link, a.exp-all-link, a.inc-all-link {
+    color: #3E3F3A;
+    text-decoration: none;
+}
+.link-button, .link-name {
+    display: inline-block;
+    vertical-align: middle;
+}
+.link-name {
+    padding: 0 10px;
+    margin: 0;
+}
+a.exp-link:hover > .link-name,
+a.inc-link:hover > .link-name,
+a.exp-all-link:hover > .link-name,
+a.inc-all-link:hover > .link-name {
+    color: #1e1f1b;
+    text-decoration: underline;
+}
+button.link-button {
+    width: 60px;
+    height: 60px;
+    padding: 0 0;
+    border: none;
+    border-radius: 20%;
+    outline:none;
+}
+.exp-btn {
+    background: #c4ecdd url(../images/menu-icons/expense-blue.png) no-repeat center center;
+    background-size: 70%;
+}
+a.exp-link:hover > .exp-btn {
+    background: #9dd6c9 url(../images/menu-icons/expense-blue-dark.png) no-repeat center center;
+    background-size: 70%;
+}
+.exp-all-btn {
+    background: #C4ECDD url(../images/menu-icons/expense-many-blue.png) no-repeat center center;
+    background-size: 80%;
+}
+a.exp-all-link:hover > .exp-all-btn {
+    background: #9dd6c9 url(../images/menu-icons/expense-many-blue-dark.png) no-repeat center center;
+    background-size: 80%;
+}
+.inc-btn {
+    background: #F4FADE url(../images/menu-icons/income-green.png) no-repeat center center;
+    background-size: 80%;
+}
+a.inc-link:hover > .inc-btn {
+    background: #e0eeb5 url(../images/menu-icons/income-green-dark.png) no-repeat center center;
+    background-size: 80%;
+}
+.inc-all-btn {
+    background: #F4FADE url(../images/menu-icons/income-many-green.png) no-repeat center center;
+    background-size: 80%;
+}
+a.inc-all-link:hover > .inc-all-btn {
+    background: #e0eeb5 url(../images/menu-icons/income-many-green-dark.png) no-repeat center center;
+    background-size: 80%;
+}

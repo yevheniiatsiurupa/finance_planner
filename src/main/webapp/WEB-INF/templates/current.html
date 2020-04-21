@@ -3,6 +3,7 @@
 <head>
     <th:block th:include="fragments/fragments :: headerfiles">
     </th:block>
+    <link rel="stylesheet" th:href="@{/resources/css/current.css}" type="text/css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title th:text="#{label.page.current}">Current</title>
@@ -11,11 +12,39 @@
 <div th:replace="fragments/fragments :: navPanel"></div>
 <div th:replace="fragments/fragments :: sidePanel"></div>
 <div class="main container">
-    <br/>
-    <br/>
-    <a th:href="@{/expense/all}" th:text="#{label.page.expenses}">Expenses Page</a>
-    <br/>
-    <a th:href="@{/expense/add}" th:text="#{label.page.expenses.add}">Add Expense</a>
+    <div class="main-box">
+        <div class="row">
+            <div class="col">
+                <a class="exp-link" th:href="@{/expense/add}">
+                    <button class="link-button exp-btn"></button>
+                    <h5 class="link-name" th:text="#{label.page.expenses.add.title}">Add Expense</h5>
+                </a>
+            </div>
+            <div class="col">
+                <a class="inc-link" th:href="@{/income/add}">
+                    <button class="link-button inc-btn"></button>
+                    <h5 class="link-name" th:text="#{label.page.incomes.add.title}">Add Income</h5>
+                </a>
+            </div>
+        </div>
+        <div class="spacing-md"></div>
+
+
+        <div class="row">
+            <div class="col">
+                <a class="exp-all-link" th:href="@{/expense/all}">
+                    <button class="link-button exp-all-btn"></button>
+                    <h5 class="link-name" th:text="#{label.page.expenses.all}">All Expenses</h5>
+                </a>
+            </div>
+            <div class="col">
+                <a class="inc-all-link" th:href="@{/income/all}">
+                    <button class="link-button inc-all-btn"></button>
+                    <h5 class="link-name" th:text="#{label.page.incomes.all}">All Incomes</h5>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

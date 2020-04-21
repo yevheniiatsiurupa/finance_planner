@@ -1,0 +1,54 @@
+.main-box {
+    margin: 50px;
+    width: 60%;
+}
+a.plan-link, a.compare-link, a.plan-all-link {
+    color: #3E3F3A;
+    text-decoration: none;
+}
+.link-button, .link-name {
+    display: inline-block;
+    vertical-align: middle;
+}
+.link-name {
+    padding: 0 10px;
+    margin: 0;
+}
+a.plan-link:hover > .link-name,
+a.compare-link:hover > .link-name,
+a.plan-all-link:hover > .link-name{
+    color: #1e1f1b;
+    text-decoration: underline;
+}
+button.link-button {
+    width: 60px;
+    height: 60px;
+    padding: 0 0;
+    border: none;
+    border-radius: 20%;
+    outline:none;
+}
+.plan-btn {
+    background: #d9534f21 url(../images/menu-icons/plan-red.png) no-repeat center center;
+    background-size: 70%;
+}
+a.plan-link:hover > .plan-btn {
+    background: #fac8c4 url(../images/menu-icons/plan-red-dark.png) no-repeat center center;
+    background-size: 70%;
+}
+.plan-all-btn {
+    background: #d9534f21 url(../images/menu-icons/plan-many-red.png) no-repeat center center;
+    background-size: 80%;
+}
+a.plan-all-link:hover > .plan-all-btn {
+    background: #fac8c4 url(../images/menu-icons/plan-many-red-dark.png) no-repeat center center;
+    background-size: 80%;
+}
+.compare-btn {
+    background: #d9534f21 url(../images/menu-icons/compare-red.png) no-repeat center center;
+    background-size: 70%;
+}
+a.compare-link:hover > .compare-btn {
+    background: #fac8c4 url(../images/menu-icons/compare-red-dark.png) no-repeat center center;
+    background-size: 70%;
+}

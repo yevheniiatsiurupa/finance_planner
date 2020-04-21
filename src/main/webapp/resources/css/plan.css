@@ -239,12 +239,10 @@ hr {
     text-transform: none;
 }
 .main-table {
-    padding: 15px 0;
-    width: 85%;
+    padding: 25px 0 0 50px;
+    width: 75%;
     display: inline-block;
     vertical-align: top;
-    margin-left: auto;
-    margin-right: auto;
 }
 .button-form {
     margin: 0;
@@ -269,13 +267,11 @@ hr {
 
 .table-sm {
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
     font-size: 10pt;
     line-height: 22px;
     font-weight: 500;
-    width: 80%;
-    min-height: 80%;
+    width: 90%;
+    min-height: 90%;
 }
 .table-sm-left {
     text-align: left;
@@ -300,21 +296,17 @@ hr {
 }
 
 .paging {
-    padding-left: 10%;
 }
 .title-line {
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
+    margin-left: 0;
+    margin-right: 0;
+    width: 95%;
     height: 35px;
 }
 
 .message {
-    margin-left: auto;
-    margin-right: auto;
     font-size: 12pt;
     font-weight: 500;
-    width: 80%;
     height: 35px;
     letter-spacing: 2px;
     color: #646363;

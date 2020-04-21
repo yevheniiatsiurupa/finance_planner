@@ -1,6 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/fragments :: headerfiles">
     </th:block>
@@ -71,7 +70,7 @@
                         <a th:href="@{/short-plan/{id}(id=${plan.id})}" href="#" th:text="${plan.name}">Name</a>
                     </td>
                     <td th:text="|${plan.totalExpenses} #{${plan.currency.sign}}|"></td>
-                    <td th:text="|${plan.totalIncomes} #{${plan.currency.sign}}|"></td>
+                    <td th:text="|${plan.totalIncomes} #{${plan.currency.sign}}|" class="border-right"></td>
                     <td th:text="${#dates.format(plan.startDate, 'dd MMM yyyy')}"></td>
                     <td th:text="${#dates.format(plan.endDate, 'dd MMM yyyy')}"></td>
                     <td th:text="${plan.comment}"></td>

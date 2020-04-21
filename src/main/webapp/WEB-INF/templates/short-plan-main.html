@@ -3,6 +3,7 @@
 <head>
     <th:block th:include="fragments/fragments :: headerfiles">
     </th:block>
+    <link rel="stylesheet" th:href="@{/resources/css/plan-main.css}" type="text/css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title th:text="#{label.page.current}">Current</title>
@@ -11,13 +12,33 @@
 <div th:replace="fragments/fragments :: navPanel"></div>
 <div th:replace="fragments/fragments :: sidePanel"></div>
 <div class="main container">
-    <br/>
-    <br/>
-    <a th:href="@{/short-plan/all}" th:text="#{label.page.plan.all}">All plans</a>
-    <br/>
-    <a th:href="@{/short-plan/add}" th:text="#{label.page.plan.create}">Create Plan</a>
-    <br/>
-    <a th:href="@{/short-plan/compare}" th:text="#{label.plan.comparison}">Compare Plan</a>
+    <div class="main-box">
+        <div class="row">
+            <div class="col">
+                <a class="plan-link" th:href="@{/short-plan/add}">
+                    <button class="link-button plan-btn"></button>
+                    <h5 class="link-name" th:text="#{label.page.plan.create}">Create Plan</h5>
+                </a>
+            </div>
+            <div class="col">
+                <a class="compare-link" th:href="@{/short-plan/compare}">
+                    <button class="link-button compare-btn"></button>
+                    <h5 class="link-name" th:text="#{label.plan.compare.plan}">Compare Plan</h5>
+                </a>
+            </div>
+        </div>
+        <div class="spacing-md"></div>
+
+
+        <div class="row">
+            <div class="col-6">
+                <a class="plan-all-link" th:href="@{/short-plan/all}">
+                    <button class="link-button plan-all-btn"></button>
+                    <h5 class="link-name" th:text="#{label.page.plan.all}">All plans</h5>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -202,7 +202,8 @@ function updatePlan() {
         data: JSON.stringify(planObj),
         dataType: 'json',
         success: function (data, status, settings) {
-            showMessage(data);
+            location.href="../all";
+            // showMessage(data);
         }
     });
 }

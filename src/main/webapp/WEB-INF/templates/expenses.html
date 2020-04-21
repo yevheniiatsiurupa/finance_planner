@@ -76,21 +76,21 @@
         <div class="row" th:if="${expensesPaged.totalPages > 0}">
             <table class="table-sm  table-hover" id="table">
                 <tr class="table-text table-active">
-                    <th th:text="#{label.expense.amount}">Amount</th>
-                    <th th:text="#{label.expense.categoryName}">Category</th>
-                    <th th:text="#{label.expense.subcategoryName}">Subcategory</th>
-                    <th th:text="#{label.expense.comment}">Comment</th>
-                    <th th:text="#{label.expense.created}">Created</th>
-                    <th th:text="#{label.expense.cache}">Cache</th>
+                    <th th:text="#{label.expense.amount}" style="width: 10%">Amount</th>
+                    <th th:text="#{label.expense.categoryName}" style="width: 20%">Category</th>
+                    <th th:text="#{label.expense.subcategoryName}" style="width: 20%">Subcategory</th>
+                    <th th:text="#{label.expense.comment}" style="width: 15%">Comment</th>
+                    <th th:text="#{label.expense.created}" style="width: 17%">Created</th>
+                    <th th:text="#{label.expense.cache}" style="width: 10%">Cache</th>
                     <!--<th th:text="#{label.userAccount.id}">UserId</th>-->
-                    <th></th>
-                    <th></th>
+                    <th style="width: 4%"></th>
+                    <th style="width: 4%"></th>
                 </tr>
                 <tr th:each="expense: ${expensesPaged}" class="table-text table-default" >
                     <td th:text="|${expense.amount} #{${expense.currency.sign}}|"></td>
                     <td th:text="${expense.categoryName}"></td>
-                    <td th:text="${expense.subCategoryName}"></td>
-                    <td th:text="${expense.comment}" style="text-align: left"></td>
+                    <td th:text="${expense.subCategoryName}" class="border-right"></td>
+                    <td th:text="${expense.comment}" style="text-align: left;"></td>
                     <td th:text="${#dates.format(expense.created, 'dd MMM yyyy')}"></td>
                     <td><input type="checkbox" th:checked="${expense.cache}" disabled style="transform: scale(1.5)"/></td>
                     <!--<td th:text="${expense.userAccount.id}"></td>-->

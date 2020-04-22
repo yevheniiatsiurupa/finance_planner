@@ -29,10 +29,10 @@ create table users(
 );
 
 insert into users (username, password, enabled, name, email, created)
-values ('jane_ts', '{noop}123', true, 'Juju', 'jane@mail.ru', now()),
-       ('alex_be', '{noop}123', true, 'Sanya', 'sanya@mail.ru', now()),
-       ('admin', '{noop}456', true, 'Juju', 'admin@mail.ru', now()),
-       ('default', '{noop}456', true, 'Default User', 'default@mail.ru', now());
+values ('jane_ts', '$2a$10$qVSzfjhxZgBXIkDMlr5ax.hn3wnVdEwbo2sPAFO3U1t2zpGpmy7Ym', true, 'Juju', 'jane@mail.ru', now()),
+       ('alex_be', '$2a$10$qVSzfjhxZgBXIkDMlr5ax.hn3wnVdEwbo2sPAFO3U1t2zpGpmy7Ym', true, 'Sanya', 'sanya@mail.ru', now()),
+       ('admin', '$2a$10$qVSzfjhxZgBXIkDMlr5ax.hn3wnVdEwbo2sPAFO3U1t2zpGpmy7Ym', true, 'Juju', 'admin@mail.ru', now()),
+       ('default', '$2a$10$qVSzfjhxZgBXIkDMlr5ax.hn3wnVdEwbo2sPAFO3U1t2zpGpmy7Ym', true, 'Default User', 'default@mail.ru', now());
 
 create table user_authority(
 	id serial primary key,

@@ -4,6 +4,42 @@
 <head>
     <th:block th:include="fragments/fragments :: headerfiles">
     </th:block>
+    <link rel="stylesheet" th:href="@{/resources/css/welcome-page.css}" type="text/css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript" th:inline="javascript">
+        function drawStats(myData) {
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                let data = google.visualization.arrayToDataTable(myData);
+                let options = {sliceVisibilityThreshold: .1, pieResidueSliceLabel: /*[[#{label.main.other}]]*/'Other'};
+                let chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function getStatsData() {
+            $.ajax({
+                url: "./expense-stats",
+                dataType: 'json',
+                success: function (data, status, settings) {
+                    let resultArray = [];
+                    resultArray.push(['Expenses', 'Money']);
+                    let p = data;
+                    for (var key in p) {
+                        if (p.hasOwnProperty(key)) {
+                            resultArray.push([key, p[key]])
+                        }
+                    }
+                    drawStats(resultArray);
+                }
+            })
+        });
+    </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title th:text="#{label.page.welcome}">Welcome page</title>
@@ -12,18 +48,83 @@
 <div th:replace="fragments/fragments :: navPanel"></div>
 <div th:replace="fragments/fragments :: sidePanel"></div>
 <div class="main container">
-    <h2 th:text="#{message.welcome}">Welcome Message</h2>
-    <br/>
-    <a th:href="@{/expense/all}" th:text="#{label.page.expenses}">Expenses Page</a>
-    <br/>
-    <a th:href="@{/expense/add}" th:text="#{label.page.expenses.add}">Add Expense</a>
-    <br/>
-    <a th:href="@{/income/all}" th:text="#{label.page.incomes}">Incomes Page</a>
-    <br/>
-    <a th:href="@{/income/add}" th:text="#{label.page.incomes.add}">Add Income</a>
-    <br/>
-    <a th:href="@{/logout}">Logout</a>
+    <div class="main-box">
+        <div class="row">
+            <div class="col-6">
+                <h4 th:text="#{label.main.current.month}">Current month</h4>
+                <table class="table">
+                    <tr>
+                        <th th:text="#{label.main.expenses}"
+                            style="width: 40%;">Expenses:</th>
+                        <td th:text="| - ${monthExpSum} #{${session.userAccountConfig.currency.sign}}|">Sum Exp</td>
+                    </tr>
+                    <tr>
+                        <th th:text="#{label.main.incomes}"
+                            style="width: 40%;">Incomes:</th>
+                        <td th:text="| + ${monthIncSum} #{${session.userAccountConfig.currency.sign}}|">Sum Inc</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-6">
+                <h4 th:text="#{label.main.popular.expenses}">Popular Expenses</h4>
+                <div class="message" th:if="${expenses.totalPages <= 0}">
+                    <p th:text="#{label.main.no.history}">No data.</p>
+                    <div class="spacing"></div>
+                </div>
+                <div id="piechart" th:if="${expenses.totalPages > 0}"></div>
+            </div>
+        </div>
+        <div class="spacing"></div>
 
+        <div class="row">
+            <div class="col">
+                <div class="card text-white mb-3 my-card">
+                    <div class="card-header bg-secondary" th:text="#{label.main.history.expenses}">Expense history</div>
+                    <div class="card-body">
+                        <div class="message" th:if="${expenses.totalPages <= 0}">
+                            <p th:text="#{label.main.no.history}">No data.</p>
+                            <div class="spacing"></div>
+                        </div>
+                        <div class="link-box" th:if="${expenses.totalPages <= 0}">
+                            <a th:href="@{/expense/add}" th:text="|#{label.page.expenses.add.title} >>>|">Add expense</a>
+                        </div>
+                        <table th:if="${expenses.totalPages > 0}" class="table table-sm table-hover">
+                            <tr th:each="expense: ${expenses}">
+                                <td th:text="| - ${expense.amount} #{${expense.currency.sign}}|"></td>
+                                <td th:text="${expense.subCategoryName}"></td>
+                            </tr>
+                        </table>
+                        <div class="link-box" th:if="${expenses.totalPages > 0}">
+                            <a th:href="@{/expense/all}" th:text="|#{label.main.more.info} >>>|">More info</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card text-white mb-3 my-card">
+                    <div class="card-header bg-secondary" th:text="#{label.main.history.incomes}">Income history</div>
+                    <div class="card-body">
+                        <div class="message" th:if="${incomes.totalPages <= 0}">
+                            <p th:text="#{label.main.no.history}">No data.</p>
+                            <div class="spacing"></div>
+                        </div>
+                        <div class="link-box" th:if="${incomes.totalPages <= 0}">
+                            <a th:href="@{/income/add}" th:text="|#{label.page.incomes.add.title} >>>|">Add income</a>
+                        </div>
+                        <table th:if="${incomes.totalPages > 0}" class="table table-sm table-hover">
+                            <tr th:each="income: ${incomes}">
+                                <td th:text="| + ${income.amount} #{${income.currency.sign}}|"></td>
+                                <td th:text="${income.subCategoryName}"></td>
+                            </tr>
+                        </table>
+                        <div class="link-box" th:if="${incomes.totalPages > 0}">
+                            <a th:href="@{/income/all}" th:text="|#{label.main.more.info} >>>|">More info</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

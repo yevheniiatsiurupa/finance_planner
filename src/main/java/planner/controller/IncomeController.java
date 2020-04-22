@@ -90,7 +90,7 @@ public class IncomeController {
         model.addAttribute("message", message);
         model.addAttribute("savedEntity", income);
         model.addAttribute("expense", new Income());
-        return "redirect:/income/all";
+        return "income-add";
     }
 
     @GetMapping("/update/{id}")
@@ -112,7 +112,7 @@ public class IncomeController {
         fillCategoryNames(income, categories);
 
         incomeService.save(income);
-        return "income-update-post";
+        return "redirect:/income/all";
     }
 
     private void fillCategoryNames(Income income, List<IncomeCategory> categories) {

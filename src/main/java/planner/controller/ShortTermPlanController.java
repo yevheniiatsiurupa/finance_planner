@@ -15,6 +15,7 @@ import planner.entity.basic.UserAccount;
 import planner.entity.basic.UserAccountConfig;
 import planner.entity.basic.supplementary.ExpenseCategory;
 import planner.entity.basic.supplementary.IncomeCategory;
+import planner.entity.filters.ExpenseIncomeFilter;
 import planner.entity.month.*;
 import planner.services.*;
 
@@ -261,8 +262,14 @@ public class ShortTermPlanController {
         Date start = plan.getStartDate();
         Date end = plan.getEndDate();
 
-        List<Expense> expenseActual = expenseService.findByDateRange(start, end);
-        List<Income> incomeActual = incomeService.findByDateRange(start, end);
+        ExpenseIncomeFilter filterObject = new ExpenseIncomeFilter();
+        UserAccount userAccount = (UserAccount) session.getAttribute("userAccount");
+        filterObject.setUserAccountId(userAccount.getId());
+        filterObject.setCreatedMin(start);
+        filterObject.setCreatedMax(end);
+
+        List<Expense> expenseActual = expenseService.findAllFiltered(filterObject);
+        List<Income> incomeActual = incomeService.findAllFiltered(filterObject);
 
         UserAccountConfig accountConfig = (UserAccountConfig) session.getAttribute("userAccountConfig");
         List<ExpenseCategory> expCategories = accountConfig.getExpenseCategories();

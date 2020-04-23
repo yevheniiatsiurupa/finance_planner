@@ -33,7 +33,7 @@ public class StartController {
     private IncomeService incomeService;
 
     @GetMapping("/")
-    public String start(@PageableDefault(sort = {"created","id"}, direction = Sort.Direction.DESC, size = 5) Pageable pageable,
+    public String start(@PageableDefault(sort = {"created", "id"}, direction = Sort.Direction.DESC, size = 5) Pageable pageable,
                         Model model,
                         HttpSession session) {
         ExpenseIncomeFilter filterObject = new ExpenseIncomeFilter();

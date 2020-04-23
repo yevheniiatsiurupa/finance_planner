@@ -47,7 +47,7 @@ public class Income {
     @JoinColumn(name = "currency_id")
     private Currency currency;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_account_id")
     private UserAccount userAccount;
 }

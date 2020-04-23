@@ -125,7 +125,7 @@ public class UserConfigsController {
         return messageSource.getMessage("message.success.save.exp.categories", null, locale);
     }
 
-    @PostMapping(value= "/income-categories/save", produces = "text/plain;charset=UTF-8")
+    @PostMapping(value = "/income-categories/save", produces = "text/plain;charset=UTF-8")
     @ResponseBody
     public String saveIncomeCategories(Principal principal,
                                        HttpSession session,

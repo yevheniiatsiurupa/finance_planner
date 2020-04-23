@@ -44,7 +44,7 @@ public class ShortTermPlan {
     @Column(name = "total_incomes")
     private int totalIncomes;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_account_id")
     private UserAccount userAccount;
 

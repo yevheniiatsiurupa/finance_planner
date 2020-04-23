@@ -104,8 +104,8 @@ public class ExpensePlannedService {
             return new ArrayList<>();
         }
         return expenses.stream()
-                .filter(expense -> categoryName.equals(expense.getCategoryName()) &&
-                        subcategoryName.equals(expense.getSubCategoryName()))
+                .filter(expense -> categoryName.equals(expense.getCategoryName())
+                        && subcategoryName.equals(expense.getSubCategoryName()))
                 .collect(Collectors.toList());
     }
 

@@ -104,8 +104,8 @@ public class IncomePlannedService {
             return new ArrayList<>();
         }
         return incomes.stream()
-                .filter(income -> categoryName.equals(income.getCategoryName()) &&
-                        subcategoryName.equals(income.getSubCategoryName()))
+                .filter(income -> categoryName.equals(income.getCategoryName())
+                        && subcategoryName.equals(income.getSubCategoryName()))
                 .collect(Collectors.toList());
     }
 

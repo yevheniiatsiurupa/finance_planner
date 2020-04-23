@@ -22,7 +22,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/income")
-@SessionAttributes({"incomeCategories"})
 public class IncomeController {
 
     private final IncomeService incomeService;
@@ -89,7 +88,7 @@ public class IncomeController {
         String message = "ok";
         model.addAttribute("message", message);
         model.addAttribute("savedEntity", income);
-        model.addAttribute("expense", new Income());
+        model.addAttribute("income", new Income());
         return "income-add";
     }
 

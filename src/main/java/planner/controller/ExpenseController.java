@@ -23,7 +23,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/expense")
-@SessionAttributes({"expenseCategories"})
 public class ExpenseController {
 
     private final ExpenseService expenseService;

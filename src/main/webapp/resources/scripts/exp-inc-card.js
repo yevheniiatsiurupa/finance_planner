@@ -39,6 +39,7 @@ function checkAndSubmit() {
 
     if (catElem.value !== "" && subCatElem.value !== "") {
         var date = $("#created").datepicker('getDate');
+        date.setTime(date.getTime() + 6 * 60 * 60 * 1000);
         $("#created").val(date);
 
         let myForm = document.getElementById("my-form");

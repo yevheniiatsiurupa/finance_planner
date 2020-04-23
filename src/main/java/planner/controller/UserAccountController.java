@@ -59,10 +59,13 @@ public class UserAccountController {
         }
         String currentUsername = principal.getName();
         UserAccount prevUser = accountService.findByUsername(currentUsername);
-        setInfoFromPrevUser(userAccount, prevUser);
-        accountService.save(userAccount);
+        prevUser.setName(userAccount.getName());
+        prevUser.setUsername(userAccount.getUsername());
+        prevUser.setEmail(userAccount.getEmail());
 
-        session.setAttribute("userAccount", userAccount);
+        accountService.save(prevUser);
+
+        session.setAttribute("userAccount", prevUser);
         model.addAttribute("message", "ok");
         return "user-edit";
     }

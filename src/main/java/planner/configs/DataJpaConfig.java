@@ -33,9 +33,13 @@ public class DataJpaConfig {
 
     @Bean(destroyMethod = "close")
     public BasicDataSource dataSource() {
-        String dbUrl = System.getenv("JDBC_DATABASE_URL");
-        String username = System.getenv("JDBC_DATABASE_USERNAME");
-        String password = System.getenv("JDBC_DATABASE_PASSWORD");
+        String systemDbUrl = System.getenv("JDBC_DATABASE_URL");
+        String systemUsername = System.getenv("JDBC_DATABASE_USERNAME");
+        String systemPassword = System.getenv("JDBC_DATABASE_PASSWORD");
+
+        String dbUrl = systemDbUrl == null ? env.getProperty("url") : systemDbUrl;
+        String username = systemUsername == null ? env.getProperty("db.username") : systemUsername;
+        String password = systemPassword == null ? env.getProperty("password") : systemPassword;
 
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");

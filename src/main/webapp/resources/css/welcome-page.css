@@ -21,3 +21,40 @@
     font-weight: 500;
     color: #646363;
 }
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    height: 100px;
+    width: 100px;
+    background-size: 100%, 100%;
+    background-image: none;
+}
+
+.carousel-control-next-icon:after
+{
+    content: '>';
+    font-size: 55px;
+    color: #2e3b47;
+}
+
+.carousel-control-prev-icon:after {
+    content: '<';
+    font-size: 55px;
+    color: #2e3b47;
+}
+.carousel-inner {
+    padding-left: 7%;
+    padding-right: 7%;
+}
+.modal-dialog {
+    width: 65%;
+    max-width: 65%;
+}
+.modal-header {
+    padding: 0.5rem 1rem;
+}
+.carousel-control-prev, .carousel-control-next {
+    width: 5%;
+}
+.my-modal {
+    line-height: 30px;
+}

@@ -10,11 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import planner.entity.basic.UserAccount;
+import planner.entity.basic.UserAccountConfig;
 import planner.entity.filters.ExpenseIncomeFilter;
 import planner.entity.month.Expense;
 import planner.entity.month.Income;
 import planner.services.ExpenseService;
 import planner.services.IncomeService;
+import planner.services.UserAccountConfigService;
 
 import javax.servlet.http.HttpSession;
 import java.util.Calendar;
@@ -31,6 +33,9 @@ public class StartController {
 
     @Autowired
     private IncomeService incomeService;
+
+    @Autowired
+    private UserAccountConfigService configService;
 
     @GetMapping("/")
     public String start(@PageableDefault(sort = {"created", "id"}, direction = Sort.Direction.DESC, size = 5) Pageable pageable,
@@ -59,11 +64,19 @@ public class StartController {
         int monthExpSum = monthExp.stream().mapToInt(Expense::getAmount).sum();
         int monthIncSum = monthInc.stream().mapToInt(Income::getAmount).sum();
 
+        UserAccountConfig config = configService.findById(userAccount.getId());
+        boolean loggedOnce = config.isLoggedOnce();
+        if (!loggedOnce) {
+            config.setLoggedOnce(true);
+            configService.save(config);
+        }
+
         model.addAttribute("expenses", expenses);
         model.addAttribute("incomes", incomes);
         model.addAttribute("monthExpSum", monthExpSum);
         model.addAttribute("monthIncSum", monthIncSum);
         model.addAttribute("expenseStats", getExpenseStats(monthExp));
+        model.addAttribute("loggedOnce", loggedOnce);
         return "welcome-page";
     }
 

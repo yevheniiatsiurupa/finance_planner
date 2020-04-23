@@ -30,6 +30,9 @@ public class UserAccountConfig {
     @Column(name = "income_categories")
     private String incomeCategoriesJSON;
 
+    @Column(name = "logged_once")
+    private boolean loggedOnce;
+
     @Transient
     private ExpenseCategoryConfig expenseCategoryConfig;
 

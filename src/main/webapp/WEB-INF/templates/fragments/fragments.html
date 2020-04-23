@@ -47,6 +47,19 @@
         .btn-income:hover {
             background-image: url([[@{/resources/images/income-dark.png}]])
         }
+
+        .btn-categ {
+            width: 38px;
+            height: 38px;
+            background:url([[@{/resources/images/categories-blue.png}]]) center center no-repeat;
+            background-size: 70% 70%;
+            padding: 0 0;
+            display:block;
+        }
+
+        .btn-categ:hover {
+            background-image: url([[@{/resources/images/categories-blue-dark.png}]])
+        }
     </style>
 </head>
 <body>
@@ -58,6 +71,7 @@
     <div class="nav-main-box">
         <div class="nav-button"><a class="nav-link btn-expense" th:href="@{/expense/add}" th:title="#{label.page.expenses.add.title}"></a></div>
         <div class="nav-button"><a class="nav-link btn-income" th:href="@{/income/add}" th:title="#{label.page.incomes.add.title}"></a></div>
+        <div class="nav-button" style="margin-left: 30px"><a class="nav-link btn-categ" th:href="@{/configs/categories/update}" th:title="#{label.user.settings.categories}"></a></div>
     </div>
     <div class="nav-user-box navbar-nav dropdown">
         <a class="nav-link dropdown-toggle no-padding" id="user-dropdown" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">

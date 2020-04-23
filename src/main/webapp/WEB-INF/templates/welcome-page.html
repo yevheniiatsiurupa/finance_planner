@@ -43,8 +43,87 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title th:text="#{label.page.welcome}">Welcome page</title>
+
+    <script>
+        $(document).ready(function () {
+            if (document.getElementById("welcomeModal") !== null) {
+                $('#welcomeModal').modal('show');
+            }
+        });
+    </script>
 </head>
 <body>
+<div th:if="${!loggedOnce}" class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <img class="d-block w-100" src="./resources/images/welcome.png?auto=yes&bg=777&fg=555&text=First slide" alt="First slide">
+                                    </div>
+                                    <div class="col-5">
+                                        <h5 class="my-modal text-secondary" th:text="#{label.welcome.message.title}"></h5>
+                                        <br/>
+                                        <h5 class="my-modal text-secondary" th:text="#{label.welcome.message.main}"></h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <img class="d-block w-100" src="./resources/images/slide2.png?auto=yes&bg=777&fg=555" alt="Добавление доходов / расходов">
+                                    </div>
+                                    <div class="col-5">
+                                        <h5 class="my-modal text-secondary" th:text="#{label.welcome.add.exp}"></h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <img class="d-block w-100" src="./resources/images/slide3.png?auto=yes&bg=777&fg=555" alt="Добавление доходов / расходов">
+                                    </div>
+                                    <div class="col-5">
+                                        <h5 class="my-modal text-secondary" th:text="#{label.welcome.add.plan}"></h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <img class="d-block w-100" src="./resources/images/slide4.png?auto=yes&bg=777&fg=555" alt="Добавление доходов / расходов">
+                                    </div>
+                                    <div class="col-5">
+                                        <h5 class="my-modal text-secondary" th:text="#{label.welcome.navigation}"></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="spacing-md"></div>
+            </div>
+        </div>
+    </div>
+</div>
 <div th:replace="fragments/fragments :: navPanel"></div>
 <div th:replace="fragments/fragments :: sidePanel"></div>
 <div class="main container">

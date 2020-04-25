@@ -51,9 +51,9 @@ Project is: _in progress_
 Created by Evgeniya Tsiurupa - feel free to contact me!
 
 ## Screenshots
-![Slide1](./docs/slide1.png)
-![Slide2](./docs/slide2.png)
-![Slide3](./docs/slide3.png)
-![Slide5](./docs/slide5.png)
-![Slide6](./docs/slide6.png)
-![Slide7](./docs/slide7.png)
+![Slide1](./docs/slide1.PNG)
+![Slide2](./docs/slide2.PNG)
+![Slide3](./docs/slide3.PNG)
+![Slide5](./docs/slide5.PNG)
+![Slide6](./docs/slide6.PNG)
+![Slide7](./docs/slide7.PNG)
